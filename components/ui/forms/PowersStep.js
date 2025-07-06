@@ -24,10 +24,10 @@ export default function Home() {
   const [step, setStep] = useState(0);
 
   const steps = [
-    <TrustInfoStep key="info" />, 
-    <TrusteeStep key="trustees" />, 
-    <PowersStep key="powers" />, 
-    <ReviewStep key="review" />
+    <TrustInfoStep key="info" />,
+    <TrusteeStep key="trustees" />,
+    <PowersStep key="powers" />,
+    <ReviewStep key="review" />,
   ];
 
   const nextStep = () => setStep((s) => Math.min(s + 1, steps.length - 1));
