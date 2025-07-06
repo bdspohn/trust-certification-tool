@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
-    "jspdf": "latest",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
