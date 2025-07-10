@@ -9,5 +9,9 @@ export const trustFormSchema = z.object({
       name: z.string().min(1, "Trustee name is required"),
       title: z.string().min(1, "Trustee title is required"),
     })
-  )
+  ),
+  investmentPowers: z.string().optional(),
+  distributionPowers: z.string().optional(),
+  administrativePowers: z.string().optional(),
+  restrictions: z.string().optional(),
 });

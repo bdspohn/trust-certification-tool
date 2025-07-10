@@ -1,82 +1,82 @@
-import React, { useState } from "react";
-import { useForm, FormProvider } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { trustFormSchema } from "@/components/ui/forms/formSchema";
-import TrustInfoStep from "@/components/ui/forms/TrustInfoStep";
-import TrusteeStep from "@/components/ui/forms/TrusteeStep";
-import PowersStep from "@/components/ui/forms/PowersStep";
-import ReviewStep from "@/components/ui/forms/ReviewStep";
-import { Button } from "@/components/ui/button";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
+import { useFormContext } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-export default function Home() {
-  const methods = useForm({
-    resolver: zodResolver(trustFormSchema),
-    defaultValues: {
-      trustName: "",
-      trustDate: "",
-      trustees: [{ name: "", title: "" }],
-      powers: [],
-    },
-  });
-
-  const [step, setStep] = useState(0);
-
-  const steps = [
-    <TrustInfoStep key="info" />,
-    <TrusteeStep key="trustees" />,
-    <PowersStep key="powers" />,
-    <ReviewStep key="review" />,
-  ];
-
-  const nextStep = () => setStep((s) => Math.min(s + 1, steps.length - 1));
-  const prevStep = () => setStep((s) => Math.max(s - 1, 0));
-
-  const onSubmit = (data) => {
-    const doc = new jsPDF();
-    doc.text("Trust Certification", 14, 20);
-
-    autoTable(doc, {
-      startY: 30,
-      head: [["Field", "Value"]],
-      body: [
-        ["Trust Name", data.trustName],
-        ["Trust Date", data.trustDate],
-        ...data.trustees.map((t, i) => [
-          `Trustee ${i + 1}`,
-          `${t.name}, ${t.title}`,
-        ]),
-        ["Powers", data.powers.length > 0 ? data.powers.join(", ") : "None"],
-      ],
-    });
-
-    doc.save("trust-certification.pdf");
-  };
+export default function PowersStep() {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
-    <main className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-3xl mx-auto bg-white shadow-md rounded-xl p-6">
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
-            {steps[step]}
-            <div className="flex justify-between mt-8">
-              {step > 0 && (
-                <Button type="button" onClick={prevStep}>
-                  Back
-                </Button>
-              )}
-              {step < steps.length - 1 ? (
-                <Button type="button" onClick={nextStep}>
-                  Next
-                </Button>
-              ) : (
-                <Button type="submit">Generate PDF</Button>
-              )}
-            </div>
-          </form>
-        </FormProvider>
+    <div className="space-y-6">
+      {/* Step explainer */}
+      <div className="mb-4 p-4 bg-blue-50 rounded">
+        <h2 className="text-lg font-semibold mb-2">Trust Powers</h2>
+        <p className="text-sm text-gray-700">
+          Let&apos;s identify the key powers granted in your trust. This helps us understand what your trust can and cannot do.
+        </p>
       </div>
-    </main>
+
+      <div>
+        <Label htmlFor="investmentPowers">Investment Powers</Label>
+        <Input 
+          id="investmentPowers" 
+          {...register("investmentPowers")} 
+          placeholder="e.g., Full investment discretion, Limited to specific investments"
+        />
+        <p className="text-xs text-gray-500 mt-1">
+          Describe what investment powers the trustee has (e.g., &quot;Full discretion to invest in any securities&quot;).
+        </p>
+        {errors.investmentPowers && (
+          <p className="text-sm text-red-600 mt-1">{errors.investmentPowers.message}</p>
+        )}
+      </div>
+
+      <div>
+        <Label htmlFor="distributionPowers">Distribution Powers</Label>
+        <Input 
+          id="distributionPowers" 
+          {...register("distributionPowers")} 
+          placeholder="e.g., Discretionary distributions, HEMS standard"
+        />
+        <p className="text-xs text-gray-500 mt-1">
+          Describe when and how the trustee can make distributions to beneficiaries.
+        </p>
+        {errors.distributionPowers && (
+          <p className="text-sm text-red-600 mt-1">{errors.distributionPowers.message}</p>
+        )}
+      </div>
+
+      <div>
+        <Label htmlFor="administrativePowers">Administrative Powers</Label>
+        <Input 
+          id="administrativePowers" 
+          {...register("administrativePowers")} 
+          placeholder="e.g., Power to sell real estate, Power to borrow"
+        />
+        <p className="text-xs text-gray-500 mt-1">
+          List any special administrative powers (e.g., power to sell real estate, borrow money).
+        </p>
+        {errors.administrativePowers && (
+          <p className="text-sm text-red-600 mt-1">{errors.administrativePowers.message}</p>
+        )}
+      </div>
+
+      <div>
+        <Label htmlFor="restrictions">Restrictions or Limitations</Label>
+        <Input 
+          id="restrictions" 
+          {...register("restrictions")} 
+          placeholder="e.g., Cannot invest in foreign securities, Must maintain principal"
+        />
+        <p className="text-xs text-gray-500 mt-1">
+          Any restrictions on trustee powers or limitations on distributions.
+        </p>
+        {errors.restrictions && (
+          <p className="text-sm text-red-600 mt-1">{errors.restrictions.message}</p>
+        )}
+      </div>
+    </div>
   );
 }
