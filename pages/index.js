@@ -77,9 +77,9 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Everything You Need for Trust Certification
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              From manual entry to AI-powered automation, we've got you covered.
-            </p>
+                          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                From manual entry to AI-powered automation, we&apos;ve got you covered.
+              </p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

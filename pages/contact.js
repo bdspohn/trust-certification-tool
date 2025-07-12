@@ -12,7 +12,7 @@ export default function Contact() {
             Contact Us
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Have questions about trust certification? We're here to help.
+            Have questions about trust certification? We&apos;re here to help.
           </p>
         </div>
 
