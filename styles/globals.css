@@ -2,6 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Print styles for Certification of Trust document */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+  
+  .max-w-4xl {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    box-shadow: none !important;
+  }
+  
+  /* Hide action buttons when printing */
+  .mt-8.flex.justify-center.space-x-4 {
+    display: none !important;
+  }
+  
+  /* Ensure proper page breaks */
+  .space-y-6 {
+    page-break-inside: avoid;
+  }
+  
+  /* Signature section on its own page if needed */
+  .mt-12.space-y-6 {
+    page-break-before: auto;
+  }
+  
+  /* Hide the success message when printing */
+  .mb-6.p-4.bg-green-50 {
+    display: none !important;
+  }
+  
+  /* Ensure text is readable */
+  .text-sm {
+    font-size: 12px !important;
+  }
+  
+  .text-3xl {
+    font-size: 24px !important;
+  }
+  
+  /* Ensure proper spacing */
+  .space-y-4 p {
+    margin-bottom: 8px !important;
+  }
+  
+  .space-y-6 > div {
+    margin-bottom: 12px !important;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
