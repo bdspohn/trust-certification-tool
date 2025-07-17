@@ -4,3 +4,5 @@ node_modules
 .next/
 .vercel
 node_modules/
+.DS_Store
+node_modules/
