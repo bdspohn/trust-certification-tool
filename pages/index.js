@@ -171,7 +171,7 @@ const LandingPage = ({ onGetStarted }) => {
           <div className="text-4xl mb-4">📋</div>
           <h3 className="text-xl font-semibold mb-3">State-Specific Compliance</h3>
           <p className="text-gray-600">
-            Generate documents that comply with your state's specific legal requirements and formatting standards.
+            Generate documents that comply with your state&apos;s specific legal requirements and formatting standards.
           </p>
         </div>
         <div className="text-center p-6 bg-white rounded-lg shadow-lg">
@@ -189,7 +189,7 @@ const LandingPage = ({ onGetStarted }) => {
           <h2 className="text-3xl font-bold text-red-800 mb-4">⚠️ Urgent: 40% Rejection Rate</h2>
           <p className="text-lg text-red-700 mb-6">
             Financial institutions are rejecting 40% of Certification of Trust documents due to incomplete or incorrect information. 
-            Don't risk frozen accounts or delayed transactions.
+            Don&apos;t risk frozen accounts or delayed transactions.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-4xl mx-auto">
             <div>

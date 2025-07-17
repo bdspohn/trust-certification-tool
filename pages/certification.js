@@ -266,7 +266,7 @@ export default function CertificationStripeFlow() {
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow mt-8">
       {/* Enhanced urgency-driven CTA/article */}
       <div className="mb-6 p-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-400 rounded-lg">
-        <h2 className="text-xl font-bold mb-3 text-gray-800">Don't risk delays or denials—get your Certification of Trust right the first time.</h2>
+        <h2 className="text-xl font-bold mb-3 text-gray-800">Don&apos;t risk delays or denials—get your Certification of Trust right the first time.</h2>
         <p className="text-sm text-gray-700 mb-3">Financial institutions are tightening requirements. Missing or incorrect information can lead to frozen accounts, rejected transactions, or legal headaches. Complete your Certification of Trust with confidence—using the same standards top banks and law firms require.</p>
         <div className="flex items-center text-sm text-gray-600">
           <span className="mr-4">✓ Accepted by all major financial institutions</span>

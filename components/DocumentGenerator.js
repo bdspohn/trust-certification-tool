@@ -88,7 +88,7 @@ const DocumentGenerator = ({ formData }) => {
         {/* Opening Paragraph */}
         <p className="text-justify">
           I, <strong>{formData.grantor}</strong>, being the grantor (also known as settlor or trustor) of the trust 
-          entitled "<strong>{formData.trustName}</strong>" (the "Trust"), hereby certify as follows:
+          entitled &quot;<strong>{formData.trustName}</strong>&quot; (the &quot;Trust&quot;), hereby certify as follows:
         </p>
 
         {/* Trust Information */}

@@ -245,7 +245,7 @@ const Articles = () => {
           <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
             <h4 className="font-semibold text-gray-800 mb-2">Ready to Create Your Certification of Trust?</h4>
             <p className="text-gray-600 mb-4">
-              Don't risk delays or rejections. Use our state-specific templates and AI-powered processing to create a compliant Certification of Trust in minutes.
+              Don&apos;t risk delays or rejections. Use our state-specific templates and AI-powered processing to create a compliant Certification of Trust in minutes.
             </p>
             <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
               Get Started Now

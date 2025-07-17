@@ -58,7 +58,7 @@ const ESignatureIntegration = ({ formData, documentUrl }) => {
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-gray-800 mb-4">Complete Your Certification of Trust</h2>
         <p className="text-lg text-gray-600">
-          Choose how you'd like to sign and notarize your document
+          Choose how you&apos;d like to sign and notarize your document
         </p>
       </div>
 
