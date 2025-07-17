@@ -249,18 +249,7 @@ const LandingPage = ({ onGetStarted }) => {
         </div>
       </div>
 
-      {/* Trusted By */}
-      <div className="text-center mb-16">
-        <h3 className="text-xl font-semibold mb-8">Trusted by Major Financial Institutions</h3>
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-8 items-center opacity-60">
-          <div className="text-gray-600 font-semibold">Chase</div>
-          <div className="text-gray-600 font-semibold">Bank of America</div>
-          <div className="text-gray-600 font-semibold">Wells Fargo</div>
-          <div className="text-gray-600 font-semibold">Fidelity</div>
-          <div className="text-gray-600 font-semibold">Vanguard</div>
-          <div className="text-gray-600 font-semibold">Charles Schwab</div>
-        </div>
-      </div>
+
 
       {/* CTA Section */}
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8 text-center text-white">
