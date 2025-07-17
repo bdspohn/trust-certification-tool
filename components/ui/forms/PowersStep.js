@@ -35,7 +35,7 @@ export default function PowersStep() {
       <div className="mb-4 p-4 bg-blue-50 rounded">
         <h2 className="text-lg font-semibold mb-2">Trust Powers</h2>
         <p className="text-sm text-gray-700">
-          Select the key powers granted in your trust. This helps us understand what your trust can and cannot do. If you don't see a power listed, use the 'Other' field.
+          Select the key powers granted in your trust. This helps us understand what your trust can and cannot do. If you don&apos;t see a power listed, use the &apos;Other&apos; field.
         </p>
       </div>
 
