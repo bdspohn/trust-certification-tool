@@ -52,7 +52,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-3">
-              <img src="/logo-new.svg" alt="Trusto.Inc Logo" className="h-10 w-auto" />
+              <div className="flex items-center justify-center w-10 h-10 bg-blue-600 rounded-lg">
+                <div className="text-white font-bold text-lg">T</div>
+              </div>
               <span className="text-xl font-bold text-gray-900 tracking-tight">Trusto<span className="text-blue-600">.Inc</span></span>
             </div>
             <div className="flex items-center space-x-4">
@@ -89,7 +91,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="flex flex-col items-start">
-              <img src="/logo-new.svg" alt="Trusto.Inc Logo" className="h-10 w-auto mb-2" />
+              <div className="flex items-center justify-center w-10 h-10 bg-blue-600 rounded-lg mb-2">
+                <div className="text-white font-bold text-lg">T</div>
+              </div>
               <h3 className="text-lg font-semibold mb-2">Trusto<span className="text-blue-400">.Inc</span></h3>
               <p className="text-gray-300 text-sm">
                 Professional Certification of Trust generation with AI-powered document processing and e-signature integration.
