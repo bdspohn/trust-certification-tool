@@ -3,6 +3,7 @@ import CertificationStripeFlow from './certification';
 import AIDocumentProcessor from '../components/AIDocumentProcessor';
 import ESignatureIntegration from '../components/ESignatureIntegration';
 import Articles from '../components/Articles';
+import Head from 'next/head';
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState('landing');
@@ -42,12 +43,17 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Head>
+        <title>Trusto.Inc – Professional Certification of Trust</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       {/* Navigation */}
       <nav className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <h1 className="text-xl font-bold text-gray-900">TrustCert Pro</h1>
+            <div className="flex items-center gap-3">
+              <img src="/logo.svg" alt="Trusto.Inc Logo" className="h-10 w-auto" />
+              <span className="text-xl font-bold text-gray-900 tracking-tight">Trusto<span className="text-blue-600">.Inc</span></span>
             </div>
             <div className="flex items-center space-x-4">
               <button 
@@ -82,8 +88,9 @@ export default function Home() {
       <footer className="bg-gray-800 text-white py-12 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">TrustCert Pro</h3>
+            <div className="flex flex-col items-start">
+              <img src="/logo.svg" alt="Trusto.Inc Logo" className="h-10 w-auto mb-2" />
+              <h3 className="text-lg font-semibold mb-2">Trusto<span className="text-blue-400">.Inc</span></h3>
               <p className="text-gray-300 text-sm">
                 Professional Certification of Trust generation with AI-powered document processing and e-signature integration.
               </p>
@@ -117,7 +124,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-300">
-            <p>&copy; 2024 TrustCert Pro. All rights reserved.</p>
+            <p>&copy; 2024 Trusto.Inc. All rights reserved.</p>
           </div>
         </div>
       </footer>
