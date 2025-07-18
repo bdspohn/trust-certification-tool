@@ -1,31 +1,121 @@
 import React, { useState } from 'react';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const ESignatureIntegration = ({ formData, documentUrl }) => {
   const [signatureMethod, setSignatureMethod] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [signatureStatus, setSignatureStatus] = useState('');
 
+  const prepareDocuSignEnvelope = async () => {
+    // Generate the PDF for DocuSign
+    const pdf = generateTrustCertificationPDF();
+    const pdfData = pdf.output('datauristring');
+    
+    // Prepare envelope data for DocuSign API
+    const envelopeData = {
+      emailSubject: `Certification of Trust - ${formData.trustName}`,
+      documents: [{
+        documentBase64: pdfData.split(',')[1], // Remove data:application/pdf;base64, prefix
+        name: `Certification_of_Trust_${formData.trustName?.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`,
+        fileExtension: 'pdf',
+        documentId: '1'
+      }],
+      recipients: {
+        signers: [{
+          email: formData.trusteeEmail || 'trustee@example.com', // This would come from form
+          name: Array.isArray(formData.trustee) ? formData.trustee[0] : formData.trustee || 'Trustee',
+          recipientId: '1',
+          tabs: {
+            signHereTabs: [{
+              documentId: '1',
+              pageNumber: '1',
+              xPosition: '100',
+              yPosition: '200'
+            }],
+            dateSignedTabs: [{
+              documentId: '1',
+              pageNumber: '1',
+              xPosition: '300',
+              yPosition: '200'
+            }]
+          }
+        }]
+      },
+      status: 'sent'
+    };
+    
+    return envelopeData;
+  };
+
   const handleDocuSign = async () => {
     setIsProcessing(true);
     setSignatureStatus('preparing');
     
     try {
-      // Simulate DocuSign integration
+      // Prepare the envelope data
+      const envelopeData = await prepareDocuSignEnvelope();
+      
+      // In a real implementation, this would call your backend API which would:
+      // 1. Call DocuSign API to create envelope
+      // 2. Return the signing URL
+      // 
+      // Example backend call:
+      // const response = await fetch('/api/docusign/create-envelope', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(envelopeData)
+      // });
+      // const { envelopeId, signingUrl } = await response.json();
+      
+      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      // Mock DocuSign envelope creation
-      const envelopeId = 'mock-envelope-' + Date.now();
+      // Mock envelope creation
+      const envelopeId = 'envelope-' + Date.now();
+      const signingUrl = `https://demo.docusign.net/signing/${envelopeId}`;
       
       setSignatureStatus('sent');
       setIsProcessing(false);
       
-      // In real implementation, this would redirect to DocuSign
-      window.open(`https://demo.docusign.net/signing/envelope/${envelopeId}`, '_blank');
+      // Open DocuSign signing session
+      window.open(signingUrl, '_blank');
+      
+      // You would also want to store the envelope ID for tracking
+      console.log('DocuSign envelope created:', envelopeId);
       
     } catch (error) {
+      console.error('DocuSign error:', error);
       setSignatureStatus('error');
       setIsProcessing(false);
     }
+  };
+
+  const prepareNotarizeSession = async () => {
+    // Generate the PDF for notarization
+    const pdf = generateTrustCertificationPDF();
+    const pdfData = pdf.output('datauristring');
+    
+    // Prepare session data for Notarize API
+    const sessionData = {
+      documentName: `Certification of Trust - ${formData.trustName}`,
+      documentType: 'certification_of_trust',
+      signerInfo: {
+        firstName: formData.trustee?.split(' ')[0] || 'Trustee',
+        lastName: formData.trustee?.split(' ').slice(1).join(' ') || '',
+        email: formData.trusteeEmail || 'trustee@example.com',
+        phoneNumber: formData.trusteePhone || ''
+      },
+      document: {
+        name: `Certification_of_Trust_${formData.trustName?.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`,
+        content: pdfData.split(',')[1], // base64 content
+        mimeType: 'application/pdf'
+      },
+      notarizationType: 'acknowledgment',
+      jurisdiction: formData.state
+    };
+    
+    return sessionData;
   };
 
   const handleNotarize = async () => {
@@ -33,24 +123,180 @@ const ESignatureIntegration = ({ formData, documentUrl }) => {
     setSignatureStatus('preparing');
     
     try {
-      // Simulate online notarization
+      // Prepare the notarization session
+      const sessionData = await prepareNotarizeSession();
+      
+      // In a real implementation, this would call your backend API which would:
+      // 1. Call Notarize.com API to create session
+      // 2. Return the session URL
+      // 
+      // Example backend call:
+      // const response = await fetch('/api/notarize/create-session', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(sessionData)
+      // });
+      // const { sessionId, sessionUrl } = await response.json();
+      
+      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 3000));
+      
+      // Mock session creation
+      const sessionId = 'notary-session-' + Date.now();
+      const sessionUrl = `https://app.notarize.com/session/${sessionId}`;
       
       setSignatureStatus('notarized');
       setIsProcessing(false);
       
-      // In real implementation, this would integrate with Notarize.com or similar
-      window.open('https://demo.notarize.com/session/mock-session', '_blank');
+      // Open Notarize session
+      window.open(sessionUrl, '_blank');
+      
+      // You would also want to store the session ID for tracking
+      console.log('Notarize session created:', sessionId);
       
     } catch (error) {
+      console.error('Notarize error:', error);
       setSignatureStatus('error');
       setIsProcessing(false);
     }
   };
 
+  const generateTrustCertificationPDF = () => {
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.width;
+    const margin = 20;
+    const contentWidth = pageWidth - 2 * margin;
+    
+    // Header
+    doc.setFontSize(20);
+    doc.setFont('helvetica', 'bold');
+    doc.text('CERTIFICATION OF TRUST', pageWidth / 2, 30, { align: 'center' });
+    
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`State of ${formData.state}`, pageWidth / 2, 45, { align: 'center' });
+    
+    // Main content
+    let yPosition = 70;
+    
+    doc.setFontSize(11);
+    doc.text('I/We, the undersigned Trustee(s) of the trust described below, certify that:', margin, yPosition);
+    yPosition += 20;
+    
+    // Trust details
+    const trustDetails = [
+      [`Trust Name:`, formData.trustName || 'N/A'],
+      [`Date of Trust:`, formData.trustDate || 'N/A'],
+      [`Grantor(s):`, formData.grantor || 'N/A'],
+      [`Current Trustee(s):`, Array.isArray(formData.trustee) ? formData.trustee.join(', ') : formData.trustee || 'N/A'],
+      [`Successor Trustee(s):`, Array.isArray(formData.successorTrustee) ? formData.successorTrustee.join(', ') : formData.successorTrustee || 'N/A'],
+      [`Trust Tax ID:`, formData.taxId || 'N/A'],
+      [`Governing Law:`, formData.governingLaw || formData.state || 'N/A'],
+      [`Revocability:`, formData.revocability || 'N/A']
+    ];
+    
+    trustDetails.forEach(([label, value]) => {
+      doc.setFont('helvetica', 'bold');
+      doc.text(label, margin, yPosition);
+      doc.setFont('helvetica', 'normal');
+      doc.text(value, margin + 50, yPosition);
+      yPosition += 12;
+    });
+    
+    yPosition += 10;
+    
+    // Powers section
+    if (formData.powers && formData.powers.length > 0) {
+      doc.setFont('helvetica', 'bold');
+      doc.text('Trustee Powers:', margin, yPosition);
+      yPosition += 15;
+      
+      doc.setFont('helvetica', 'normal');
+      formData.powers.slice(0, 5).forEach((power, index) => {
+        const wrappedText = doc.splitTextToSize(`${index + 1}. ${power}`, contentWidth - 10);
+        doc.text(wrappedText, margin + 5, yPosition);
+        yPosition += wrappedText.length * 6 + 5;
+      });
+      
+      if (formData.powers.length > 5) {
+        doc.text(`... and ${formData.powers.length - 5} additional powers as specified in the trust document.`, margin + 5, yPosition);
+        yPosition += 15;
+      }
+    }
+    
+    yPosition += 20;
+    
+    // Certification statement
+    doc.setFont('helvetica', 'normal');
+    const certText = `The trust has not been revoked, modified, or amended in any manner that would cause the representations contained herein to be incorrect, and the representations contained herein are true and complete. The trust is currently in full force and effect.`;
+    const wrappedCertText = doc.splitTextToSize(certText, contentWidth);
+    doc.text(wrappedCertText, margin, yPosition);
+    yPosition += wrappedCertText.length * 6 + 20;
+    
+    // Signature lines
+    const today = new Date().toLocaleDateString();
+    doc.text(`Dated: ${today}`, margin, yPosition);
+    yPosition += 30;
+    
+    doc.text('_________________________________', margin, yPosition);
+    yPosition += 8;
+    doc.text('Trustee Signature', margin, yPosition);
+    yPosition += 20;
+    
+    doc.text('_________________________________', margin, yPosition);
+    yPosition += 8;
+    doc.text('Print Name', margin, yPosition);
+    yPosition += 30;
+    
+    // Notary section
+    doc.setFont('helvetica', 'bold');
+    doc.text('NOTARY ACKNOWLEDGMENT', margin, yPosition);
+    yPosition += 15;
+    
+    doc.setFont('helvetica', 'normal');
+    doc.text('State of: _________________', margin, yPosition);
+    yPosition += 15;
+    doc.text('County of: _______________', margin, yPosition);
+    yPosition += 20;
+    
+    const notaryText = `On this _____ day of __________, 20__, before me personally appeared the above-named individual(s), who proved to me on the basis of satisfactory evidence to be the person(s) whose name(s) is/are subscribed to the within instrument and acknowledged to me that he/she/they executed the same in his/her/their authorized capacity, and that by his/her/their signature(s) on the instrument the person(s), or the entity upon behalf of which the person(s) acted, executed the instrument.`;
+    const wrappedNotaryText = doc.splitTextToSize(notaryText, contentWidth);
+    doc.text(wrappedNotaryText, margin, yPosition);
+    yPosition += wrappedNotaryText.length * 6 + 20;
+    
+    doc.text('_________________________________', margin, yPosition);
+    yPosition += 8;
+    doc.text('Notary Public Signature', margin, yPosition);
+    
+    return doc;
+  };
+
   const handlePrintSign = () => {
-    // Trigger print dialog
-    window.print();
+    try {
+      setIsProcessing(true);
+      setSignatureStatus('preparing');
+      
+      const pdf = generateTrustCertificationPDF();
+      
+      // Generate filename
+      const filename = `Certification_of_Trust_${formData.trustName?.replace(/[^a-zA-Z0-9]/g, '_') || 'Document'}_${new Date().toISOString().split('T')[0]}.pdf`;
+      
+      // Save the PDF
+      pdf.save(filename);
+      
+      // Set success status
+      setSignatureStatus('printed');
+      setIsProcessing(false);
+      
+      // Also open print dialog for the current page after a delay
+      setTimeout(() => {
+        window.print();
+      }, 1000);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      setSignatureStatus('error');
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -171,9 +417,9 @@ const ESignatureIntegration = ({ formData, documentUrl }) => {
 
           <button
             onClick={handlePrintSign}
-            className="w-full bg-gray-600 text-white py-3 px-4 rounded-lg hover:bg-gray-700 transition"
+            className="w-full bg-gray-600 text-white py-3 px-4 rounded-lg hover:bg-gray-700 transition font-semibold"
           >
-            Print Document
+            📄 Generate & Print PDF
           </button>
         </div>
       </div>
@@ -181,28 +427,63 @@ const ESignatureIntegration = ({ formData, documentUrl }) => {
       {/* Status Messages */}
       {signatureStatus === 'sent' && (
         <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <h4 className="font-semibold text-blue-800 mb-2">DocuSign Envelope Sent!</h4>
-          <p className="text-blue-700 text-sm">
-            Check your email for the DocuSign link. Complete the signature process and your document will be automatically processed.
-          </p>
+          <div className="flex items-start">
+            <div className="text-blue-500 mr-3 mt-1">✅</div>
+            <div>
+              <h4 className="font-semibold text-blue-800 mb-2">DocuSign Envelope Sent!</h4>
+              <p className="text-blue-700 text-sm">
+                Check your email for the DocuSign link. Complete the signature process and your document will be automatically processed.
+              </p>
+            </div>
+          </div>
         </div>
       )}
 
       {signatureStatus === 'notarized' && (
         <div className="mb-6 p-4 bg-purple-50 border border-purple-200 rounded-lg">
-          <h4 className="font-semibold text-purple-800 mb-2">Notarization Session Ready!</h4>
-          <p className="text-purple-700 text-sm">
-            Your online notarization session is ready. Click the link in your email to connect with a certified notary.
-          </p>
+          <div className="flex items-start">
+            <div className="text-purple-500 mr-3 mt-1">🏛️</div>
+            <div>
+              <h4 className="font-semibold text-purple-800 mb-2">Notarization Session Ready!</h4>
+              <p className="text-purple-700 text-sm">
+                Your online notarization session is ready. Click the link in your email to connect with a certified notary.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {signatureStatus === 'printed' && (
+        <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+          <div className="flex items-start">
+            <div className="text-green-500 mr-3 mt-1">📄</div>
+            <div>
+              <h4 className="font-semibold text-green-800 mb-2">PDF Generated Successfully!</h4>
+              <p className="text-green-700 text-sm mb-3">
+                Your professional Certification of Trust has been downloaded. Next steps:
+              </p>
+              <ol className="text-green-700 text-sm list-decimal ml-4 space-y-1">
+                <li>Print the downloaded PDF document</li>
+                <li>Sign in the designated signature areas</li>
+                <li>Visit a notary public for notarization</li>
+                <li>Submit the completed document to your financial institution</li>
+              </ol>
+            </div>
+          </div>
         </div>
       )}
 
       {signatureStatus === 'error' && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <h4 className="font-semibold text-red-800 mb-2">Error</h4>
-          <p className="text-red-700 text-sm">
-            There was an error processing your request. Please try again or contact support.
-          </p>
+          <div className="flex items-start">
+            <div className="text-red-500 mr-3 mt-1">❌</div>
+            <div>
+              <h4 className="font-semibold text-red-800 mb-2">Error Processing Request</h4>
+              <p className="text-red-700 text-sm">
+                There was an error processing your request. Please try again or contact our support team at support@trusto.com.
+              </p>
+            </div>
+          </div>
         </div>
       )}
 
