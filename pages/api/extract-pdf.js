@@ -13,7 +13,10 @@ export const config = {
 };
 
 export default async function handler(req, res) {
+  console.log('PDF extraction API called:', req.method);
+  
   if (req.method !== 'POST') {
+    console.log('Method not allowed:', req.method);
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
@@ -42,7 +45,7 @@ export default async function handler(req, res) {
 
     try {
       // Method 1: Try pdf-parse library (lightweight)
-      const pdfParse = require('pdf-parse');
+      const pdfParse = (await import('pdf-parse')).default;
       const dataBuffer = fs.readFileSync(file.filepath);
       const data = await pdfParse(dataBuffer);
       extractedText = data.text;
@@ -51,28 +54,13 @@ export default async function handler(req, res) {
       console.warn('pdf-parse failed, trying alternative method:', pdfParseError.message);
       
       try {
-        // Method 2: Try pdf2pic + OCR as fallback
-        const { execSync } = require('child_process');
-        
-        // Use pdftotext command if available (from poppler-utils)
-        const tempOutput = path.join('/tmp', `extracted_${Date.now()}.txt`);
-        execSync(`pdftotext "${file.filepath}" "${tempOutput}"`);
-        extractedText = fs.readFileSync(tempOutput, 'utf8');
-        fs.unlinkSync(tempOutput); // Clean up
-        console.log('Successfully extracted text using pdftotext');
-      } catch (pdfToTextError) {
-        console.warn('pdftotext failed:', pdfToTextError.message);
-        
-        // Method 3: Last resort - simple text extraction
-        try {
-          const dataBuffer = fs.readFileSync(file.filepath);
-          // Basic text extraction from PDF buffer
-          extractedText = extractTextFromBuffer(dataBuffer);
-          console.log('Used basic buffer extraction');
-        } catch (bufferError) {
-          console.error('All extraction methods failed:', bufferError);
-          throw new Error('Unable to extract text from this PDF. The file may be image-based, corrupted, or password-protected.');
-        }
+        // Method 2: Basic text extraction from PDF buffer as fallback
+        const dataBuffer = fs.readFileSync(file.filepath);
+        extractedText = extractTextFromBuffer(dataBuffer);
+        console.log('Used basic buffer extraction');
+      } catch (bufferError) {
+        console.error('All extraction methods failed:', bufferError);
+        throw new Error('Unable to extract text from this PDF. The file may be image-based, corrupted, or password-protected.');
       }
     }
 

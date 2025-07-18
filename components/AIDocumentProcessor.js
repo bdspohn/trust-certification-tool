@@ -29,7 +29,8 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
           console.log('Extracted text from PDF:', text.substring(0, 500) + '...'); // DEBUG LOG
         } catch (pdfError) {
           console.error('PDF extraction error:', pdfError);
-          throw new Error(`Failed to read PDF: ${pdfError.message}. Please ensure the PDF is not password-protected or corrupted.`);
+          // Pass through the specific error message from server-side processing
+          throw new Error(pdfError.message);
         }
       } 
       // Handle DOCX files
@@ -128,10 +129,17 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
   const extractTextFromPDF = async (file) => {
     try {
       console.log('Starting server-side PDF extraction...');
+      console.log('File details:', {
+        name: file.name,
+        type: file.type,
+        size: file.size
+      });
       
       // Create FormData to send file to server
       const formData = new FormData();
       formData.append('file', file);
+      
+      console.log('Sending request to /api/extract-pdf...');
       
       // Send to server-side PDF processing API
       const response = await fetch('/api/extract-pdf', {
@@ -139,13 +147,19 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
         body: formData,
       });
       
+      console.log('Response status:', response.status);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+      
       const result = await response.json();
+      console.log('API response:', result);
       
       if (!response.ok) {
+        console.error('API error response:', result);
         throw new Error(result.error || 'Server-side PDF processing failed');
       }
       
       if (!result.success || !result.text) {
+        console.error('No text extracted:', result);
         throw new Error('No text could be extracted from the PDF');
       }
       
