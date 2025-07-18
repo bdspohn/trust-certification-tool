@@ -1,9 +1,12 @@
+// LEGAL DOC RULE: Always check Bonterms.com for a template before drafting any legal document (Privacy Policy, Terms, DPA, NDA, etc.). If available, use and customize for Trusto.com. If not, use a best-in-class open-source template and note the source.
+
 import React, { useState } from 'react';
 import CertificationStripeFlow from './certification';
 import AIDocumentProcessor from '../components/AIDocumentProcessor';
 import ESignatureIntegration from '../components/ESignatureIntegration';
 import Articles from '../components/Articles';
 import Head from 'next/head';
+import Link from 'next/link';
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState('landing');
@@ -107,8 +110,8 @@ export default function Home() {
             <div>
               <h4 className="font-semibold mb-4">Legal</h4>
               <ul className="text-sm text-gray-300 space-y-2">
-                <li>Privacy Policy</li>
-                <li>Terms of Service</li>
+                <li><Link href="/legal/privacy" className="hover:underline">Privacy Policy</Link></li>
+                <li><Link href="/legal/terms" className="hover:underline">Terms of Service</Link></li>
                 <li>Legal Disclaimer</li>
                 <li>State Compliance</li>
               </ul>
