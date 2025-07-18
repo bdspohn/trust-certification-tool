@@ -50,132 +50,177 @@ const articles = [
   },
   {
     id: 2,
-    title: "State-Specific Requirements: What You Need to Know",
-    excerpt: "Each state has unique legal requirements for Certification of Trust documents that must be followed exactly.",
+    title: "State-Specific Trust Rules: The Compliance Trap Most People Miss",
+    author: "Jamie Lee",
+    date: "2024-07-16",
+    readingTime: "5 min read",
+    excerpt:
+      "Every state has its own trust certification rules. Here’s how to avoid the most common (and costly) compliance mistakes.",
     content: `
-        <h3>State Variations Matter</h3>
-        <p>Certification of Trust requirements vary significantly by state, and using the wrong format can result in immediate rejection by financial institutions.</p>
-        
-        <h3>Key State Differences</h3>
-        <ul>
-          <li><strong>California:</strong> Requires specific language under CA Probate Code § 18100.5</li>
-          <li><strong>Texas:</strong> Must include recording requirements under TX Prop. Code § 114.086</li>
-          <li><strong>New York:</strong> Requires specific certification statements</li>
-          <li><strong>Florida:</strong> Has unique notarization requirements</li>
-          <li><strong>Illinois:</strong> Requires specific trustee power descriptions</li>
+      <section>
+        <p><em>By Jamie Lee • July 16, 2024</em></p>
+        <h2 style='font-size:1.5rem;font-weight:600;margin-top:2rem;'>One Size Does Not Fit All</h2>
+        <p>It’s tempting to use a generic trust certification template. But what works in California could get instantly rejected in Texas or New York. State-specific rules are the #1 reason certifications get bounced back.</p>
+        <div style='background:#FEF3C7;padding:1rem;border-radius:0.5rem;margin:2rem 0;'>
+          <strong>Key State Differences:</strong>
+          <ul style='margin-left:1.5rem;list-style:disc;'>
+            <li><strong>California:</strong> Requires statutory language under Probate Code § 18100.5</li>
+            <li><strong>Texas:</strong> Needs recording requirements under Prop. Code § 114.086</li>
+            <li><strong>New York:</strong> Demands specific certification statements</li>
+            <li><strong>Florida:</strong> Unique notarization requirements</li>
+            <li><strong>Illinois:</strong> Detailed trustee power descriptions</li>
+          </ul>
+        </div>
+        <h3 style='font-size:1.2rem;font-weight:500;margin-top:2rem;'>The Most Common Mistakes</h3>
+        <ul style='margin-left:1.5rem;list-style:disc;'>
+          <li>Using a one-size-fits-all template</li>
+          <li>Missing state legal citations</li>
+          <li>Wrong notarization or recording language</li>
         </ul>
-        
-        <h3>Common Mistakes</h3>
-        <ul>
-          <li>Using a generic template for all states</li>
-          <li>Missing state-specific legal citations</li>
-          <li>Incorrect recording requirements</li>
-          <li>Wrong notarization language</li>
-        </ul>
-        
-        <h3>Why Professional Templates Matter</h3>
-        <p>State-specific templates ensure compliance with local laws and reduce the risk of rejection by financial institutions that are familiar with their state's requirements.</p>
-      `,
+        <blockquote style='border-left:4px solid #2563EB;padding-left:1rem;margin:1.5rem 0;color:#2563EB;font-style:italic;'>
+          <strong>“Our bank rejected the form because it didn’t mention Texas Property Code 114.086.”</strong>
+        </blockquote>
+        <h3 style='font-size:1.2rem;font-weight:500;margin-top:2rem;'>How to Stay Compliant</h3>
+        <ol style='margin-left:1.5rem;list-style:decimal;'>
+          <li>Always use a template tailored to your state’s laws.</li>
+          <li>Double-check for required legal citations and language.</li>
+          <li>Ask your financial institution if they have a preferred format.</li>
+        </ol>
+        <p style='margin-top:2rem;'>
+          <strong>Takeaway:</strong> State compliance isn’t optional. It’s the difference between instant approval and weeks of delay.
+        </p>
+      </section>
+    `,
     urgency: "medium",
     category: "Legal"
   },
   {
     id: 3,
-    title: "The Hidden Costs of Incorrect Trust Certifications",
-    excerpt: "Beyond rejection, incorrect certifications can lead to significant financial and legal consequences.",
+    title: "The Real Cost of a Rejected Trust Certification",
+    author: "Morgan Patel",
+    date: "2024-07-15",
+    readingTime: "4 min read",
+    excerpt:
+      "A rejected trust certification can freeze your assets, delay deals, and cost thousands. Here’s how to avoid the pain.",
     content: `
-        <h3>Immediate Financial Impact</h3>
-        <p>Rejected trust certifications can have immediate financial consequences:</p>
-        <ul>
-          <li>Frozen accounts preventing access to funds</li>
-          <li>Missed investment opportunities due to delays</li>
-          <li>Additional legal fees for corrections</li>
-          <li>Potential tax penalties for delayed transactions</li>
-        </ul>
-        
-        <h3>Long-term Consequences</h3>
-        <ul>
-          <li>Damaged relationships with financial institutions</li>
+      <section>
+        <p><em>By Morgan Patel • July 15, 2024</em></p>
+        <h2 style='font-size:1.5rem;font-weight:600;margin-top:2rem;'>The High Price of a Simple Mistake</h2>
+        <p>It’s not just about paperwork. When a trust certification is rejected, the consequences are immediate and expensive. Accounts can be frozen, real estate closings delayed, and legal fees pile up fast.</p>
+        <div style='background:#F1F5F9;padding:1rem;border-radius:0.5rem;margin:2rem 0;'>
+          <strong>What’s at Stake:</strong>
+          <ul style='margin-left:1.5rem;list-style:disc;'>
+            <li>Frozen bank and investment accounts</li>
+            <li>Missed investment or real estate opportunities</li>
+            <li>Additional legal fees for corrections</li>
+            <li>Potential tax penalties for delays</li>
+          </ul>
+        </div>
+        <h3 style='font-size:1.2rem;font-weight:500;margin-top:2rem;'>Long-Term Fallout</h3>
+        <ul style='margin-left:1.5rem;list-style:disc;'>
+          <li>Damaged relationships with banks and advisors</li>
           <li>Increased scrutiny on future trust transactions</li>
           <li>Potential legal liability for trustees</li>
-          <li>Stress and time burden on family members</li>
+          <li>Stress and time burden on families</li>
         </ul>
-        
-        <h3>Prevention is Key</h3>
-        <p>Investing in a proper Certification of Trust from the beginning can save thousands in legal fees and prevent months of delays. Professional templates ensure compliance and acceptance.</p>
-        
-        <h3>Real Examples</h3>
-        <p>Recent cases show that families have lost access to trust funds for months due to incorrect certifications, leading to missed mortgage payments, delayed medical procedures, and other financial hardships.</p>
-      `,
+        <blockquote style='border-left:4px solid #2563EB;padding-left:1rem;margin:1.5rem 0;color:#2563EB;font-style:italic;'>
+          <strong>“We lost access to funds for months because of a missing notary stamp.”</strong>
+        </blockquote>
+        <h3 style='font-size:1.2rem;font-weight:500;margin-top:2rem;'>How to Protect Yourself</h3>
+        <ol style='margin-left:1.5rem;list-style:decimal;'>
+          <li>Invest in a professional, state-specific certification template.</li>
+          <li>Review all requirements before submitting to a bank or title company.</li>
+          <li>Keep originals and notarized copies secure and accessible.</li>
+        </ol>
+        <p style='margin-top:2rem;'>
+          <strong>Bottom line:</strong> The cost of getting it wrong is far higher than the cost of getting it right.
+        </p>
+      </section>
+    `,
     urgency: "high",
     category: "Financial"
   },
   {
     id: 4,
-    title: "AI-Powered Document Processing: The Future is Here",
-    excerpt: "New technology can automatically extract trust information and generate compliant certifications in minutes.",
+    title: "AI for Trusts: How Document Automation is Changing the Game",
+    author: "Taylor Kim",
+    date: "2024-07-14",
+    readingTime: "3 min read",
+    excerpt:
+      "AI can now extract trust info and generate compliant certifications in minutes. Here’s how it works—and why it matters.",
     content: `
-        <h3>The AI Revolution</h3>
-        <p>Advanced artificial intelligence can now automatically extract information from trust documents and generate compliant Certification of Trust documents in minutes, not hours.</p>
-        
-        <h3>How It Works</h3>
-        <ul>
-          <li>Upload your trust document (PDF, DOC, DOCX)</li>
-          <li>AI extracts key information automatically</li>
-          <li>Generates state-specific certification</li>
-          <li>Provides confidence scoring for accuracy</li>
-          <li>Allows manual review and editing</li>
-        </ul>
-        
-        <h3>Benefits</h3>
-        <ul>
+      <section>
+        <p><em>By Taylor Kim • July 14, 2024</em></p>
+        <h2 style='font-size:1.5rem;font-weight:600;margin-top:2rem;'>The Rise of AI in Trust Law</h2>
+        <p>What used to take hours of manual review can now be done in minutes. AI-powered document processing is transforming how trust certifications are created, reviewed, and approved.</p>
+        <div style='background:#E0E7FF;padding:1rem;border-radius:0.5rem;margin:2rem 0;'>
+          <strong>How AI-Powered Trust Processing Works:</strong>
+          <ul style='margin-left:1.5rem;list-style:disc;'>
+            <li>Upload your trust document (PDF, DOC, DOCX)</li>
+            <li>AI extracts key information automatically</li>
+            <li>Generates a state-specific certification</li>
+            <li>Provides confidence scoring for accuracy</li>
+            <li>Allows manual review and editing</li>
+          </ul>
+        </div>
+        <h3 style='font-size:1.2rem;font-weight:500;margin-top:2rem;'>Why This Matters</h3>
+        <ul style='margin-left:1.5rem;list-style:disc;'>
           <li>Save hours of manual data entry</li>
           <li>Reduce human error in transcription</li>
           <li>Ensure compliance with state requirements</li>
           <li>Generate professional documents instantly</li>
           <li>Maintain privacy and security</li>
         </ul>
-        
-        <h3>Accuracy and Reliability</h3>
-        <p>Modern AI systems achieve 95%+ accuracy in extracting trust information, with human review ensuring 100% accuracy for critical legal documents.</p>
-      `,
+        <blockquote style='border-left:4px solid #2563EB;padding-left:1rem;margin:1.5rem 0;color:#2563EB;font-style:italic;'>
+          <strong>“Our AI system cut our processing time by 90%.”</strong>
+        </blockquote>
+        <p style='margin-top:2rem;'>
+          <strong>Takeaway:</strong> AI isn’t the future of trust certification—it’s the present. The best firms are already using it.
+        </p>
+      </section>
+    `,
     urgency: "medium",
     category: "Technology"
   },
   {
     id: 5,
-    title: "E-Signature and Online Notarization: What's Legal Now",
-    excerpt: "Electronic signatures and remote notarization are now widely accepted for trust documents.",
+    title: "E-Signatures & Online Notarization: What’s Actually Legal?",
+    author: "Jordan Chen",
+    date: "2024-07-13",
+    readingTime: "4 min read",
+    excerpt:
+      "Electronic signatures and remote notarization are now widely accepted for trust documents. Here’s what you need to know.",
     content: `
-        <h3>Electronic Signatures Are Legally Binding</h3>
-        <p>Electronic signatures on Certification of Trust documents are legally binding in all 50 states under the Electronic Signatures in Global and National Commerce Act (ESIGN) and state UETA laws.</p>
-        
-        <h3>Online Notarization Acceptance</h3>
-        <ul>
-          <li>Remote notarization accepted in 45+ states</li>
-          <li>Video call verification with certified notaries</li>
-          <li>Instant notary certificates and seals</li>
-          <li>Same legal validity as in-person notarization</li>
-        </ul>
-        
-        <h3>Financial Institution Acceptance</h3>
-        <p>Most major financial institutions now accept electronically signed and remotely notarized trust certifications, including:</p>
-        <ul>
-          <li>All major banks (Chase, Bank of America, Wells Fargo)</li>
-          <li>Investment firms (Fidelity, Vanguard, Charles Schwab)</li>
-          <li>Credit unions and regional banks</li>
-          <li>Real estate and title companies</li>
-        </ul>
-        
-        <h3>Benefits of Electronic Processing</h3>
-        <ul>
+      <section>
+        <p><em>By Jordan Chen • July 13, 2024</em></p>
+        <h2 style='font-size:1.5rem;font-weight:600;margin-top:2rem;'>The New Normal for Trust Signatures</h2>
+        <p>Gone are the days when every trust document had to be signed in person. Today, e-signatures and online notarization are accepted in most states—and by most major financial institutions.</p>
+        <div style='background:#F1F5F9;padding:1rem;border-radius:0.5rem;margin:2rem 0;'>
+          <strong>What’s Legal Now:</strong>
+          <ul style='margin-left:1.5rem;list-style:disc;'>
+            <li>Electronic signatures are legally binding in all 50 states (ESIGN Act & UETA)</li>
+            <li>Remote notarization accepted in 45+ states</li>
+            <li>Video call verification with certified notaries</li>
+            <li>Instant notary certificates and seals</li>
+            <li>Same legal validity as in-person notarization</li>
+          </ul>
+        </div>
+        <h3 style='font-size:1.2rem;font-weight:500;margin-top:2rem;'>Why This Matters</h3>
+        <ul style='margin-left:1.5rem;list-style:disc;'>
           <li>Complete the entire process from home</li>
           <li>No need to find a local notary</li>
           <li>Instant document delivery</li>
           <li>Secure and tamper-proof</li>
           <li>24/7 availability</li>
         </ul>
-      `,
+        <blockquote style='border-left:4px solid #2563EB;padding-left:1rem;margin:1.5rem 0;color:#2563EB;font-style:italic;'>
+          <strong>“We closed our trust account online in under an hour.”</strong>
+        </blockquote>
+        <p style='margin-top:2rem;'>
+          <strong>Takeaway:</strong> E-signatures and online notarization aren’t just convenient—they’re the new standard for trust certification.
+        </p>
+      </section>
+    `,
     urgency: "medium",
     category: "Legal"
   }
