@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import * as pdfjsLib from 'pdfjs-dist/build/pdf';
 import mammoth from 'mammoth';
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.js`;
 
 const AIDocumentProcessor = ({ onDataExtracted }) => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -91,6 +91,13 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
       const hasUsefulData = structuredData.trustName || 
                           structuredData.grantor || 
                           (structuredData.trustee && structuredData.trustee.length > 0);
+      
+      console.log('hasUsefulData check:', {
+        trustName: structuredData.trustName,
+        grantor: structuredData.grantor,
+        trustee: structuredData.trustee,
+        hasUsefulData
+      });
       
       if (!hasUsefulData) {
         setError('Could not extract trust information from this document. Please ensure it contains trust-related content or enter information manually.');
