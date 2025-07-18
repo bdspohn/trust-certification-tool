@@ -8,7 +8,7 @@ const articles = [
     avatar: "https://ui-avatars.com/api/?name=Alex+Morgan&background=2563EB&color=fff&size=128&rounded=true&bold=true",
     date: "2024-07-17",
     readingTime: "4 min read",
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80", // Abstract compliance/finance
     excerpt:
       "Financial institutions are quietly tightening the rules. Here’s what’s really happening behind the scenes—and how to make sure your trust certification gets accepted the first time.",
     content: `
@@ -57,7 +57,7 @@ const articles = [
     avatar: "https://ui-avatars.com/api/?name=Jamie+Lee&background=F59E42&color=fff&size=128&rounded=true&bold=true",
     date: "2024-07-16",
     readingTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1515169067865-5387a5b0ef43?auto=format&fit=crop&w=800&q=80", // Legal documents/office
     excerpt:
       "Every state has its own trust certification rules. Here’s how to avoid the most common (and costly) compliance mistakes.",
     content: `
@@ -105,7 +105,7 @@ const articles = [
     avatar: "https://ui-avatars.com/api/?name=Morgan+Patel&background=DC2626&color=fff&size=128&rounded=true&bold=true",
     date: "2024-07-15",
     readingTime: "4 min read",
-    image: "https://images.unsplash.com/photo-1515168833906-d2a3b82b302b?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80", // Frustrated person/finance
     excerpt:
       "A rejected trust certification can freeze your assets, delay deals, and cost thousands. Here’s how to avoid the pain.",
     content: `
@@ -153,7 +153,7 @@ const articles = [
     avatar: "https://ui-avatars.com/api/?name=Taylor+Kim&background=2563EB&color=fff&size=128&rounded=true&bold=true",
     date: "2024-07-14",
     readingTime: "3 min read",
-    image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80", // Digital paperwork/AI
     excerpt:
       "AI can now extract trust info and generate compliant certifications in minutes. Here’s how it works—and why it matters.",
     content: `
@@ -197,7 +197,7 @@ const articles = [
     avatar: "https://ui-avatars.com/api/?name=Jordan+Chen&background=15803D&color=fff&size=128&rounded=true&bold=true",
     date: "2024-07-13",
     readingTime: "4 min read",
-    image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80", // E-signature/remote work
     excerpt:
       "Electronic signatures and remote notarization are now widely accepted for trust documents. Here’s what you need to know.",
     content: `
