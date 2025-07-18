@@ -124,86 +124,48 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
     multiple: false
   });
 
-  // Simplified PDF extraction without workers for maximum compatibility
+  // Server-side PDF extraction for maximum reliability
   const extractTextFromPDF = async (file) => {
     try {
-      console.log('Starting PDF extraction...');
+      console.log('Starting server-side PDF extraction...');
       
-      // Try the most compatible approach first
-      let pdfjsLib;
-      try {
-        // Try legacy build first (more compatible)
-        pdfjsLib = await import('pdfjs-dist/legacy/build/pdf');
-        console.log('Using legacy PDF.js build');
-      } catch (legacyError) {
-        console.warn('Legacy build failed, trying modern build:', legacyError);
-        // Fallback to modern build
-        pdfjsLib = await import('pdfjs-dist/build/pdf');
-        console.log('Using modern PDF.js build');
-      }
+      // Create FormData to send file to server
+      const formData = new FormData();
+      formData.append('file', file);
       
-      // Completely disable worker to avoid all CDN issues
-      if (typeof window !== 'undefined') {
-        pdfjsLib.GlobalWorkerOptions.workerSrc = false;
-        console.log('PDF.js worker disabled - using main thread');
-      }
-      
-      const arrayBuffer = await file.arrayBuffer();
-      console.log('File size:', arrayBuffer.byteLength, 'bytes');
-      
-      // Minimal configuration for maximum compatibility
-      const loadingTask = pdfjsLib.getDocument({
-        data: arrayBuffer,
-        verbosity: 0, // Suppress warnings
-        disableAutoFetch: true,
-        disableStream: true,
-        disableRange: true,
-        useSystemFonts: false,
-        standardFontDataUrl: null, // Disable font loading
-        stopAtErrors: false // Continue even with errors
+      // Send to server-side PDF processing API
+      const response = await fetch('/api/extract-pdf', {
+        method: 'POST',
+        body: formData,
       });
       
-      const pdf = await loadingTask.promise;
-      console.log('PDF loaded successfully, pages:', pdf.numPages);
+      const result = await response.json();
       
-      let text = '';
-      let successfulPages = 0;
-      
-      for (let i = 1; i <= pdf.numPages; i++) {
-        try {
-          console.log(`Processing page ${i}...`);
-          const page = await pdf.getPage(i);
-          const content = await page.getTextContent();
-          const pageText = content.items.map(item => item.str).join(' ');
-          text += pageText + '\n';
-          successfulPages++;
-        } catch (pageError) {
-          console.warn(`Error processing page ${i}:`, pageError);
-          // Continue with other pages
-        }
+      if (!response.ok) {
+        throw new Error(result.error || 'Server-side PDF processing failed');
       }
       
-      console.log(`Successfully processed ${successfulPages}/${pdf.numPages} pages`);
-      
-      if (!text.trim()) {
-        throw new Error('No text content could be extracted from this PDF. The file may contain only images or be scan-based.');
+      if (!result.success || !result.text) {
+        throw new Error('No text could be extracted from the PDF');
       }
       
-      return text;
+      console.log(`Successfully extracted ${result.extractedLength} characters from PDF`);
+      return result.text;
+      
     } catch (error) {
-      console.error('PDF processing error:', error);
+      console.error('Server-side PDF processing error:', error);
       
       // Provide helpful error messages based on error type
-      if (error.message.includes('Invalid PDF') || error.message.includes('PDF header')) {
-        throw new Error('This file is not a valid PDF or may be corrupted. Please try a different file.');
-      } else if (error.message.includes('password') || error.message.includes('encrypted')) {
+      if (error.message.includes('password') || error.message.includes('encrypted')) {
         throw new Error('This PDF is password-protected. Please remove the password protection first.');
-      } else if (error.message.includes('worker') || error.message.includes('fetch')) {
-        throw new Error('PDF processing failed due to browser compatibility. Please try uploading as DOCX or TXT format instead.');
-      } else if (error.message.includes('images') || error.message.includes('scan')) {
-        throw new Error('This PDF appears to contain only images/scans. Please try a text-based PDF, DOCX, or TXT file.');
+      } else if (error.message.includes('corrupted') || error.message.includes('invalid')) {
+        throw new Error('This PDF file appears to be corrupted. Please try a different file.');
+      } else if (error.message.includes('image') || error.message.includes('scan')) {
+        throw new Error('This PDF contains only images/scans. Please provide a text-based PDF or use DOCX/TXT format.');
+      } else if (error.message.includes('network') || error.message.includes('fetch')) {
+        throw new Error('Network error during PDF processing. Please check your connection and try again.');
       } else {
-        throw new Error(`PDF processing failed: ${error.message}. Please try DOCX or TXT format, or use manual entry.`);
+        throw new Error(`PDF processing failed: ${error.message}. Please try DOCX or TXT format instead.`);
       }
     }
   };
