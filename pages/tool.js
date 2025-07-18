@@ -8,8 +8,7 @@ import TrustInfoStep from "@/components/ui/forms/TrustInfoStep";
 import TrusteeStep from "@/components/ui/forms/TrusteeStep";
 import PowersStep from "@/components/ui/forms/PowersStep";
 import ReviewStep from "@/components/ui/forms/ReviewStep";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
+// jsPDF imports moved to dynamic import to avoid SSR issues
 
 export default function TrustTool() {
   const methods = useForm({
@@ -43,7 +42,11 @@ export default function TrustTool() {
   
   const prevStep = () => setStep((s) => Math.max(s - 1, 0));
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    // Dynamic import to avoid SSR issues
+    const jsPDF = (await import('jspdf')).default;
+    await import('jspdf-autotable');
+    
     const doc = new jsPDF();
     
     // Header

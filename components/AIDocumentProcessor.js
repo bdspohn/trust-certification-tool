@@ -1,8 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import * as pdfjsLib from 'pdfjs-dist/build/pdf';
 import mammoth from 'mammoth';
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.js`;
 
 const AIDocumentProcessor = ({ onDataExtracted }) => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -126,8 +124,12 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
     multiple: false
   });
 
-  // PDF extraction
+  // PDF extraction with dynamic import
   const extractTextFromPDF = async (file) => {
+    // Dynamic import to avoid SSR issues
+    const pdfjsLib = await import('pdfjs-dist/build/pdf');
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.js`;
+    
     const arrayBuffer = await file.arrayBuffer();
     const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
     let text = '';

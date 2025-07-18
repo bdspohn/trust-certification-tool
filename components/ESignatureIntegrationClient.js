@@ -1,167 +1,15 @@
 import React, { useState } from 'react';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
 
-const ESignatureIntegration = ({ formData, documentUrl }) => {
+const ESignatureIntegrationClient = ({ formData, documentUrl }) => {
   const [signatureMethod, setSignatureMethod] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [signatureStatus, setSignatureStatus] = useState('');
 
-  const prepareDocuSignEnvelope = async () => {
-    // Generate the PDF for DocuSign
-    const pdf = generateTrustCertificationPDF();
-    const pdfData = pdf.output('datauristring');
+  const generateTrustCertificationPDF = async () => {
+    // Dynamic import to avoid SSR issues
+    const jsPDF = (await import('jspdf')).default;
+    await import('jspdf-autotable');
     
-    // Prepare envelope data for DocuSign API
-    const envelopeData = {
-      emailSubject: `Certification of Trust - ${formData.trustName}`,
-      documents: [{
-        documentBase64: pdfData.split(',')[1], // Remove data:application/pdf;base64, prefix
-        name: `Certification_of_Trust_${formData.trustName?.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`,
-        fileExtension: 'pdf',
-        documentId: '1'
-      }],
-      recipients: {
-        signers: [{
-          email: formData.trusteeEmail || 'trustee@example.com', // This would come from form
-          name: Array.isArray(formData.trustee) ? formData.trustee[0] : formData.trustee || 'Trustee',
-          recipientId: '1',
-          tabs: {
-            signHereTabs: [{
-              documentId: '1',
-              pageNumber: '1',
-              xPosition: '100',
-              yPosition: '200'
-            }],
-            dateSignedTabs: [{
-              documentId: '1',
-              pageNumber: '1',
-              xPosition: '300',
-              yPosition: '200'
-            }]
-          }
-        }]
-      },
-      status: 'sent'
-    };
-    
-    return envelopeData;
-  };
-
-  const handleDocuSign = async () => {
-    setIsProcessing(true);
-    setSignatureStatus('preparing');
-    
-    try {
-      // Prepare the envelope data
-      const envelopeData = await prepareDocuSignEnvelope();
-      
-      // In a real implementation, this would call your backend API which would:
-      // 1. Call DocuSign API to create envelope
-      // 2. Return the signing URL
-      // 
-      // Example backend call:
-      // const response = await fetch('/api/docusign/create-envelope', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(envelopeData)
-      // });
-      // const { envelopeId, signingUrl } = await response.json();
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Mock envelope creation
-      const envelopeId = 'envelope-' + Date.now();
-      const signingUrl = `https://demo.docusign.net/signing/${envelopeId}`;
-      
-      setSignatureStatus('sent');
-      setIsProcessing(false);
-      
-      // Open DocuSign signing session
-      window.open(signingUrl, '_blank');
-      
-      // You would also want to store the envelope ID for tracking
-      console.log('DocuSign envelope created:', envelopeId);
-      
-    } catch (error) {
-      console.error('DocuSign error:', error);
-      setSignatureStatus('error');
-      setIsProcessing(false);
-    }
-  };
-
-  const prepareNotarizeSession = async () => {
-    // Generate the PDF for notarization
-    const pdf = generateTrustCertificationPDF();
-    const pdfData = pdf.output('datauristring');
-    
-    // Prepare session data for Notarize API
-    const sessionData = {
-      documentName: `Certification of Trust - ${formData.trustName}`,
-      documentType: 'certification_of_trust',
-      signerInfo: {
-        firstName: formData.trustee?.split(' ')[0] || 'Trustee',
-        lastName: formData.trustee?.split(' ').slice(1).join(' ') || '',
-        email: formData.trusteeEmail || 'trustee@example.com',
-        phoneNumber: formData.trusteePhone || ''
-      },
-      document: {
-        name: `Certification_of_Trust_${formData.trustName?.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`,
-        content: pdfData.split(',')[1], // base64 content
-        mimeType: 'application/pdf'
-      },
-      notarizationType: 'acknowledgment',
-      jurisdiction: formData.state
-    };
-    
-    return sessionData;
-  };
-
-  const handleNotarize = async () => {
-    setIsProcessing(true);
-    setSignatureStatus('preparing');
-    
-    try {
-      // Prepare the notarization session
-      const sessionData = await prepareNotarizeSession();
-      
-      // In a real implementation, this would call your backend API which would:
-      // 1. Call Notarize.com API to create session
-      // 2. Return the session URL
-      // 
-      // Example backend call:
-      // const response = await fetch('/api/notarize/create-session', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(sessionData)
-      // });
-      // const { sessionId, sessionUrl } = await response.json();
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      
-      // Mock session creation
-      const sessionId = 'notary-session-' + Date.now();
-      const sessionUrl = `https://app.notarize.com/session/${sessionId}`;
-      
-      setSignatureStatus('notarized');
-      setIsProcessing(false);
-      
-      // Open Notarize session
-      window.open(sessionUrl, '_blank');
-      
-      // You would also want to store the session ID for tracking
-      console.log('Notarize session created:', sessionId);
-      
-    } catch (error) {
-      console.error('Notarize error:', error);
-      setSignatureStatus('error');
-      setIsProcessing(false);
-    }
-  };
-
-  const generateTrustCertificationPDF = () => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.width;
     const margin = 20;
@@ -271,12 +119,140 @@ const ESignatureIntegration = ({ formData, documentUrl }) => {
     return doc;
   };
 
-  const handlePrintSign = () => {
+  const prepareDocuSignEnvelope = async () => {
+    // Generate the PDF for DocuSign
+    const pdf = await generateTrustCertificationPDF();
+    const pdfData = pdf.output('datauristring');
+    
+    // Prepare envelope data for DocuSign API
+    const envelopeData = {
+      emailSubject: `Certification of Trust - ${formData.trustName}`,
+      documents: [{
+        documentBase64: pdfData.split(',')[1], // Remove data:application/pdf;base64, prefix
+        name: `Certification_of_Trust_${formData.trustName?.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`,
+        fileExtension: 'pdf',
+        documentId: '1'
+      }],
+      recipients: {
+        signers: [{
+          email: formData.trusteeEmail || 'trustee@example.com', // This would come from form
+          name: Array.isArray(formData.trustee) ? formData.trustee[0] : formData.trustee || 'Trustee',
+          recipientId: '1',
+          tabs: {
+            signHereTabs: [{
+              documentId: '1',
+              pageNumber: '1',
+              xPosition: '100',
+              yPosition: '200'
+            }],
+            dateSignedTabs: [{
+              documentId: '1',
+              pageNumber: '1',
+              xPosition: '300',
+              yPosition: '200'
+            }]
+          }
+        }]
+      },
+      status: 'sent'
+    };
+    
+    return envelopeData;
+  };
+
+  const handleDocuSign = async () => {
+    setIsProcessing(true);
+    setSignatureStatus('preparing');
+    
+    try {
+      // Prepare the envelope data
+      const envelopeData = await prepareDocuSignEnvelope();
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Mock envelope creation
+      const envelopeId = 'envelope-' + Date.now();
+      const signingUrl = `https://demo.docusign.net/signing/${envelopeId}`;
+      
+      setSignatureStatus('sent');
+      setIsProcessing(false);
+      
+      // Open DocuSign signing session
+      window.open(signingUrl, '_blank');
+      
+      console.log('DocuSign envelope created:', envelopeId);
+      
+    } catch (error) {
+      console.error('DocuSign error:', error);
+      setSignatureStatus('error');
+      setIsProcessing(false);
+    }
+  };
+
+  const prepareNotarizeSession = async () => {
+    // Generate the PDF for notarization
+    const pdf = await generateTrustCertificationPDF();
+    const pdfData = pdf.output('datauristring');
+    
+    // Prepare session data for Notarize API
+    const sessionData = {
+      documentName: `Certification of Trust - ${formData.trustName}`,
+      documentType: 'certification_of_trust',
+      signerInfo: {
+        firstName: formData.trustee?.split(' ')[0] || 'Trustee',
+        lastName: formData.trustee?.split(' ').slice(1).join(' ') || '',
+        email: formData.trusteeEmail || 'trustee@example.com',
+        phoneNumber: formData.trusteePhone || ''
+      },
+      document: {
+        name: `Certification_of_Trust_${formData.trustName?.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`,
+        content: pdfData.split(',')[1], // base64 content
+        mimeType: 'application/pdf'
+      },
+      notarizationType: 'acknowledgment',
+      jurisdiction: formData.state
+    };
+    
+    return sessionData;
+  };
+
+  const handleNotarize = async () => {
+    setIsProcessing(true);
+    setSignatureStatus('preparing');
+    
+    try {
+      // Prepare the notarization session
+      const sessionData = await prepareNotarizeSession();
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      
+      // Mock session creation
+      const sessionId = 'notary-session-' + Date.now();
+      const sessionUrl = `https://app.notarize.com/session/${sessionId}`;
+      
+      setSignatureStatus('notarized');
+      setIsProcessing(false);
+      
+      // Open Notarize session
+      window.open(sessionUrl, '_blank');
+      
+      console.log('Notarize session created:', sessionId);
+      
+    } catch (error) {
+      console.error('Notarize error:', error);
+      setSignatureStatus('error');
+      setIsProcessing(false);
+    }
+  };
+
+  const handlePrintSign = async () => {
     try {
       setIsProcessing(true);
       setSignatureStatus('preparing');
       
-      const pdf = generateTrustCertificationPDF();
+      const pdf = await generateTrustCertificationPDF();
       
       // Generate filename
       const filename = `Certification_of_Trust_${formData.trustName?.replace(/[^a-zA-Z0-9]/g, '_') || 'Document'}_${new Date().toISOString().split('T')[0]}.pdf`;
@@ -528,4 +504,4 @@ const ESignatureIntegration = ({ formData, documentUrl }) => {
   );
 };
 
-export default ESignatureIntegration; 
+export default ESignatureIntegrationClient;

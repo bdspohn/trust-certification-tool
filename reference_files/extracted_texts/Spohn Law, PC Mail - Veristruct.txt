@@ -1,0 +1,209 @@
+Benjamin Spohn <ben@spohn.legal>
+Veristruct
+6 messages
+Benjamin Spohn <ben@spohn.legal> Mon, May 5, 2025 at 2:27 PM
+To: Neil Peretz <nperetz@xrscience.com>
+Neil:
+Great call on Friday. Thank you for your time, I am excited to bring you in on this project.
+I spent all weekend hammering away. A few updates:
+Company is called Veristruct: My wife thought of the name "Tartan," as well, but the Tartan domain is priced at $17k and there are a hundred companies named tartan; so I formed a DE LLC called Veristruct
+Veristruct's website is veristruct.com; I'll have a veristruct email address by the end of the day tomorrow (building through Wix)
+I built out a deck over the last 2 days; it needs a ton on work on the visuals side but I'm feeling better about the core content
+On the business plan/product rollout, I had an epiphany over the weekend.
+Product one is the TCT (trust certification transformer). Contract Wrangler-like bones for document ingestion, data mapping, and outputs. RON integration through a FL-based notary partner like OneNotary. Data stored in a SOC2-compliant
+environment. Will presumably need to grab a bunch of trustee consents on the front end (you are sharing this information with us for the specified purposes, being v. mindful about potential third party marketing considerations); likely multifactor
+authentication on the front end to prevent bad actors like beneficiaries coming in to spy on their trusts.
+The second FI-facing product is the Transfer Risk Analyzer (TRA). The Garn St Germain Act prohibits lenders from calling a due on sale clause for a real property loan under certain enumerated circumstances, such as a transfer to an inter vivos
+trust (see section (d)). FIs and fintechs presently rely on internal and external counsel to (1) tell them whether a given transfer is GSGA protected; and (2) if it is not protected, analyze the risk of permitting the transfer. The magic here is that
+most FIs simply say "no" at step 2 because they get uncomfortable with the risk profile. We will now be able to score that risk and insure against loss, which will increase client satisfaction and further FI client retention.
+The ABS magic happens when we've contracted with a couple big FIs > the flywheel spins and we now have thousands of trust/invaluable consumer (trustee) information. That's why phase 1 is the core FI and fintech-facing tech stack, and
+phase 2 is the consumer-facing product deployment phase.
+On phase 2, I was thinking about the AI + attorney overlay. I'd need to really deep dive on the law of 50 states. But the more I thought on it, it strikes me that there are AI tools that we could leverage across massive trust portfolios in order to
+provide recommendations to consumers (on trust structuring, administration, and the like) --> *that* becomes our ABS tie in (using the firm to act as a 50-state legal hub for what, at this juncture, may veer into the practice of law; plus more
+generally (and appropriately!) monetizes the ABS model).
+I think we should pull up on this at some point later this week. What are good days/times on your end? I'm going to keep plugging away...
+Thank you,
+Ben
+Benjamin Spohn
+Founder and Owner Spohn Law, PC
+p: 301.706.0172
+w: https://www.spohn.legal
+e: ben@spohn.legal
+IMPORTANT: This message is confidential. It may also be privileged or otherwise protected by work product
+immunity or other legal rules. If you have received it by mistake, please let us know by e-mail reply and delete it from
+your system; you may not copy this message or disclose its contents to anyone. Please send us by fax any message
+containing deadlines as incoming e-mails are not screened for response deadlines. The integrity and security of this
+message cannot be guaranteed on the Internet.
+Veristruct Deck 5.5.25.pptx
+1157K
+Neil Peretz <nperetz@xrscience.com> Mon, May 5, 2025 at 9:34 PM
+To: Benjamin Spohn <ben@spohn.legal>
+Ben,
+Did you see the Google Slides and Google sheet links I sent you last week?
+re: NAME
+I had used the name Tartan as a bit of a joke -- an ode to Plaid.
+It's ok to use Veristruct for now. But it's likely hard to pronounce when read and easy to mispronounce. There are strategies one can use to come up with a good name that is meaningful but non-obvious. We can talk about that sometime. I
+have a lot of experience in that category. It's not worth spending any extra money on a domain name when we can just add a prefix or suffix to an existing name (e.g., TrustTartan.com). We can develop other names that are easier to pronounce
+and still convey the right meaning.
+re: FOLLOWUP
+Best days for me to follow up are Thursday and Friday. I have to go to Sacramento on Wednesday for some lobbying related to pending legislation. Do you have any time on Thursday afternoon or Friday afternoon?
+re: DECK
+Slide 1: I like the phrase "trust infrastructure." Trust and Structure have similar components. There might be some interesting wordplay opportunities there. InfraTruster?
+I wouldn't refer to the digital age, though, because I feel like that was something that came upon us when we first started having the internet revolution. It would be a bit dated to add that to the phrase. Moreover, the phrase "for the Digital Age"
+might anchor you only to digital, whereas the solutions we're talking about can work even for people pushing paper with banks.
+There's probably some variation on the slogan we can figure out to tighten it up. I like the reference to scalability. I wonder if there is some other phrase besides "compliance period". I don't know if the end customers think of it as "compliance."
+Slide 2:
+Another way to phrase this is to focus on the end user and bank experience:
+• For the trust owner: expensive and slow to move assets in and out of the trust.
+• For the financial institution: expensive and risky to handle client requests to move assets in and out of trusts.
+I suggest trying to focus the problem slide on actual experiences that investors have. Investors are more likely to be fuming about the cost, time delay, and paperwork hassle than they are to be fuming about "standard interface for verification" or
+"fragmented workflows."
+After we talked last time, I thought more about the target market and I realized that this business should be a lay-up to raise a lot of money because any serious VC probably has a trust and they have to deal with all of this paperwork. So the
+investor class actually understands this particular problem. Often times one is out there pitching businesses that investors cannot relate to. We should speak in the voice of the actual person who owns the trust and speak in the voice of the
+financial institution. You can even put some fake quotes in here that are prototypical of what each of them would say about this. For the imagery, there could be a picture of a prototypical trust owner and a prototypical bank employee and have
+the words coming out of their mouth in a speech bubble. Having a picture of the prototypical people dealing with pain segues directly into TAM.
+The fact that there are trillions is something that belongs in our TAM section.
+Slide 3: It's a good slide, we'll need to footnote the sources. I would remove the fourth bullet and instead speak to it. The slide text should only be about the total market, not the solution.
+A powerful way to go from the giant macro number down to people appreciating that you're not just citing abstract statistics is to give a micro example. If we had data about the number of times that an average trust owner needs to deal with this
+topic on an annual basis, that could be quite powerful because it would give one of you a glimpse into the LTV of the customer. Even if we don't have stats on that topic, we can still hypothesize about what the average trust owner has in terms of
+assets and then describe how they need to deal with this topic every time they engage in a refi of their house or various other activities related to their property. Let's hypothesize a certain number of times per year that this comes up.
+Slide 4: This sounds like it is selling software. I think we would instead describe this as our software platform that enables us to be very efficient and then run this SAS-based repository.
+This slide is best illustrated through a diagram or flow chart. We can call it "Our Solution".
+By the way, I don't think we necessarily replace PDFs or affidavits or legal reviews. All those will need to be made available, however, we black box them so each person doesn't have to deal with those.
+("Chickens go in....Pies come out!")
+Slide 5: I think we should combine this with Slide 4 and show a big flow chart, which shows both lawyers and tech.
+Slide 6 and 7: The way to illustrate these slides is to say what the bank sees and what the consumer sees, and then show dashboard screens. We can do call-outs showing the functionality on the dashboard screens.
+We can actually get someone to mock up the screens. Think about what the screen elements would be, and we can start sketching it out in wireframe form.
+Slide 8: I think the term flywheel is overused, however, his actually is a business that could have a Flywheel because it's a two-sided market. The more trust owners you get on the system, the more banks want to offer it, and vice versa.
+For an image, we could show an actual flywheel and demonstrate how each side (the FI side and the consumer side) push on it to make the flywheel go faster.
+Here is an example of a Network Effect Flywheel: https://images.app.goo.gl/o9XvGKK1m3iSTxJb8
+Slide 9: I'm not sure I understand this slide well enough. What's the key takeaway you want people to have from this?
+The insurance concept is quite important, however, I think we would fit that into a go-to-market on the FI side.
+Slide 10: Rather than discuss ABS, I would instead lay out the microeconomics for customers. One of those microeconomic threads can be legal fees.
+We don't need to delve into ABS rules here in the main presentation. We can just have a backup slide in case people ask about it.
+Slide 11: I don't think this slide is necessary.
+Arguably, someone could have done this 10 years ago if they thought about it.
+By the way, a funny analogy here is that we are making a blockchain for trusts. Let's not go too far with that analogy because we are actually centralized, not decentralized and redundant. .
+Slide 12:
+I think we'd want to have something working, and then we would have one of these slides that we would show to a possible customer, who could also be an investor. And then we'd have another one of these versions of the slide that we show to
+an F.I.
+We would have a bare-bones process with some nice-looking UI, albeit with humans behind the scenes that actually make this work.
+Tell the FI that it's the "Trust API" or "Trust as an API"
+Slide 13: We would want to delve into your bank background because that supports product-market fit. As well as your non-bank FI background.
+On my side, I would also accentuate my financial services background. At the DOJ, I was a trial attorney in the corporate and financial section. I was a law clerk for the SEC, and then I helped start the CFPB. And then I was in-house at various
+financial services companies.
+Before going to pitch raise money, we would attach a person who has engineering capability, like a Doug Reed.
+After you and I chat further about this in the latter part of this week, I'll drop a note to Doug and bounce the idea off of him.
+___________
+OTHER SLIDES and topics to ponder:
+a. Why haven't others done this already? Has anything changed recently, or they just didn't discover it as a market opportunity?
+b. How do we make it extra sticky so people don't want to switch? Are there other barriers to entry that we can go build up?
+c. We need a slide about GTM. How do we get our first customers? How do we get our later customers?
+BTW, there are some interesting channel opportunities maybe through credit card companies, wealth managers, etc.
+d. we need to delve into CAC and LTV.
+For LTV, we'd want to think about what other activities they need done with their trusts in the short term as well as what other stuff we can sell them.
+Want to delve into the demographics of this particular customer because you are inherently higher-end if you have a trust.
+e. de-risking:
+Ideally, we would build a janky demo that actually works by having humans run around behind the scenes. We'd get set up with some FI and start processing some things for them using our legal credentials to handle it behind the scenes.Then
+we would get a nifty quote from the FI.
+Likewise, we would build up some type of janky interface for average consumers, and we'd have attorneys and paralegals running around behind the scenes to take care of everything. We could get some consumer quotes about how it was great
+for them.
+f. If we get to the point of raising outside money, then we need to talk about the amount we're raising and what it would be spent on.
+g. We might want to consider assembling an advisory board of people with great connections or credibility at some point. We'd have to think about what kind of people those should be.
+h. management. So, how do you feel about being CEO? I think you could do it. You have the vision. We'd have to go build additional infrastructure under and around you.
+i. marketing. We would want to at least have a marketing consultant person to come up with a few slick slides or mockup marketing materials. I have some people in my network who might be able to do that.
+_______________________
+re: WHEN TO SELL SAAS VS. LEGAL SERVICES
+Some advantage of selling legal services include:
+a. charging A LOT more money than SaaS
+b. barrier to entry for non-lawyers
+c. customers feel safer that a licensed lawyer looked at it.
+d. we can run all sorts of SaaS behind the scenes and develop great margins that we don't need to pass along as much if we interpose even 3 minutes of a lawyer in the process.
+re: 50 STATES
+Yeah, it's not that hard to build a 50-state engine. One of the businesses that I was the General Counsel for (SmartPay Leasing) did a Rent-To-Own product, and we had to have separate documentation and rules to follow in each of the states
+and territories of the U.S. We were able to do the research and automate everything to customize it. We would need to pop up lawyers in various states, potentially. It's not hard to do that. Focusing on the populous states covers a wide swath
+of the US population for starters. Just covering California, New York, Texas, Florida, and Pennsylvania represents 123 million people: 36.7% of the U.S. population.
+re: WHERE TO START
+I agree that starting on the FI side is better if we have enough credibility to have a bank let us take this on for them.
+______________
+Overall, I think it's a great business idea. I think it has a lot of legs and could be very profitable even at the beginning. You can imagine having this grow into a very sizable business with a very attractive clientele.
+Neil
+Neil Peretz
+email: nperetz@xrscience.com
+[Quoted text hidden]
+Benjamin Spohn <ben@spohn.legal> Tue, May 6, 2025 at 8:58 PM
+To: Neil Peretz <nperetz@xrscience.com>
+This is fantastic feedback. I'm going to be working this through over the next 24h.
+Let's pull up Friday afternoon. 1p or 2p work? I'll aim to circulate updated deck and notes by tomorrow evening.
+So many great nuggets in your analysis. It's starting to come together in my brain. Very exciting.
+Benjamin Spohn
+Founder and Owner Spohn Law, PC
+p: 301.706.0172
+w: https://www.spohn.legal
+e: ben@spohn.legal
+[Quoted text hidden]
+Neil Peretz <nperetz@xrscience.com> Tue, May 6, 2025 at 9:53 PM
+To: Benjamin Spohn <ben@spohn.legal>
+I have a 2pm mtg Friday, but 1pm could work.
+I will drop Doug Reed a note to have a quick intro chat about topic sometime. He has dev and security resources.
+Start sketching out (on paper or in your mind) workflow for software.
+Neil
+Neil Peretz
+email: nperetz@xrscience.com
+[Quoted text hidden]
+Benjamin Spohn <ben@spohn.legal> Thu, May 8, 2025 at 9:24 PM
+To: Neil Peretz <nperetz@xrscience.com>
+Brilliant, look forward to speaking tomorrow.
+Have done some significant rejiggering of the deck in light of your excellent feedback (attached). Very much a work in progress but trending in the right direction. Increasingly feeling like great visuals will (ultimately) really help to drive home the
+core concepts.
+Have been digging more for optimizing TAM data. Love your point on slide 3, that's a great way to think about the size of this thing. It's a clever point: how many times does a consumer deal with this specific pain point on an annual basis? I
+was thinking about that observation (call it, "trust + FI interactions in a given year"), combined with your note on the wealth management channel. Bear with me:
+My initial idea re product was: Chase client wants to transfer Chase mortgage to vest in his trust (presently a terrible process) > We solve this problem for client and Chase.
+But your note made me think of a (bigger) real world example that I experience every year: Our wealth advisor performs a review of all of our accounts and assets (checking, savings, wealth management, real property, 529s, etc. -
+everything) > Tells us "please add your trust to these accounts" > We *always* stall out after one or two retitlings because it is such a slow and painful process
+Aha! We can solve this - all accounts; all at once. An API integration into an aggregated financial data platform (Plaid, Monarch, whatever) can identify what accounts are not titled in the name of a trust > We automate *all* retitling (not
+just a single account/asset).
+That relates to a second observation/realization I had. Again, using my FRB experience as a frame of reference:
+Even in the "old" paper model, a bank's approval of a title transfer (let's stick with retitling property in an individual name to the name of a trust) was not the end of the story
+Post-approval, the *customer* must facilitate the transfer and provide us with copies of the recorded instruments - literally drafting and recording the transfer deed (all our "approval" meant, ultimately, was that we would not call the
+due on sale clause of the note when the transfer was effectuated)
+What does that mean in reality? Client goes back to their trust counsel, who refers them to a real property counsel, who negotiates a separate fee agreement with the client, etc. Total headache.
+But our ABS piece could potentially solve that, right? The (new) workflow could be something like:
+Client authorizes all account access (our "Plaid integration") -->
+We identify all individual accounts to which client wants to add trust -->
+Client shares their trust with us (drop and drag into our "machine") -->
+We do our trust certification magic across all accounts (securely store trust, OCR and label trust data, translate to each institution's trust certification, setup Docusign/remote online notarization integration, send fully executed copies
+to the client and the FI)-->
+The "legal to dos" coming out of the above (drafting and recording transfer deeds and the like) get rerouted back through our ABS "hub" (e.g., "it looks like you need someone to draft and record a transfer deed. we can help you
+with that!") -->
+Once these legal to dos are complete/all documents are recorded, copies of the same are provided back to the relevant FIs
+This addition unlocks the legal services component (and pricing) on top of the base SaaS model.
+One point I don't think that the deck yet fully drives home is just how "sticky" this solution is going to be. Banks and fintechs will be mindful of steering considerations, and so will present customers with an option: complete our trust cert (pen,
+paper, DIY analysis, DIY signatures and notaries) or use our company's solution > the overwhelming majority of people will select our company's solution.
+A couple of somewhat related thoughts. You make an interesting observation re market size in that this product/platform necessarily skews towards the higher end of the market. FWIW, while this data is hard to pinpoint, a *very* rough estimate
+is that 10% of American adults have trusts, and that these same 10% hold something like 60% of American wealth. This is precisely the cross-section of customers that incumbent and startup "private banks" are targeting: JPMC private client,
+Citizens Private Bank, BNY Private Wealth Mangement, Flagstar Private, etc. Two big observations there:
+One, these private banks are a natural entry point for our initial GTM. Originally, in my head, I was thinking that our target client might be a mid-sized bank (e.g., Citizens). However, this product will be much more appealing for
+Citizens Private than Citizens (general).
+Two, and with all of that said, there is another ABS angle lurking here. Are you a mid-FICO bank client with a non-de minimis checking balance and without a trust? We can help you set up that trust (via the ABS) and retitle your
+accounts (technology tools + ABS) to protect you and your family's long term financial welfare. A bit schlocky, sure, but I personally love the idea of entering at the obvious spot (top of market/private bank/wealth manager channel) with a
+goal of making these tools available to a broader audience/helping to facilitate some degree of long-term American economic stability.
+Your points on management, fundraising, advisors, etc. are all well taken. Probably easiest to talk through a lot of those points.
+Have a bunch of notes, drawings, etc. as well; will likely share some of these in advance of our talk and just voice over the rest in real time.
+Veristruct Pitch Deck v2.pptx
+Benjamin Spohn
+Founder and Owner Spohn Law, PC
+p: 301.706.0172
+w: https://www.spohn.legal
+e: ben@spohn.legal
+[Quoted text hidden]
+Neil Peretz <nperetz@xrscience.com> Thu, May 8, 2025 at 11:08 PM
+To: Benjamin Spohn <ben@spohn.legal>
+Cool! I will review tomorrow.
+I talked about it with Doug Reed today. He could have a team build the software and also do bank-approvable security.
+I'll connect you with him sometime.
+Neil
+Neil Peretz
+email: nperetz@xrscience.com
+[Quoted text hidden]
+

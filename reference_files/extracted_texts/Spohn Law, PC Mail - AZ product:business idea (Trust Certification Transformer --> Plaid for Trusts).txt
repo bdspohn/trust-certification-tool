@@ -1,0 +1,129 @@
+Benjamin Spohn <ben@spohn.legal>
+AZ product/business idea (Trust Certification Transformer --> Plaid for Trusts)
+5 messages
+Benjamin Spohn <ben@spohn.legal> Fri, Apr 25, 2025 at 10:26 AM
+To: Neil Peretz <nperetz@xrscience.com>
+Hi Neil,
+Great catching up last month — I always appreciate how you provide such actionable advice.
+While most of my time’s been devoted to growing my shop, I’ve been moonlighting on a product idea (or maybe a business idea?) that could be a compelling play in Arizona and beyond.
+The Friction
+One of the top client pain points I ran into at FRB — and saw at least weekly for six years — involved trust-based transactions. Here's the gist:
+A client wants to transact through a trust (loan, title transfer, etc.).
+They submit a full trust doc or a stale certification (in CA, as you may or may not know, such transactions/certifications are subject to Probate code 18100.5).
+Legal won’t review the trust and sends the client a bespoke bank form instead.
+Every bank’s form is different and idiosyncratic.
+What follows is either:
+The client loops in their lawyer → time, expense, coordination, OR
+The client does it themselves → guaranteed errors → delays, back-and-forth, and eventual lawyer involvement anyway.
+Even when the form gets through, it creates downstream risk. Clients rarely report trust changes that affect bank agreements — and when they switch banks, they’re forced to restart the whole workflow. It’s high-friction and high-liability.
+Phase 1: Trust Certification Transformer (TCT)
+I built a rough MVP of a product I’m calling the “Trust Certification Transformer” (I’ve also got the domain). It’s designed to eliminate this bottleneck:
+1. Client uploads a trust doc and grants access to the tool.
+2. TCT uses OCR + logic to extract key fields (Trustees, Powers, etc.).
+3. It auto-populates a bank-specific certification form.
+4. Client reviews, signs via Docusign (with RONs as required as a function of specific state law(s)), and the form gets submitted.
+Near-term opportunity: We could offer this as a “Trust Certification-as-a-Service” for FIs, estate planners, or even directly to clients via attorney partners. Regional banks and credit unions would be great first-movers — more agile than the bigs,
+and just as burdened by the cert mess.
+Phase 2: Plaid for Trusts
+If Phase 1 is the product, Phase 2 is the infrastructure layer. I think there’s a real shot at building the trust equivalent of Plaid:
+Trust creation: Paint-by-number flow with legal review where needed.
+TCT: One-click certification form generation for any FI.
+TCT 2.0 – Admin Layer: Detects material trust changes → auto-notifies relevant FIs → enables portable trust certs when clients change banks.
+Trustee-side support: E.g., a co-trustee dies → Lexis integration pulls a death cert → client gets task list & alerts based on the trust’s terms.
+This evolves from just solving one high-friction moment to being a persistent layer of structured trust data that flows securely across institutions and jurisdictions.
+Sales Strategy
+The wedge is obvious: enterprise SaaS or per-use licensing to FIs. But I’m also looking at:
+Channel partnerships with estate planning attorneys and wealth advisors.
+A light-touch law firm-facing version for those who want to streamline cert creation and stay sticky with clients.
+Long-term, a developer API so other platforms can build trust tooling on top of this infrastructure.
+Arizona
+AZ is particularly interesting for a launch:
+The regulatory sandbox gives us room to innovate.
+It's a trust-heavy, retirement-heavy market with real use case density.
+I could see a small bench of AZ-licensed attorneys sitting atop the tech stack, co-counseling across jurisdictions when needed.
+If we go the venture route, I’ve got two strong leads with track records scaling this kind of professional services–enabled SaaS.
+If this feels like it’s worth exploring together — whether as a product, a business, or something more — I’d love to discuss. And if not, no problem at all. I’ll keep building the MVP and testing it out on the side.
+Thanks again,
+Ben
+Benjamin Spohn
+Founder and Owner Spohn Law, PC
+p: 301.706.0172
+w: https://www.spohn.legal
+e: ben@spohn.legal
+IMPORTANT: This message is confidential. It may also be privileged or otherwise protected by work product
+immunity or other legal rules. If you have received it by mistake, please let us know by e-mail reply and delete it from
+your system; you may not copy this message or disclose its contents to anyone. Please send us by fax any message
+containing deadlines as incoming e-mails are not screened for response deadlines. The integrity and security of this
+message cannot be guaranteed on the Internet.
+Benjamin Spohn <ben@spohn.legal> Fri, Apr 25, 2025 at 10:38 AM
+To: Kristin Baker Spohn <baker.kristin@gmail.com>
+Will see what Neil thinks. And I'm not the business mind you are. But this is definitely the best business idea that I have ever had.
+Benjamin Spohn
+Founder and Owner Spohn Law, PC
+p: 301.706.0172
+w: https://www.spohn.legal
+e: ben@spohn.legal
+[Quoted text hidden]
+Neil Peretz <nperetz@xrscience.com> Fri, Apr 25, 2025 at 1:27 PM
+To: Benjamin Spohn <ben@spohn.legal>
+Let’s chat about it. My ABS firm was just approved by the Supreme Court of Arizona last week. I have an Arizona attorney attached to it already. I just found out that I have passed the Arizona bar and the MPRE (which I had to retake because
+they would not accept scores for more than eight years ago) and I should be sworn into the State Bar of Arizona within a couple more weeks.
+This is the perfect type of business to run through an ABS because we can tech-enable it and offered on a fixed fee basis.
+A friend of mine had a similar type of problem recently trying to domesticate a probate document from another state and was charged $3000 by an attorney to take an Illinois probate document and domesticate in Arizona.
+What do you see as being the best strategy for cost-effectively acquiring customers? Is this something we could cross market through financial institutions?
+Let me know what days and times are convenient to chat about it next week and we can set up a video chat.
+Neil
+Neil Peretz
+email: nperetz@xrscience.com
+[Quoted text hidden]
+Benjamin Spohn <ben@spohn.legal> Mon, Apr 28, 2025 at 6:46 PM
+To: Neil Peretz <nperetz@xrscience.com>
+Congrats on AZ! That's great news.
+Yes, that's the beauty of the TCT product — at least as I’ve envisioned it. There are countless "DIY trust" solutions already on the market. And while they serve a purpose, they don't scale.
+Critically, I don't believe anyone has truly attempted to solve the financial institution / counterparty side of the trust problem. Largely, I think, because the state-by-state legal overlay intimidates most players.
+But that’s relatively straightforward to solve — and once we do, the go-to-market strategy becomes obvious: target FIs, large nonbank lenders, and wealth management platforms directly.
+I’ve done some very rough back-of-the-envelope math based on whatever publicly available data I could find. Here's a reference point:
+JPMC alone likely spends well north of $50 million annually ingesting and processing trusts (the real number is probably closer to $100 million).
+If we deploy TCT on a pay-per-use model (as ultimately contemplated), JPMC would see massive savings and faster turn times — a very easy sell.
+The trick with FIs (aside from POC) will likely be getting to bank-grade infosec. That will take time, but is surmountable.
+Once we're anchored inside a couple of FIs, the flywheel gets very interesting:
+High volume from FI customers = exposure to millions of American consumers
+TCT becomes the trust infrastructure layer — plug-and-play across institutions.
+Consumer-facing extensions (e.g., "trust administration on autopilot") can grow alongside FI adoption.
+LMK good times for a video conference this week. I'll circulate calendaring and a video link once we land on a time. I’m available for calls at:
+Tuesday 4/29: 9a-3p
+Wednesday 4/30: 10a-2p
+Thursday 5/1: 1-5p
+Friday 5/2: 10a-2p
+Benjamin Spohn
+Founder and Owner Spohn Law, PC
+p: 301.706.0172
+w: https://www.spohn.legal
+e: ben@spohn.legal
+[Quoted text hidden]
+Neil Peretz <nperetz@xrscience.com> Mon, Apr 28, 2025 at 8:18 PM
+To: Benjamin Spohn <ben@spohn.legal>
+Ben,
+I sent you a calendar invite for 1pm on Thursday.
+I do not recollect whether I told you about what we have been building on the Employment Law front. It sounds like there might be a way to adjust it so it works for your application.
+If I understand correctly the problem you are describing, we are not originating trusts from scratch and from templates. Instead, we are dealing with trusts that people have created and trying to homologate and transform them across forms that
+are expected by the counterparty. One could think of this as a limited version of Contract Wrangler.
+It sounds like the business is a combination of a SaaS business and possibly a legal service.
+For the very largest banks, they might just want a SaaS solution that can generate a certain amount of steady revenue. However we can charge a lot more money if we can wrap a legal service into it where we have software do most of the
+work, and then we have relevant lawyers look at it. Morever, having attorneys in loop will guarantee quality. I already have a team in Chennai that can start to bring in smart attorneys who are substantially lower cost who can do a lot of the
+legwork, and then we can have a U.S. attorney finalize it.
+On the U.S. side, it's not that hard for us to go line up lawyers who have a license in the appropriate states and have them be the final stage of review. Initially, we can focus on starting with the 5 most populous states plus Arizona.
+We would want to get 1 to 3 FIs are initial clients that we can think of them as Design Partners. They can validate functionality and also demonstrate that people will pay for this. They serve as a reference to the rest of the world that we are
+serious.
+I have relevant security people that can take care of achieving Bank Standard security.
+On the product front, I think it would be important that the output be traceable back to the original document provided by the client. If our system output to the bank can tie all of the facts back to the original documents presented by the client, that
+will give a great deal of comfort to the bank that we have been accurate and thorough. I'm not sure yet how to achieve that in a visually intuitive manner.
+When we talk, you'll have to tell me more about the pain points and how the process works right now.
+In terms of investors, if we want to raise money for it we should drop in on Ryan Gilbert at Launchpad because one of his venture funds has lots of LPs from community banks who could be clients.
+My instinct is that this could be built without outside capital as well. But if it helps open doors, it might be worth taking in some investment. We would have to first figure out what we can get built and validated before seeking an outside
+investment so we can ensure that there is a step up in valuation.
+Neil
+Neil Peretz
+email: nperetz@xrscience.com
+[Quoted text hidden]
+

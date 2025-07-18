@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trusto Investor Pitch Deck</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+            color: white;
+        }
+        
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+            page-break-after: always;
+            text-align: center;
+        }
+        
+        .slide h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .slide h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        .slide h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #F59E0B;
+        }
+        
+        .slide p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .bullet-list {
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .bullet-list li {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            list-style: none;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .bullet-list li::before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
+        
+        .problem-slide {
+            background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
+        }
+        
+        .solution-slide {
+            background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+        }
+        
+        .market-slide {
+            background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
+        }
+        
+        .speech-bubble {
+            background: white;
+            color: #374151;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px;
+            position: relative;
+            display: inline-block;
+            max-width: 350px;
+        }
+        
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top-color: white;
+        }
+        
+        .character {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .two-column {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1000px;
+        }
+        
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .process-step {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            min-width: 120px;
+        }
+        
+        .arrow {
+            font-size: 2rem;
+            margin: 0 10px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+            max-width: 800px;
+        }
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .big-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #F59E0B;
+            display: block;
+        }
+        
+        .cta {
+            background: #F59E0B;
+            color: #1E3A8A;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 30px;
+        }
+        
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        @media print {
+            .slide {
+                height: 90vh;
+            }
+            .navigation {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide">
+    <div class="logo">🔒</div>
+    <h1>TRUSTO</h1>
+    <p class="subtitle">The Plaid for Trusts</p>
+    <h2>Making $50 Trillion in Trust Assets<br>as Liquid as a Checking Account</h2>
+    <p>Trusto.inc | Series A Pitch | 2024</p>
+</div>
+
+<!-- Slide 2: Problem -->
+<div class="slide problem-slide">
+    <h2>Every Investor in This Room Has Experienced This</h2>
+    <div class="two-column">
+        <div>
+            <div class="character">👨‍💼</div>
+            <div class="speech-bubble">
+                "I need to add my trust to my mortgage refinance. The bank wants a 'certification of trust' but rejected my actual trust document. Now I need my lawyer, it'll take 3 weeks, and cost $2,000."
+            </div>
+        </div>
+        <div>
+            <div class="character">🏦</div>
+            <div class="speech-bubble">
+                "Another trust certification request. Our legal team won't review the full trust, so I'll send our custom form. The client will make errors, it'll bounce back twice, and we'll lose the deal."
+            </div>
+        </div>
+    </div>
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <span class="big-number">$500-2K</span>
+            <p>Cost per certification</p>
+        </div>
+        <div class="metric-card">
+            <span class="big-number">2-4 weeks</span>
+            <p>Processing time</p>
+        </div>
+        <div class="metric-card">
+            <span class="big-number">$50-100M</span>
+            <p>JPMorgan annual cost</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Market -->
+<div class="slide market-slide">
+    <h2>The Trust Economy is Massive and Growing</h2>
+    <div style="font-size: 1.5rem; margin: 30px 0;">
+        <p><strong>10% of Americans own trusts</strong></p>
+        <p><strong>They control 60% of American wealth ($50+ Trillion)</strong></p>
+    </div>
+    
+    <div class="two-column">
+        <div>
+            <h3>Micro Example (Personal Scale)</h3>
+            <ul class="bullet-list">
+                <li>Average trust owner: 5 financial accounts</li>
+                <li>Annual certification needs: 2-3 per trust</li>
+                <li>Current cost: $500-2,000 each</li>
+                <li>Time lost: 2-4 weeks each</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Macro Scale (Market Size)</h3>
+            <ul class="bullet-list">
+                <li>32M+ trust owners</li>
+                <li>80M annual certifications</li>
+                <li>$40B annual market</li>
+                <li>$8B+ annual inefficiency</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Solution -->
+<div class="slide solution-slide">
+    <h2>Trust Infrastructure Platform</h2>
+    <h3>Phase 1: Trust Certification Transformer (Live at Trusto.inc)</h3>
+    
+    <div class="process-flow">
+        <div class="process-step">
+            <strong>Upload</strong><br>
+            30 seconds
+        </div>
+        <div class="arrow">→</div>
+        <div class="process-step">
+            <strong>AI Extract</strong><br>
+            1 minute
+        </div>
+        <div class="arrow">→</div>
+        <div class="process-step">
+            <strong>Generate</strong><br>
+            30 seconds
+        </div>
+        <div class="arrow">→</div>
+        <div class="process-step">
+            <strong>E-Sign</strong><br>
+            2 minutes
+        </div>
+        <div class="arrow">→</div>
+        <div class="process-step">
+            <strong>Approved</strong><br>
+            Same day
+        </div>
+    </div>
+    
+    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin: 20px;">
+        <p><strong>Instead of:</strong> 2-4 weeks, $500-2,000, multiple errors</p>
+        <p><strong>Trusto delivers:</strong> Same day, $50-200, 95%+ accuracy</p>
+    </div>
+    
+    <h3>Phase 2: The "Plaid for Trusts"</h3>
+    <p>We become the infrastructure layer for ALL trust transactions</p>
+</div>
+
+<!-- Slide 5: Business Model -->
+<div class="slide">
+    <h2>Business Model: SaaS + Legal Services</h2>
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <h3>🏦 Enterprise SaaS</h3>
+            <p>Large Banks: $100K-500K annually</p>
+            <p>Regional Banks: $25K-100K annually</p>
+            <p>Credit Unions: $5K-25K annually</p>
+            <span class="big-number">85%</span>
+            <p>Gross Margin</p>
+        </div>
+        <div class="metric-card">
+            <h3>💳 Per-Transaction</h3>
+            <p>Direct Consumer: $50-200</p>
+            <p>FI White-label: $25-100</p>
+            <p>Volume discounts available</p>
+            <span class="big-number">75%</span>
+            <p>Gross Margin</p>
+        </div>
+        <div class="metric-card">
+            <h3>⚖️ Legal Services</h3>
+            <p>Document Review: $500-2,000</p>
+            <p>Transfer Deeds: $300-800</p>
+            <p>Trust Admin: $100-300/month</p>
+            <span class="big-number">60%</span>
+            <p>Gross Margin</p>
+        </div>
+    </div>
+    
+    <div style="margin-top: 30px;">
+        <h3>Unit Economics</h3>
+        <p>FI LTV/CAC: 8:1 | Consumer LTV/CAC: 12:1</p>
+    </div>
+</div>
+
+<!-- Slide 6: Go-to-Market -->
+<div class="slide">
+    <h2>Go-to-Market Strategy</h2>
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <h3>🌵 Phase 1: Arizona</h3>
+            <p><strong>Q4 2024</strong></p>
+            <ul style="text-align: left; font-size: 1rem;">
+                <li>Regulatory sandbox advantage</li>
+                <li>ABS legal structure approved</li>
+                <li>3-5 design partner FIs</li>
+            </ul>
+        </div>
+        <div class="metric-card">
+            <h3>🌟 Phase 2: Top 5 States</h3>
+            <p><strong>Q1-Q2 2025</strong></p>
+            <ul style="text-align: left; font-size: 1rem;">
+                <li>CA, TX, FL, NY, PA</li>
+                <li>36.7% of US population</li>
+                <li>Enterprise sales team</li>
+            </ul>
+        </div>
+        <div class="metric-card">
+            <h3>🇺🇸 Phase 3: National</h3>
+            <p><strong>2025-2026</strong></p>
+            <ul style="text-align: left; font-size: 1rem;">
+                <li>All 50 states + DC</li>
+                <li>Major bank enterprise deals</li>
+                <li>Platform ecosystem</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: Team -->
+<div class="slide">
+    <h2>Team & Execution</h2>
+    <div class="two-column">
+        <div style="text-align: left;">
+            <h3>👨‍💼 Ben Spohn - Founder & CEO</h3>
+            <ul class="bullet-list">
+                <li>6 years Federal Reserve Bank</li>
+                <li>Spohn Law PC (Trust Law)</li>
+                <li>Built working MVP at Trusto.inc</li>
+            </ul>
+            
+            <h3>👨‍💼 Neil Peretz - Co-Founder</h3>
+            <ul class="bullet-list">
+                <li>DOJ, SEC, CFPB Experience</li>
+                <li>Arizona ABS Firm Approved</li>
+                <li>Professional Services + SaaS Scaling</li>
+            </ul>
+        </div>
+        <div style="text-align: left;">
+            <h3>🛠️ Technical Execution</h3>
+            <ul class="bullet-list">
+                <li>Doug Reed: Enterprise Development</li>
+                <li>Bank-grade security expertise</li>
+                <li>SOC2 compliance experience</li>
+            </ul>
+            
+            <h3>💡 Key Insight</h3>
+            <p style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
+                This team has <strong>lived the problem</strong> and knows how to solve it. Banking + Legal + Tech expertise in one founding team.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Traction -->
+<div class="slide">
+    <h2>Traction & Proof Points</h2>
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <h3>✅ Technical</h3>
+            <ul style="text-align: left; font-size: 1rem;">
+                <li>Working MVP at Trusto.inc</li>
+                <li>>80% AI extraction accuracy</li>
+                <li>Multi-format document support</li>
+                <li>Bank-grade security framework</li>
+            </ul>
+        </div>
+        <div class="metric-card">
+            <h3>✅ Legal</h3>
+            <ul style="text-align: left; font-size: 1rem;">
+                <li>50-state research complete</li>
+                <li>Neil's ABS partnership ready</li>
+                <li>Privacy policy & terms live</li>
+                <li>Compliance framework built</li>
+            </ul>
+        </div>
+        <div class="metric-card">
+            <h3>🎯 Pipeline</h3>
+            <ul style="text-align: left; font-size: 1rem;">
+                <li>3 Arizona FIs identified</li>
+                <li>Design partner conversations</li>
+                <li>Legal network integration</li>
+                <li>Technology partnerships planned</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div style="margin-top: 30px; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+        <h3>Market Validation</h3>
+        <p>Every VC in this room has experienced this pain personally</p>
+    </div>
+</div>
+
+<!-- Slide 9: Financial Projections -->
+<div class="slide">
+    <h2>Financial Projections</h2>
+    <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+        <div style="text-align: left; margin-right: 50px;">
+            <h3>Revenue Growth</h3>
+            <div style="font-size: 1.5rem; line-height: 2;">
+                <p>2025: <span style="color: #F59E0B;">$500K</span> (Arizona validation)</p>
+                <p>2026: <span style="color: #F59E0B;">$3.2M</span> (Multi-state expansion)</p>
+                <p>2027: <span style="color: #F59E0B;">$12.5M</span> (National platform)</p>
+            </div>
+        </div>
+        <div style="font-size: 4rem; color: #F59E0B;">📈</div>
+    </div>
+    
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <h3>Key Metrics</h3>
+            <p>FI LTV/CAC: 8:1</p>
+            <p>Consumer LTV/CAC: 12:1</p>
+            <p>Gross Margin: 80%+</p>
+        </div>
+        <div class="metric-card">
+            <h3>Year 1 Goals</h3>
+            <p>5 FI partnerships</p>
+            <p>1,000 certifications</p>
+            <p>$500K ARR</p>
+        </div>
+        <div class="metric-card">
+            <h3>Scale Targets</h3>
+            <p>100+ FI partnerships</p>
+            <p>50,000 certifications</p>
+            <p>Path to profitability</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 10: Funding Ask -->
+<div class="slide">
+    <h2>Series A: $2.5M for 18-Month Runway</h2>
+    
+    <div style="display: flex; justify-content: center; align-items: center; margin: 30px 0;">
+        <div style="width: 300px; height: 300px; border-radius: 50%; background: conic-gradient(#1E3A8A 0deg 144deg, #10B981 144deg 270deg, #F59E0B 270deg 360deg); display: flex; align-items: center; justify-content: center; position: relative;">
+            <div style="width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">
+                $2.5M
+            </div>
+        </div>
+        <div style="margin-left: 50px; text-align: left;">
+            <div style="margin-bottom: 15px;">
+                <span style="color: #1E3A8A; font-size: 2rem;">●</span> 40% Product Development ($1.0M)
+            </div>
+            <div style="margin-bottom: 15px;">
+                <span style="color: #10B981; font-size: 2rem;">●</span> 35% Go-to-Market ($875K)
+            </div>
+            <div style="margin-bottom: 15px;">
+                <span style="color: #F59E0B; font-size: 2rem;">●</span> 25% Legal & Compliance ($625K)
+            </div>
+        </div>
+    </div>
+    
+    <h3>18-Month Milestones</h3>
+    <div class="two-column">
+        <ul class="bullet-list">
+            <li>3-5 FI partnerships in Arizona</li>
+            <li>$500K ARR by end of Year 1</li>
+        </ul>
+        <ul class="bullet-list">
+            <li>SOC2 certification complete</li>
+            <li>Multi-state expansion ready</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Slide 11: Why This Succeeds -->
+<div class="slide">
+    <h2>Why This Investment Succeeds</h2>
+    
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <h3>🎯</h3>
+            <p><strong>Personal Problem Recognition</strong></p>
+            <p>Every investor here has dealt with trust certification pain</p>
+        </div>
+        <div class="metric-card">
+            <h3>📈</h3>
+            <p><strong>Massive Underserved Market</strong></p>
+            <p>$50T in trust assets with no infrastructure layer</p>
+        </div>
+        <div class="metric-card">
+            <h3>🛡️</h3>
+            <p><strong>Defensible Business Model</strong></p>
+            <p>Network effects + regulatory complexity = moats</p>
+        </div>
+        <div class="metric-card">
+            <h3>⚡</h3>
+            <p><strong>Technical Proof-of-Concept</strong></p>
+            <p>Working AI at Trusto.inc shows execution capability</p>
+        </div>
+        <div class="metric-card">
+            <h3>🤝</h3>
+            <p><strong>Proven Partnership Model</strong></p>
+            <p>Neil's ABS expertise de-risks legal execution</p>
+        </div>
+        <div class="metric-card">
+            <h3>🌵</h3>
+            <p><strong>Regulatory First-Mover Advantage</strong></p>
+            <p>Arizona sandbox gives competitive edge</p>
+        </div>
+    </div>
+    
+    <div style="margin-top: 40px; font-size: 1.5rem; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+        <strong>The Vision:</strong> Every trust transaction should be as simple as using a credit card.<br>
+        We're building the infrastructure to make that possible.
+    </div>
+</div>
+
+<!-- Slide 12: Thank You -->
+<div class="slide">
+    <h1>Thank You</h1>
+    <div style="margin: 40px 0;">
+        <h3>Ben Spohn - Founder & CEO</h3>
+        <p>📧 ben@spohn.legal</p>
+        <p>📱 301.706.0172</p>
+        <p>🌐 Trusto.inc</p>
+    </div>
+    
+    <div class="metrics-grid" style="margin-top: 50px;">
+        <div class="metric-card">
+            <h3>Next Steps</h3>
+            <ul style="text-align: left; font-size: 1rem;">
+                <li>Demo environment access</li>
+                <li>Due diligence package</li>
+                <li>Reference calls with FIs</li>
+                <li>Portfolio company validation</li>
+            </ul>
+        </div>
+    </div>
+    
+    <a href="https://trusto.inc" class="cta" style="margin-top: 30px;">Try the Platform</a>
+    
+    <div style="margin-top: 40px; font-size: 1.3rem;">
+        <strong>The Ask: $2.5M Series A to build the trust infrastructure this market desperately needs</strong>
+    </div>
+</div>
+
+<div class="navigation">
+    <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+    <span id="slideCounter" style="margin: 0 10px;">1 / 12</span>
+    <button class="nav-btn" onclick="nextSlide()">Next →</button>
+</div>
+
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+
+function showSlide(n) {
+    slides.forEach(slide => slide.style.display = 'none');
+    currentSlide = (n + totalSlides) % totalSlides;
+    slides[currentSlide].style.display = 'flex';
+    document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+}
+
+function nextSlide() {
+    showSlide(currentSlide + 1);
+}
+
+function previousSlide() {
+    showSlide(currentSlide - 1);
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+    } else if (e.key === 'ArrowLeft') {
+        previousSlide();
+    }
+});
+
+// Initialize
+showSlide(0);
+
+// Auto-advance for demo (remove this for actual presentation)
+// setInterval(nextSlide, 10000);
+</script>
+
+</body>
+</html>

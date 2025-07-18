@@ -3,7 +3,12 @@
 import React, { useState } from 'react';
 import CertificationStripeFlow from './certification';
 import AIDocumentProcessor from '../components/AIDocumentProcessor';
-import ESignatureIntegration from '../components/ESignatureIntegration';
+import dynamic from 'next/dynamic';
+
+const ESignatureIntegration = dynamic(() => import('../components/ESignatureIntegrationClient'), {
+  ssr: false,
+  loading: () => <div className="text-center p-8">Loading signature options...</div>
+});
 import Articles from '../components/Articles';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -433,7 +438,6 @@ const LandingPage = ({ onGetStarted }) => {
           </p>
         </div>
       </div>
-    </div>
     </div>
   );
 };

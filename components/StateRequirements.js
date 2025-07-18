@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 const StateRequirements = ({ selectedState, onRequirementsLoaded }) => {
   const [requirements, setRequirements] = useState(null);
   const [loading, setLoading] = useState(false);
 
   // Comprehensive state requirements based on research
-  const stateRequirementsData = {
+  const stateRequirementsData = useMemo(() => ({
     'CA': {
       name: 'California',
       statutes: {
@@ -134,7 +134,7 @@ const StateRequirements = ({ selectedState, onRequirementsLoaded }) => {
         powers: 'Must include all powers granted to trustees under the trust instrument'
       }
     }
-  };
+  }), []);
 
   useEffect(() => {
     if (selectedState && stateRequirementsData[selectedState]) {
@@ -148,7 +148,7 @@ const StateRequirements = ({ selectedState, onRequirementsLoaded }) => {
     } else {
       setRequirements(null);
     }
-  }, [selectedState, onRequirementsLoaded]);
+  }, [selectedState, onRequirementsLoaded, stateRequirementsData]);
 
   if (!selectedState) return null;
 

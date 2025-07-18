@@ -1,0 +1,156 @@
+Benjamin Spohn <ben@spohn.legal>
+checking in
+7 messages
+Neil Peretz <nperetz@xrscience.com> Fri, May 23, 2025 at 8:54 PM
+To: Benjamin Spohn <ben@spohn.legal>
+Ben,
+1. How were the conversations with Farshad and Doug Reed?
+2. I spoke briefly about the idea with a friend (Melody Dippold) who has a lot of experience marketing to our target consumer clients while at MetLife, Financial Engines, and McKinsey. She liked the idea. She might be a good person to get
+involved after there is outside funding.
+3. Is there some way we could handle this with just a web front-end and spreadsheets out of the gate in order to test demand?
+Neil
+Neil Peretz
+email: nperetz@xrscience.com
+Benjamin Spohn <ben@spohn.legal> Tue, May 27, 2025 at 10:37 AM
+To: Neil Peretz <nperetz@xrscience.com>
+Hi Neil,
+Quick update on where things stand:
+1) Conversations with Farshad and Doug
+Both were highly productive. Farshad was a great thought partner—particularly sharp on early-stage product scoping. Doug seems like a very likely medium-to-long-term dev solution. Encouragingly, both are quite bullish on the concept. The
+punchline from these discussions (echoing your earlier point #3) is that while the long-term vision will involve real tech investment, the short-term version doesn’t—and probably shouldn’t.
+2) Market Input & Melody
+Thanks again for flagging Melody—looking forward to connecting with her. I’ve also been having conversations elsewhere, including a helpful one with Will Bressman (ex-RIA software space). His insights were useful in thinking about early
+market segmentation and go-to-market motion.
+3) Where the Arrows Point
+Most of my focus lately has gone toward clarifying this initial offering. I’m increasingly drawn to a DTC-style rollout with minimal tech as the POC:
+Step 1: Decide on name + launch a basic but polished website (on name, I have attached a list of words compiled during the free association exercise we discussed)
+Step 2: Use AI to generate a modest volume of consumer-facing content (e.g., “3 things banks look for in a trust certification”) to drive early traffic/signups; I can put these together in fairly short order
+Step 3: Add a simple intake form — clients upload their trust + certification form (could literally be an email integration but optimally at least some kind of simple drag and drop interface)
+Step 4: We manually complete and return the filled certification, optionally teeing it up with Docusign or e-notary integration; we steer well clear of UPL issues during this phase/frame as extracting data from one document (the trust) to
+another (the certification/onboarding form)
+This would serve as both user validation and process mapping ahead of automation. The idea is to deliver actual value with minimal build, while learning where automation will have the most leverage.
+4) Data Rights (Looking Ahead)
+One thing we’ll want to address upfront: it will be important to retain rights to store and analyze the trust documents we receive, both to power downstream client services and—eventually—for training and refining our LLM-driven data extraction
+engine. I’ll sketch out a draft terms of use / privacy approach that supports this.
+5) Next Step
+Once we have this working even in skeleton form, we can bring it to someone like Ryan or a friendly enterprise lead. I’m working on the latter angle now.
+More soon,
+Ben
+Benjamin Spohn
+Founder and Owner Spohn Law, PC
+p: 301.706.0172
+w: https://www.spohn.legal
+e: ben@spohn.legal
+[Quoted text hidden]
+Trust Business Free Association Exercise.docx
+16K
+Benjamin Spohn <ben@spohn.legal> Tue, May 27, 2025 at 10:37 AM
+To: Kristin Baker Spohn <baker.kristin@gmail.com>
+FYI
+Benjamin Spohn
+Founder and Owner Spohn Law, PC
+p: 301.706.0172
+w: https://www.spohn.legal
+e: ben@spohn.legal
+[Quoted text hidden]
+Trust Business Free Association Exercise.docx
+16K
+Kristin Baker Spohn <baker.kristin@gmail.com> Tue, May 27, 2025 at 11:41 AM
+To: Benjamin Spohn <ben@spohn.legal>
+Great game plan.
+[Quoted text hidden]
+Neil Peretz <nperetz@xrscience.com> Tue, May 27, 2025 at 6:42 PM
+To: Benjamin Spohn <ben@spohn.legal>
+Intake Flows
+It should be fairly easy to set up intake flows via Zoho. Zoho can then pop up as an iframe in a static website that looks good.
+I already have a ZohoOne account.
+Had you already mocked up the input questions we need ?
+ToS and Data
+I think the Terms of Service would specify that we keep data for archival and other records, and explain that we use aggregated data for certain purposes.
+Naming
+What would you say are the key characteristics that we want the name to emphasize?
+I can develop additional names based on that.
+Content
+I think the best way to start this process is for you to make a list of common questions that people have about trusts and common issues that they have.
+We can develop answers to those later.
+See the website answerthepublic.com to lookup common questions about trusts and other topics. See some examples attached herewith.
+REDDIT It's a great place to look about the questions people ask as well. And also justanswers.com.
+In fact, it's best to just focus on curating a whole list of questions. Then we can generate seed answers and have the AI flesh those out.
+For the content promo, we will also want to work on some clickbait-sounding titles, such as:
+"Bank attorney reveals the trust secrets that banks don't want you to know."
+Other folks
+Do you want me to connect you to Melody to chat with her? It might be worthwhile. She would be a good person to ask about market ideas, but we you could also talk to her later.
+What was key learning from Will Bressman?
+Neil
+Neil Peretz
+email: nperetz@xrscience.com
+[Quoted text hidden]
+3 attachments
+revocable trusts_answerthepublic_May 27 2025.png
+204K
+trusts_answerthepublic_May 27 2025.png
+111K
+revocable trust_tree_structure_answerthepublic_May 27 2025.png
+524K
+Benjamin Spohn <ben@spohn.legal> Wed, Jun 4, 2025 at 7:26 PM
+To: Neil Peretz <nperetz@xrscience.com>
+Quick updates from me.
+First, thank you for your thoughts last week. Helpful as always.
+Second, I have been laser-focused on identifying potential champions who may become potential customers and setting up discovery calls with them. The primary purpose of these calls is to properly scope the initial go to market offering/MVP
+based upon their actual business needs. I thought I had a decent handle on this but realized I could really benefit from some more quality market data. The secondary purpose of these calls is to tee these folks up as potential customers. These
+are primarily SVP/COO/CEO level folks. I anticipate this is where I will be spending most of my time on this project over the next 2-3 weeks.
+Example: I just discovered that a mid-sized business purpose lender client of my firm is literally asking for entire trust agreements (that's a no-no), paying a person to review the trust and fill out a Word doc chart of key trust characteristics (trustor,
+trustee, beneficiary, etc.) (risky and expensive way to do this kind of thing), and attaching that chart to the credit memo (bad idea). I'm friends with their COO and plan to speak to her next week about this potential offering. It's funny, I've been so
+focused on the big FIs' mesh points with customers, i.e., their bespoke trust certification forms, that I overlooked that this risk may not even be on most folks' radar in the midmarket. It's a slightly different pitch, but one that should work well, e.g.,
+"I saw you have this process. Did you know that it's creating big risks for you? I can help solve that." Where the "solve" could (potentially) be even simpler than what I had even contemplated thus far.
+I've been messing around with the intake flows but have that piece temporarily on hold while I dig on this discovery piece.
+Third, I have brought on my wife to help out w/ this a bit more, especially on the GTM side. We should all get together at some point. If this is really going by the fall (which is my goal), she can even snag a GSB intern to help out.
+Fourth, on content, I agree with you on approach and have started to spin up some stuff. Hope to have a stockpile by the end of month.
+Fifth, on name. My notes on this topic now have their own notes. So, while I now have about a thousand ideas, I can't shake the passport/golden age of travel framework. Passports prove citizenship and identity > this company proves the
+trust's terms and standing. The trust will ultimately become "borderless," moving between and among counterparties without friction. And of course there's a kind of social mobility (mobility!) aspect inherent in trusts. Plus the golden age overlay
+that's a bit of an overt homage to the greatest generation, where the target market now is the next gen.
+Counterpoint: It could also just be called something like "Trusteed." Clear, minimalist, modern. No fun at all, but very direct.
+Much more to come out of these discovery calls...
+Thank you,
+Ben
+Benjamin Spohn
+Founder and Owner Spohn Law, PC
+p: 301.706.0172
+w: https://www.spohn.legal
+e: ben@spohn.legal
+[Quoted text hidden]
+Neil Peretz <nperetz@xrscience.com> Wed, Jun 4, 2025 at 9:49 PM
+To: Benjamin Spohn <ben@spohn.legal>
+Ben,
+I am not surprised whatsoever that you found poor compliance at a middle market company. There are probably quite a few fintech companies that also have these issues.
+Don't forget all the investment advisors and companies dealing with stocks and options. They probably also have these issues.
+Your observation of the shortcomings of their process also provides fantastic fodder for additional content generation.
+If it costs a bunch of money to the financial services company, then a service like ours would be a big savings to them and also dramatically expedite their process.
+I thought it might be interesting to give a referral fee to the banks for sending us clients, which we could do through the Arizona law firm. However, given that the bank is on the other side of the transaction, people might think that encourages a
+conflict of interest. I would need to research that further. If we could give a referral fee to the bank, then this could actually turn into an additional profit center for them.
+I wonder if Centrust (aka SmartBiz Bank) ever has these issues.
+I have not broached this business with Ryan Gilbert yet. When I do so, I can ask him to get connected to River City Bank, where he is a board member. And he is an advisor at Castle Creek, which is a part owner of 20+ community banks.
+Not sure if I ever told you that my wife is a GSB grad as well.
+We could also seek a law student as an intern, but I think a business student might be better. We don't have to only focus on GSB as a source for those interns. Many times business schools have class projects where the students can actually
+get credit. You can also check all the other business schools in the Bay Area. Once selecting an intern, it's going to be important to get someone who adds a lot of value and knows enough to be able to work semi-independently. Otherwise, we'll
+spend more time managing them than we will benefit from.
+It sounds like you are focused on exactly the right activities. Really nailing down the use case and pain points is key to tailoring the MVP Into a service that has lift out of the gate. Find one type of financial services company that's willing to
+promote this, and find one type of client that's willing to pay for the service. That's all that is needed to have something live.
+re: imagery
+I am huge fan of passport/golden age of travel. It's colorful, it's optimistic, it's attention-getting because it's a style that people don't use. It reminds people of a time of stability and optimism and an increasing GDP.
+re: name.
+We want the name to be unique enough that it cannot be ripped off easily. If the name uses common words (e.g., Trusteed), then the name is hard to protect. (see, e.g., here).
+The name itself doesn't have to tie into the Golden Age of Travel. We could add Passport or Trust Passport or Trustport or Trustpass as being the product name that follows after a company name (e.g., Apple Mac; Apple iPad; Apple iPhone).
+Having a master brand and then using Passport or "Trust Passport" as a particular product opens the door for other products in the same company as well.
+What are the core values and/or positioning we want the name to convey? Something about flexibility, wealth, ease, freedom. What else?
+There are so many names of people and places and concepts connected to banking that we could use as a company name. For example, did you know that the Knights Templar ran one of the first European-wide bank services? Templar could
+be a name.
+Palmstruck founded the first bank in Sweden. and that was the first ever in Europe to issue a bank note. Palmstruck could be a name.
+I'm not wedded to any of these names, however it should give you an idea about some strategies to pursue meaningful names that are not obvious but can be linked back to the story.
+re: Getting together.
+Happy to meetup anytime. I'm generally around the Bay Area until mid-August, come up when I go away for a couple weeks to bring my oldest daughter to college. (I will be working remotely then.)
+Neil
+Neil Peretz
+email: nperetz@xrscience.com
+[Quoted text hidden]
+

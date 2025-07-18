@@ -1,1 +1,13 @@
- 
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="200" height="50" rx="10" fill="#F8FAFC"/>
+  
+  <!-- Trust Icon -->
+  <circle cx="25" cy="25" r="18" fill="#2563EB"/>
+  <path d="M25 10L25 40" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+  <path d="M12 25L25 40L38 25" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Trusto Text -->
+  <text x="55" y="32" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1E293B">Trusto</text>
+  <text x="140" y="32" font-family="Arial, sans-serif" font-size="16" font-weight="500" fill="#2563EB">.Inc</text>
+</svg> 
