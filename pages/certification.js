@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DocumentGenerator from '../components/DocumentGenerator';
 import StateRequirements from '../components/StateRequirements';
+import { 
+  validateForm, 
+  sanitizeInput, 
+  sanitizeArray, 
+  formatTIN,
+  normalizeState 
+} from '../utils/validation';
 
 // All US states + DC
 const states = [
@@ -28,7 +35,7 @@ const trusteePowersList = [
 // Comprehensive state-specific requirements based on scraped data
 const stateRequirements = {
   CA: {
-    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin', 'governingLaw'],
+    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin'],
     tooltips: {
       trustName: 'The full legal name of the trust as stated in the trust document (CA Probate Code § 18100.5).',
       trustDate: 'The date the trust was executed (signed).',
@@ -44,7 +51,7 @@ const stateRequirements = {
     recording: 'May need to be recorded if trust owns real property in California.'
   },
   TX: {
-    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin', 'governingLaw'],
+    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin'],
     tooltips: {
       trustName: 'The full legal name of the trust as stated in the trust document (TX Prop. Code § 114.086).',
       trustDate: 'The date the trust was executed (signed).',
@@ -60,7 +67,7 @@ const stateRequirements = {
     recording: 'Must be recorded if trust owns real property in Texas.'
   },
   NY: {
-    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin', 'governingLaw'],
+    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin'],
     tooltips: {
       trustName: 'The full legal name of the trust as stated in the trust document.',
       trustDate: 'The date the trust was executed (signed).',
@@ -76,7 +83,7 @@ const stateRequirements = {
     recording: 'May need to be recorded if trust owns real property in New York.'
   },
   FL: {
-    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin', 'governingLaw'],
+    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin'],
     tooltips: {
       trustName: 'The full legal name of the trust as stated in the trust document (FL Stat. § 736.1017).',
       trustDate: 'The date the trust was executed (signed).',
@@ -92,7 +99,7 @@ const stateRequirements = {
     recording: 'Must be recorded if trust owns real property in Florida.'
   },
   IL: {
-    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin', 'governingLaw'],
+    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin'],
     tooltips: {
       trustName: 'The full legal name of the trust as stated in the trust document (760 ILCS 3/1013).',
       trustDate: 'The date the trust was executed (signed).',
@@ -108,7 +115,7 @@ const stateRequirements = {
     recording: 'May need to be recorded if trust owns real property in Illinois.'
   },
   VA: {
-    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin', 'governingLaw'],
+    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin'],
     tooltips: {
       trustName: 'The full legal name of the trust as stated in the trust document (VA Code § 64.2-804).',
       trustDate: 'The date the trust was executed (signed).',
@@ -126,7 +133,7 @@ const stateRequirements = {
 };
 
 // Generic requirements for states not specifically defined
-const genericFields = ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin', 'governingLaw'];
+const genericFields = ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin'];
 const genericTooltips = {
   trustName: 'The full legal name of the trust as stated in the trust document.',
   trustDate: 'The date the trust was executed (signed).',
@@ -141,7 +148,7 @@ const genericTooltips = {
 
 const steps = [
   { label: 'State', fields: ['state'] },
-  { label: 'Trust Basics', fields: ['trustName', 'trustDate', 'revocability', 'governingLaw'] },
+  { label: 'Trust Basics', fields: ['trustName', 'trustDate', 'revocability'] },
   { label: 'Parties', fields: ['grantor', 'trustee', 'successorTrustee'] },
   { label: 'Trustee Powers', fields: ['powers'] },
   { label: 'Tax Info', fields: ['tin'] },
@@ -152,7 +159,6 @@ const initialForm = {
   trustName: '',
   trustDate: '',
   revocability: '',
-  governingLaw: '',
   grantor: '',
   trusteeType: 'one',
   trustee: [''],
@@ -163,12 +169,26 @@ const initialForm = {
   tin: '',
 };
 
-export default function CertificationStripeFlow() {
+export default function CertificationStripeFlow({ prefillData }) {
   const [form, setForm] = useState(initialForm);
   const [step, setStep] = useState(0);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [showDocument, setShowDocument] = useState(false);
+
+  // Autofill form with prefillData (from AI extraction)
+  useEffect(() => {
+    if (prefillData && Object.keys(prefillData).length > 0) {
+      setForm(f => ({
+        ...f,
+        ...prefillData,
+        state: prefillData.governingLaw || prefillData.state || f.state || '',
+        trustee: Array.isArray(prefillData.trustee) ? prefillData.trustee : (prefillData.trustee ? [prefillData.trustee] : ['']),
+        successorTrustee: Array.isArray(prefillData.successorTrustee) ? prefillData.successorTrustee : (prefillData.successorTrustee ? [prefillData.successorTrustee] : ['']),
+        powers: Array.isArray(prefillData.powers) ? prefillData.powers : (prefillData.powers ? [prefillData.powers] : []),
+      }));
+    }
+  }, [prefillData]);
 
   // Get state-specific fields/tooltips or fall back to generic
   const selectedState = form.state;
@@ -179,28 +199,36 @@ export default function CertificationStripeFlow() {
 
   // Validation logic
   const validate = () => {
-    const newErrors = {};
-    stepFields.forEach((key) => {
-      if (key === 'trustee') {
-        if (!form.trustee || !form.trustee.filter(Boolean).length) newErrors.trustee = 'Please enter at least one trustee.';
-      } else if (key === 'successorTrustee') {
-        if (!form.successorTrustee || !form.successorTrustee.filter(Boolean).length) newErrors.successorTrustee = 'Please enter at least one successor trustee.';
-      } else if (key === 'powers') {
-        if (!form.powers || !form.powers.length) newErrors.powers = 'Please select at least one power.';
-      } else if (key === 'tin' && form.revocability === 'irrevocable') {
-        if (!form.tin) newErrors.tin = 'TIN is required for irrevocable trusts.';
-      } else if (!form[key] && key !== 'tin') {
-        newErrors[key] = 'This field is required.';
-      }
-    });
+    const newErrors = validateForm(form, step, stepFields);
+    
+    // Additional state-specific validation
+    if (stepFields.includes('tin') && form.revocability === 'irrevocable' && !form.tin) {
+      newErrors.tin = 'TIN is required for irrevocable trusts';
+    }
+    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   // Handlers for dynamic trustee/successor trustee fields
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: undefined });
+    let value = e.target.value;
+    const name = e.target.name;
+    
+    // Sanitize input
+    if (typeof value === 'string') {
+      value = sanitizeInput(value);
+    }
+    
+    // Special formatting for specific fields
+    if (name === 'tin') {
+      value = formatTIN(value);
+    } else if (name === 'state') {
+      value = normalizeState(value);
+    }
+    
+    setForm({ ...form, [name]: value });
+    setErrors({ ...errors, [name]: undefined });
   };
 
   const handleTrusteeType = (e) => {
@@ -209,7 +237,7 @@ export default function CertificationStripeFlow() {
   };
   const handleTrusteeChange = (idx, value) => {
     const updated = [...form.trustee];
-    updated[idx] = value;
+    updated[idx] = sanitizeInput(value);
     setForm({ ...form, trustee: updated });
     setErrors({ ...errors, trustee: undefined });
   };
@@ -225,7 +253,7 @@ export default function CertificationStripeFlow() {
   };
   const handleSuccessorChange = (idx, value) => {
     const updated = [...form.successorTrustee];
-    updated[idx] = value;
+    updated[idx] = sanitizeInput(value);
     setForm({ ...form, successorTrustee: updated });
     setErrors({ ...errors, successorTrustee: undefined });
   };
@@ -248,7 +276,8 @@ export default function CertificationStripeFlow() {
     setErrors({ ...errors, powers: undefined });
   };
   const handleOtherPower = (e) => {
-    setForm({ ...form, otherPower: e.target.value });
+    setForm({ ...form, otherPower: sanitizeInput(e.target.value) });
+    setErrors({ ...errors, otherPower: undefined });
   };
 
   // Progress bar
@@ -306,6 +335,31 @@ export default function CertificationStripeFlow() {
           )}
 
           {stepFields.map((key) => {
+            if (key === 'state') {
+              return (
+                <div key="state" className="space-y-2">
+                  <label className="block font-medium text-gray-700">
+                    What state is your trust governed by?
+                    <span className="ml-1 text-blue-500 cursor-help" title={req.tooltips.state || genericTooltips.state}>ⓘ</span>
+                  </label>
+                  <select
+                    name="state"
+                    value={form.state}
+                    onChange={e => {
+                      setForm({ ...form, state: e.target.value });
+                      setErrors({ ...errors, state: undefined });
+                    }}
+                    className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="">Select a state...</option>
+                    {states.map(s => (
+                      <option key={s.code} value={s.code}>{s.name}</option>
+                    ))}
+                  </select>
+                  {errors.state && <div className="text-red-500 text-sm mt-2">{errors.state}</div>}
+                </div>
+              );
+            }
             if (key === 'trustee') {
               return (
                 <div key="trustee" className="space-y-4">
@@ -330,6 +384,7 @@ export default function CertificationStripeFlow() {
                         name={`trustee_${idx}`}
                         value={name}
                         onChange={e => handleTrusteeChange(idx, e.target.value)}
+                        autoComplete="name"
                         className="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         placeholder={`Trustee name${form.trustee.length > 1 ? ` #${idx + 1}` : ''}`}
                       />
@@ -369,6 +424,7 @@ export default function CertificationStripeFlow() {
                         name={`successorTrustee_${idx}`}
                         value={name}
                         onChange={e => handleSuccessorChange(idx, e.target.value)}
+                        autoComplete="name"
                         className="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         placeholder={`Successor trustee name${form.successorTrustee.length > 1 ? ` #${idx + 1}` : ''}`}
                       />
@@ -429,32 +485,23 @@ export default function CertificationStripeFlow() {
                 <label className="block font-medium text-gray-700">
                   {(() => {
                     switch (key) {
-                      case 'state': return 'What state is your trust governed by?';
                       case 'trustName': return 'Full legal name of the trust';
                       case 'trustDate': return 'Date trust was executed';
                       case 'revocability': return 'Is the trust revocable or irrevocable?';
                       case 'grantor': return 'Name of grantor (settlor/trustor)';
-                      case 'governingLaw': return 'Governing law (state)';
                       default: return key;
                     }
                   })()}
                   <span className="ml-1 text-blue-500 cursor-help" title={req.tooltips[key] || genericTooltips[key]}>ⓘ</span>
                 </label>
-                {key === 'state' ? (
-                  <select
-                    name="state"
-                    value={form.state}
-                    onChange={e => {
-                      setForm({ ...form, state: e.target.value });
-                      setErrors({ ...errors, state: undefined });
-                    }}
+                {key === 'trustDate' ? (
+                  <input
+                    type="date"
+                    name="trustDate"
+                    value={form.trustDate}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  >
-                    <option value="">Select a state...</option>
-                    {states.map(s => (
-                      <option key={s.code} value={s.code}>{s.name}</option>
-                    ))}
-                  </select>
+                  />
                 ) : key === 'revocability' ? (
                   <select
                     name="revocability"
@@ -466,32 +513,24 @@ export default function CertificationStripeFlow() {
                     <option value="revocable">Revocable</option>
                     <option value="irrevocable">Irrevocable</option>
                   </select>
-                ) : key === 'trustDate' ? (
+                ) : key === 'tin' ? (
                   <input
-                    type="date"
-                    name="trustDate"
-                    value={form.trustDate}
+                    type="text"
+                    name="tin"
+                    value={form.tin}
                     onChange={handleChange}
+                    placeholder="XX-XXXXXXX"
+                    maxLength={10}
+                    autoComplete="tax-id"
                     className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
-                ) : key === 'governingLaw' ? (
-                  <select
-                    name="governingLaw"
-                    value={form.governingLaw}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  >
-                    <option value="">Select governing law...</option>
-                    {states.map(s => (
-                      <option key={s.code} value={s.code}>{s.name}</option>
-                    ))}
-                  </select>
                 ) : (
                   <input
                     type="text"
                     name={key}
                     value={form[key]}
                     onChange={handleChange}
+                    autoComplete={key === 'grantor' || key === 'trustName' ? 'name' : key === 'state' ? 'address-level1' : 'off'}
                     className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 )}
@@ -508,6 +547,14 @@ export default function CertificationStripeFlow() {
                 <strong>Statute:</strong> {stateRequirements[selectedState].statute}<br />
                 <strong>Recording:</strong> {stateRequirements[selectedState].recording}
               </p>
+            </div>
+          )}
+
+          {/* Review Tip */}
+          {step === steps.length - 1 && (
+            <div className="mb-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-lg flex items-center gap-3">
+              <span className="text-2xl">💡</span>
+              <span className="text-yellow-800 text-sm font-medium">Please review your information carefully before confirming. Trust documents are legal instruments—accuracy matters!</span>
             </div>
           )}
 
