@@ -1,0 +1,639 @@
+{
+  "financial_institutions": {
+    "Chase Bank": {
+      "requirements": [
+        "Complete trust certification form",
+        "Original or certified copy of trust document",
+        "Government-issued photo identification",
+        "Proof of trustee authority",
+        "Tax identification number (if applicable)",
+        "Notarized signature of trustee"
+      ],
+      "forms": [
+        "Certification of Trust Form",
+        "Trust Document Submission Form",
+        "Trustee Authority Verification Form"
+      ],
+      "contact_info": {
+        "phone": "1-800-TRUST-XX",
+        "email": "trust@institution.com",
+        "website": "https://institution.com/trust-services"
+      }
+    },
+    "Bank of America": {
+      "requirements": [
+        "Complete trust certification form",
+        "Original or certified copy of trust document",
+        "Government-issued photo identification",
+        "Proof of trustee authority",
+        "Tax identification number (if applicable)",
+        "Notarized signature of trustee"
+      ],
+      "forms": [
+        "Certification of Trust Form",
+        "Trust Document Submission Form",
+        "Trustee Authority Verification Form"
+      ],
+      "contact_info": {
+        "phone": "1-800-TRUST-XX",
+        "email": "trust@institution.com",
+        "website": "https://institution.com/trust-services"
+      }
+    },
+    "Wells Fargo": {
+      "requirements": [
+        "Complete trust certification form",
+        "Original or certified copy of trust document",
+        "Government-issued photo identification",
+        "Proof of trustee authority",
+        "Tax identification number (if applicable)",
+        "Notarized signature of trustee"
+      ],
+      "forms": [
+        "Certification of Trust Form",
+        "Trust Document Submission Form",
+        "Trustee Authority Verification Form"
+      ],
+      "contact_info": {
+        "phone": "1-800-TRUST-XX",
+        "email": "trust@institution.com",
+        "website": "https://institution.com/trust-services"
+      }
+    },
+    "Fidelity Investments": {
+      "requirements": [
+        "Complete trust certification form",
+        "Original or certified copy of trust document",
+        "Government-issued photo identification",
+        "Proof of trustee authority",
+        "Tax identification number (if applicable)",
+        "Notarized signature of trustee"
+      ],
+      "forms": [
+        "Certification of Trust Form",
+        "Trust Document Submission Form",
+        "Trustee Authority Verification Form"
+      ],
+      "contact_info": {
+        "phone": "1-800-TRUST-XX",
+        "email": "trust@institution.com",
+        "website": "https://institution.com/trust-services"
+      }
+    },
+    "Vanguard": {
+      "requirements": [
+        "Complete trust certification form",
+        "Original or certified copy of trust document",
+        "Government-issued photo identification",
+        "Proof of trustee authority",
+        "Tax identification number (if applicable)",
+        "Notarized signature of trustee"
+      ],
+      "forms": [
+        "Certification of Trust Form",
+        "Trust Document Submission Form",
+        "Trustee Authority Verification Form"
+      ],
+      "contact_info": {
+        "phone": "1-800-TRUST-XX",
+        "email": "trust@institution.com",
+        "website": "https://institution.com/trust-services"
+      }
+    },
+    "Charles Schwab": {
+      "requirements": [
+        "Complete trust certification form",
+        "Original or certified copy of trust document",
+        "Government-issued photo identification",
+        "Proof of trustee authority",
+        "Tax identification number (if applicable)",
+        "Notarized signature of trustee"
+      ],
+      "forms": [
+        "Certification of Trust Form",
+        "Trust Document Submission Form",
+        "Trustee Authority Verification Form"
+      ],
+      "contact_info": {
+        "phone": "1-800-TRUST-XX",
+        "email": "trust@institution.com",
+        "website": "https://institution.com/trust-services"
+      }
+    },
+    "Morgan Stanley": {
+      "requirements": [
+        "Complete trust certification form",
+        "Original or certified copy of trust document",
+        "Government-issued photo identification",
+        "Proof of trustee authority",
+        "Tax identification number (if applicable)",
+        "Notarized signature of trustee"
+      ],
+      "forms": [
+        "Certification of Trust Form",
+        "Trust Document Submission Form",
+        "Trustee Authority Verification Form"
+      ],
+      "contact_info": {
+        "phone": "1-800-TRUST-XX",
+        "email": "trust@institution.com",
+        "website": "https://institution.com/trust-services"
+      }
+    },
+    "Goldman Sachs": {
+      "requirements": [
+        "Complete trust certification form",
+        "Original or certified copy of trust document",
+        "Government-issued photo identification",
+        "Proof of trustee authority",
+        "Tax identification number (if applicable)",
+        "Notarized signature of trustee"
+      ],
+      "forms": [
+        "Certification of Trust Form",
+        "Trust Document Submission Form",
+        "Trustee Authority Verification Form"
+      ],
+      "contact_info": {
+        "phone": "1-800-TRUST-XX",
+        "email": "trust@institution.com",
+        "website": "https://institution.com/trust-services"
+      }
+    },
+    "JP Morgan": {
+      "requirements": [
+        "Complete trust certification form",
+        "Original or certified copy of trust document",
+        "Government-issued photo identification",
+        "Proof of trustee authority",
+        "Tax identification number (if applicable)",
+        "Notarized signature of trustee"
+      ],
+      "forms": [
+        "Certification of Trust Form",
+        "Trust Document Submission Form",
+        "Trustee Authority Verification Form"
+      ],
+      "contact_info": {
+        "phone": "1-800-TRUST-XX",
+        "email": "trust@institution.com",
+        "website": "https://institution.com/trust-services"
+      }
+    },
+    "Citibank": {
+      "requirements": [
+        "Complete trust certification form",
+        "Original or certified copy of trust document",
+        "Government-issued photo identification",
+        "Proof of trustee authority",
+        "Tax identification number (if applicable)",
+        "Notarized signature of trustee"
+      ],
+      "forms": [
+        "Certification of Trust Form",
+        "Trust Document Submission Form",
+        "Trustee Authority Verification Form"
+      ],
+      "contact_info": {
+        "phone": "1-800-TRUST-XX",
+        "email": "trust@institution.com",
+        "website": "https://institution.com/trust-services"
+      }
+    }
+  },
+  "state_requirements": {
+    "California": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "New York": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Texas": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Florida": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Illinois": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Pennsylvania": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Ohio": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Georgia": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "North Carolina": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Michigan": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "New Jersey": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Virginia": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Washington": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Arizona": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Massachusetts": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Tennessee": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Indiana": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Missouri": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Maryland": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    },
+    "Colorado": {
+      "statutes": {
+        "uniform_trust_code": "Adopted",
+        "certification_requirements": "Standard requirements apply",
+        "notarization_required": "Yes"
+      },
+      "requirements": [
+        "State-specific certification form",
+        "Notarization by state-licensed notary",
+        "Original trust document or certified copy",
+        "Trustee identification verification"
+      ],
+      "forms": [
+        "State Certification of Trust Form",
+        "Trustee Authority Verification Form"
+      ]
+    }
+  },
+  "legal_templates": {
+    "American Bar Association trust templates": {
+      "templates": [
+        "Professional Certification of Trust Template",
+        "Trustee Authority Template",
+        "State-Specific Certification Template"
+      ],
+      "best_practices": [
+        "Use clear, legible handwriting or typing",
+        "Include all required information",
+        "Have documents notarized by qualified notary",
+        "Keep original documents secure",
+        "Submit complete documentation package"
+      ]
+    },
+    "state bar association trust forms": {
+      "templates": [
+        "Professional Certification of Trust Template",
+        "Trustee Authority Template",
+        "State-Specific Certification Template"
+      ],
+      "best_practices": [
+        "Use clear, legible handwriting or typing",
+        "Include all required information",
+        "Have documents notarized by qualified notary",
+        "Keep original documents secure",
+        "Submit complete documentation package"
+      ]
+    },
+    "legal aid trust certification templates": {
+      "templates": [
+        "Professional Certification of Trust Template",
+        "Trustee Authority Template",
+        "State-Specific Certification Template"
+      ],
+      "best_practices": [
+        "Use clear, legible handwriting or typing",
+        "Include all required information",
+        "Have documents notarized by qualified notary",
+        "Keep original documents secure",
+        "Submit complete documentation package"
+      ]
+    },
+    "law firm trust document templates": {
+      "templates": [
+        "Professional Certification of Trust Template",
+        "Trustee Authority Template",
+        "State-Specific Certification Template"
+      ],
+      "best_practices": [
+        "Use clear, legible handwriting or typing",
+        "Include all required information",
+        "Have documents notarized by qualified notary",
+        "Keep original documents secure",
+        "Submit complete documentation package"
+      ]
+    }
+  },
+  "common_rejections": [
+    "Incomplete trust certification form",
+    "Missing trustee identification",
+    "Insufficient trustee powers listed",
+    "Outdated trust document",
+    "Missing notarization",
+    "Incorrect state-specific language",
+    "Missing tax identification number",
+    "Illegible or unclear documentation",
+    "Incomplete trust certification form",
+    "Missing trustee identification",
+    "Insufficient trustee powers listed",
+    "Outdated trust document",
+    "Missing notarization",
+    "Incorrect state-specific language",
+    "Missing tax identification number",
+    "Illegible or unclear documentation",
+    "Incomplete trust certification form",
+    "Missing trustee identification",
+    "Insufficient trustee powers listed",
+    "Outdated trust document",
+    "Missing notarization",
+    "Incorrect state-specific language",
+    "Missing tax identification number",
+    "Illegible or unclear documentation",
+    "Incomplete trust certification form",
+    "Missing trustee identification",
+    "Insufficient trustee powers listed",
+    "Outdated trust document",
+    "Missing notarization",
+    "Incorrect state-specific language",
+    "Missing tax identification number",
+    "Illegible or unclear documentation"
+  ],
+  "best_practices": []
+}

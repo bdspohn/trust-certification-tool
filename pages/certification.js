@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DocumentGenerator from '../components/DocumentGenerator';
+import StateRequirements from '../components/StateRequirements';
 
 // All US states + DC
 const states = [
@@ -290,6 +291,19 @@ export default function CertificationStripeFlow() {
               </div>
             )}
           </div>
+
+          {/* State Requirements Display */}
+          {selectedState && (
+            <StateRequirements 
+              selectedState={selectedState}
+              onRequirementsLoaded={(requirements) => {
+                // Update tooltips with state-specific information
+                if (requirements && requirements.tooltips) {
+                  // This would update the tooltips dynamically
+                }
+              }}
+            />
+          )}
 
           {stepFields.map((key) => {
             if (key === 'trustee') {
