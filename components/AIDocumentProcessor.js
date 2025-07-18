@@ -124,21 +124,86 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
     multiple: false
   });
 
-  // PDF extraction with dynamic import
+  // PDF extraction with enhanced error handling and worker management
   const extractTextFromPDF = async (file) => {
-    // Dynamic import to avoid SSR issues
-    const pdfjsLib = await import('pdfjs-dist/build/pdf');
-    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.js`;
-    
-    const arrayBuffer = await file.arrayBuffer();
-    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-    let text = '';
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const page = await pdf.getPage(i);
-      const content = await page.getTextContent();
-      text += content.items.map(item => item.str).join(' ') + '\n';
+    try {
+      // Dynamic import to avoid SSR issues
+      const pdfjsLib = await import('pdfjs-dist');
+      
+      // Configure worker - try multiple approaches for better compatibility
+      if (typeof window !== 'undefined') {
+        // Try different worker configurations in order of preference
+        if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+          try {
+            // Method 1: Use jsDelivr CDN (more reliable than cdnjs)
+            pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
+          } catch (error1) {
+            try {
+              // Method 2: Use unpkg CDN
+              pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
+            } catch (error2) {
+              try {
+                // Method 3: Use cdnjs
+                pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+              } catch (error3) {
+                console.warn('All CDN workers failed, disabling worker...', error3);
+                // Method 4: Disable worker completely (slower but more compatible)
+                pdfjsLib.GlobalWorkerOptions.workerSrc = false;
+              }
+            }
+          }
+        }
+      }
+      
+      const arrayBuffer = await file.arrayBuffer();
+      
+      // Enhanced PDF loading configuration
+      const loadingTask = pdfjsLib.getDocument({
+        data: arrayBuffer,
+        verbosity: 0,
+        disableAutoFetch: true,
+        disableStream: true,
+        disableRange: true,
+        // Use password if provided (for protected PDFs)
+        password: '',
+        // Increase timeout
+        timeout: 30000
+      });
+      
+      const pdf = await loadingTask.promise;
+      let text = '';
+      
+      for (let i = 1; i <= pdf.numPages; i++) {
+        try {
+          const page = await pdf.getPage(i);
+          const content = await page.getTextContent();
+          const pageText = content.items.map(item => item.str).join(' ');
+          text += pageText + '\n';
+        } catch (pageError) {
+          console.warn(`Error processing page ${i}:`, pageError);
+          // Continue with other pages even if one fails
+        }
+      }
+      
+      if (!text.trim()) {
+        throw new Error('No text content could be extracted from this PDF. The file may contain only images or be corrupted.');
+      }
+      
+      return text;
+    } catch (error) {
+      console.error('PDF processing error:', error);
+      
+      // Provide more specific error messages
+      if (error.message.includes('Invalid PDF')) {
+        throw new Error('This file appears to be corrupted or is not a valid PDF. Please try uploading a different file.');
+      } else if (error.message.includes('password')) {
+        throw new Error('This PDF is password-protected. Please remove the password or use a different document.');
+      } else if (error.message.includes('worker')) {
+        throw new Error('PDF processing temporarily unavailable. Please try refreshing the page or use a different file format (DOCX, TXT).');
+      } else {
+        throw new Error(`Failed to process PDF: ${error.message}. Try using DOCX or TXT format instead.`);
+      }
     }
-    return text;
   };
 
   // DOCX extraction
@@ -435,7 +500,22 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
       {/* Error Message */}
       {error && (
         <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-red-700">{error}</p>
+          <div className="flex items-start">
+            <div className="text-red-500 mr-3 mt-1">⚠️</div>
+            <div>
+              <h4 className="font-semibold text-red-800 mb-2">Document Processing Failed</h4>
+              <p className="text-red-700 mb-3">{error}</p>
+              <div className="text-sm text-red-600">
+                <p className="font-medium mb-2">Alternative options:</p>
+                <ul className="list-disc ml-4 space-y-1">
+                  <li>Try uploading the document in DOCX or TXT format</li>
+                  <li>If using PDF, ensure it's not password-protected</li>
+                  <li>Refresh the page and try again</li>
+                  <li>Use the "Enter Manually" option below to input information directly</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
