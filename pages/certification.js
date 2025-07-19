@@ -346,8 +346,43 @@ export default function CertificationStripeFlow({ prefillData }) {
           {/* State Requirements Display - Removed to reduce form clutter */}
           {/* Users see requirements when they first select a state, don't need to repeat on form */}
 
+          {/* Force state field on step 0 */}
+          {step === 0 && (
+            <div key="state" className="space-y-4">
+              <div className="flex items-center justify-between">
+                <label className="block font-medium text-gray-700">
+                  What state is your trust governed by?
+                  <span className="ml-1 text-blue-500 cursor-help" title="Select the state that governs your trust">ⓘ</span>
+                </label>
+                {form.state && (
+                  <StateRequirements 
+                    selectedState={form.state}
+                    onRequirementsLoaded={() => {}}
+                    compact={true}
+                  />
+                )}
+              </div>
+              <select
+                name="state"
+                value={form.state}
+                onChange={e => {
+                  setForm({ ...form, state: e.target.value });
+                  setErrors({ ...errors, state: undefined });
+                }}
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                {states.map(s => (
+                  <option key={s.code} value={s.code}>{s.name}</option>
+                ))}
+              </select>
+              {errors.state && <div className="text-red-500 text-sm mt-2">{errors.state}</div>}
+            </div>
+          )}
+          
           {stepFields.map((key) => {
             if (key === 'state') {
+              // State field is handled separately above for step 0, skip it here
+              if (step === 0) return null;
               return (
                 <div key="state" className="space-y-4">
                   <div className="flex items-center justify-between">
