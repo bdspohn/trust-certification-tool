@@ -419,6 +419,26 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
       return grantors.slice(0, -1).join(', ') + ' and ' + grantors[grantors.length - 1];
     };
     
+    // State name to code mapping
+    const stateNameToCode = {
+      'ALABAMA': 'AL', 'ALASKA': 'AK', 'ARIZONA': 'AZ', 'ARKANSAS': 'AR', 'CALIFORNIA': 'CA',
+      'COLORADO': 'CO', 'CONNECTICUT': 'CT', 'DELAWARE': 'DE', 'FLORIDA': 'FL', 'GEORGIA': 'GA',
+      'HAWAII': 'HI', 'IDAHO': 'ID', 'ILLINOIS': 'IL', 'INDIANA': 'IN', 'IOWA': 'IA',
+      'KANSAS': 'KS', 'KENTUCKY': 'KY', 'LOUISIANA': 'LA', 'MAINE': 'ME', 'MARYLAND': 'MD',
+      'MASSACHUSETTS': 'MA', 'MICHIGAN': 'MI', 'MINNESOTA': 'MN', 'MISSISSIPPI': 'MS', 'MISSOURI': 'MO',
+      'MONTANA': 'MT', 'NEBRASKA': 'NE', 'NEVADA': 'NV', 'NEW HAMPSHIRE': 'NH', 'NEW JERSEY': 'NJ',
+      'NEW MEXICO': 'NM', 'NEW YORK': 'NY', 'NORTH CAROLINA': 'NC', 'NORTH DAKOTA': 'ND', 'OHIO': 'OH',
+      'OKLAHOMA': 'OK', 'OREGON': 'OR', 'PENNSYLVANIA': 'PA', 'RHODE ISLAND': 'RI', 'SOUTH CAROLINA': 'SC',
+      'SOUTH DAKOTA': 'SD', 'TENNESSEE': 'TN', 'TEXAS': 'TX', 'UTAH': 'UT', 'VERMONT': 'VT',
+      'VIRGINIA': 'VA', 'WASHINGTON': 'WA', 'WEST VIRGINIA': 'WV', 'WISCONSIN': 'WI', 'WYOMING': 'WY'
+    };
+    
+    // Convert state name to code if needed
+    let stateCode = analysis.entities.state || '';
+    if (stateCode && stateCode.length > 2) {
+      stateCode = stateNameToCode[stateCode.toUpperCase()] || stateCode;
+    }
+    
     return {
       trustName: analysis.entities.trustName || '',
       trustDate: analysis.entities.date || '',
@@ -428,7 +448,7 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
       successorTrustee: analysis.entities.successorTrustees || [],
       powers: analysis.powers || [],
       governingLaw: analysis.entities.state || '',
-      state: analysis.entities.state || '',
+      state: stateCode,  // Use the converted state code
       confidence: analysis.confidence || 0,
       fieldConfidences: analysis.fieldConfidences || {},
       extractedText: analysis.text
