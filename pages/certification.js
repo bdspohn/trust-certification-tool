@@ -14,40 +14,45 @@ const states = [
   { code: 'AL', name: 'Alabama' }, { code: 'AK', name: 'Alaska' }, { code: 'AZ', name: 'Arizona' }, { code: 'AR', name: 'Arkansas' }, { code: 'CA', name: 'California' }, { code: 'CO', name: 'Colorado' }, { code: 'CT', name: 'Connecticut' }, { code: 'DE', name: 'Delaware' }, { code: 'DC', name: 'District of Columbia' }, { code: 'FL', name: 'Florida' }, { code: 'GA', name: 'Georgia' }, { code: 'HI', name: 'Hawaii' }, { code: 'ID', name: 'Idaho' }, { code: 'IL', name: 'Illinois' }, { code: 'IN', name: 'Indiana' }, { code: 'IA', name: 'Iowa' }, { code: 'KS', name: 'Kansas' }, { code: 'KY', name: 'Kentucky' }, { code: 'LA', name: 'Louisiana' }, { code: 'ME', name: 'Maine' }, { code: 'MD', name: 'Maryland' }, { code: 'MA', name: 'Massachusetts' }, { code: 'MI', name: 'Michigan' }, { code: 'MN', name: 'Minnesota' }, { code: 'MS', name: 'Mississippi' }, { code: 'MO', name: 'Missouri' }, { code: 'MT', name: 'Montana' }, { code: 'NE', name: 'Nebraska' }, { code: 'NV', name: 'Nevada' }, { code: 'NH', name: 'New Hampshire' }, { code: 'NJ', name: 'New Jersey' }, { code: 'NM', name: 'New Mexico' }, { code: 'NY', name: 'New York' }, { code: 'NC', name: 'North Carolina' }, { code: 'ND', name: 'North Dakota' }, { code: 'OH', name: 'Ohio' }, { code: 'OK', name: 'Oklahoma' }, { code: 'OR', name: 'Oregon' }, { code: 'PA', name: 'Pennsylvania' }, { code: 'RI', name: 'Rhode Island' }, { code: 'SC', name: 'South Carolina' }, { code: 'SD', name: 'South Dakota' }, { code: 'TN', name: 'Tennessee' }, { code: 'TX', name: 'Texas' }, { code: 'UT', name: 'Utah' }, { code: 'VT', name: 'Vermont' }, { code: 'VA', name: 'Virginia' }, { code: 'WA', name: 'Washington' }, { code: 'WV', name: 'West Virginia' }, { code: 'WI', name: 'Wisconsin' }, { code: 'WY', name: 'Wyoming' }
 ];
 
-// Enhanced trustee powers from leading institutions
+// Actual trustee powers based on bank requirements and trust research
 const trusteePowersList = [
-  'Sell, convey, pledge, mortgage, lease, or transfer title to any interest in real or personal property',
-  'Open and close bank accounts, including checking, savings, and investment accounts',
-  'Make investments and manage investment accounts, including stocks, bonds, and mutual funds',
-  'Borrow money or obtain loans on behalf of the trust',
-  'Distribute trust assets to beneficiaries according to the trust terms',
-  'Sign documents, contracts, and legal instruments on behalf of the trust',
-  'File tax returns and handle all tax matters for the trust',
-  'Purchase and sell securities, including stocks, bonds, and other investments',
-  'Manage real estate and property, including maintenance and improvements',
-  'Enter into contracts and agreements on behalf of the trust',
-  'Hire professionals such as attorneys, accountants, and financial advisors',
-  'Make charitable donations and gifts as specified in the trust',
-  'Establish and maintain retirement accounts for the trust',
-  'Other',
+  'Open and close deposit and investment account(s) on behalf of the Trust, deposit funds into, sign checks drawn upon, and withdraw funds from the account(s) established for the Trust',
+  'Borrow from financial institutions from time to time on such terms and in such amounts as may be agreed and execute and deliver documents, instruments and agreements on behalf of the Trust that evidence, secure or otherwise relate to such loan(s)',
+  'Transfer funds among accounts, pledge trust assets as security for loans, and transact all business with respect to any such accounts',
+  'Purchase, sell, convey, exchange, partition, divide, improve and repair trust property including real estate',
+  'Mortgage, pledge, or encumber property by deed of trust, mortgage, pledge or otherwise',
+  'Sign documents, contracts, and legal instruments on behalf of the trust including loan applications, account agreements, and closing documents',
+  'Execute and deliver renewals, extensions, increases, modifications or substitutions for any and all loans and financial agreements',
+  'Make investments and manage investment accounts, including purchase and sale of stocks, bonds, mutual funds, and other securities',
+  'Distribute trust assets to beneficiaries according to the trust terms and make discretionary distributions as authorized',
+  'File tax returns and handle all tax matters for the trust, including obtaining tax identification numbers',
+  'Enter into lease agreements, manage rental properties, and collect rents on behalf of the trust',
+  'Hire professionals such as attorneys, accountants, financial advisors, and property managers as needed for trust administration',
+  'Exercise voting rights for securities held in the trust and make investment decisions',
+  'Establish and maintain retirement accounts, business accounts, and other specialized accounts for the trust',
+  'Make charitable donations and gifts as specifically authorized in the trust instrument',
+  'Other powers specifically granted in the trust document',
 ];
 
-// Comprehensive state-specific requirements based on scraped data
+// Comprehensive state-specific requirements based on trust research
 const stateRequirements = {
   CA: {
-    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin'],
+    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin', 'signatureAuthority'],
+    requiredFields: ['trustName', 'trustDate', 'grantor', 'trustee', 'powers'],
     tooltips: {
-      trustName: 'The full legal name of the trust as stated in the trust document (CA Probate Code § 18100.5).',
-      trustDate: 'The date the trust was executed (signed).',
-      revocability: 'A revocable trust can be changed or canceled by the grantor. An irrevocable trust cannot be changed except under special circumstances.',
-      grantor: 'The person who created and funded the trust (also called settlor or trustor).',
-      trustee: 'The person(s) or institution currently managing the trust assets.',
-      successorTrustee: 'The person(s) or institution who will manage the trust if the current trustee cannot.',
-      powers: 'Select all powers granted to the trustee as specified in the trust document.',
-      tin: 'Only required if your trust is irrevocable and has its own EIN. Most revocable trusts use the grantor\'s SSN.',
-      governingLaw: 'The state law that governs the trust (usually the state where the trust was created).'
+      trustName: 'The complete legal name of the trust exactly as stated in the trust instrument (CA Probate Code § 18100.5). Banks verify this against original documents.',
+      trustDate: 'The date the trust was originally executed and signed by the settlor(s). This is not the certification date.',
+      revocability: 'California law distinguishes revocable trusts (can be modified by settlor) from irrevocable trusts (permanent). This affects tax treatment and trustee powers.',
+      grantor: 'The person(s) who created and initially funded the trust. Also called settlor or trustor. Required for bank verification.',
+      trustee: 'The person(s) or institution currently authorized to manage trust assets and conduct business. All acting trustees must sign certification.',
+      successorTrustee: 'The person(s) or institution who will become trustee upon death, resignation, or incapacity of current trustees.',
+      powers: 'Select all powers granted to trustees in the trust instrument. Banks require explicit authorization for financial transactions.',
+      tin: 'Trust Identification Number: Use grantor\'s SSN for revocable trusts or the trust\'s EIN for irrevocable trusts (CA Probate Code § 18100.5).',
+      signatureAuthority: 'When multiple trustees exist, specify whether all trustees must sign or if less than all may act independently.',
+      governingLaw: 'The state law governing the trust administration, typically where the trust was created and executed.'
     },
-    statute: 'CA Probate Code § 18100.5',
+    statute: 'CA Probate Code § 18100.5 - Certification of Trust',
+    legalProtection: 'Third parties who refuse a valid CA certification may be liable for damages including attorney fees (§ 18100.5(h)).',
     recording: 'May need to be recorded if trust owns real property in California.'
   },
   TX: {

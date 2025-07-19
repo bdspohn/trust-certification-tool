@@ -11,31 +11,59 @@ const StateRequirements = ({ selectedState, onRequirementsLoaded }) => {
       statutes: {
         uniform_trust_code: 'Adopted',
         certification_requirements: 'California Probate Code Section 18100.5',
-        notarization_required: 'Yes',
-        specific_language: 'Required'
+        notarization_required: 'Yes - Acknowledged declaration required',
+        specific_language: 'Required - Statutory compliance mandatory'
       },
       requirements: [
-        'Certification must be signed by all trustees',
-        'Notarization by California-licensed notary required',
-        'Original trust document or certified copy',
-        'Trustee identification verification',
-        'Tax identification number for irrevocable trusts',
-        'Specific California statutory language required'
+        'Must be signed by all currently acting trustees',
+        'Notarization required as acknowledged declaration',
+        'Must include trust identification number (SSN for revocable, EIN for irrevocable)',
+        'Must state trust has not been revoked, modified, or amended',
+        'Must specify signature authority when multiple trustees exist',
+        'Legal description of real property if trust holds real estate',
+        'Manner in which title to trust assets should be taken'
       ],
       forms: [
-        'California Certification of Trust Form',
-        'Trustee Authority Verification Form',
-        'Notary Acknowledgment Form'
+        'California Probate Code § 18100.5 Compliant Certification',
+        'Trust Identification Verification',
+        'Acknowledged Declaration Form'
       ],
+      certificationElements: [
+        'Existence of trust and date of execution',
+        'Identity of settlor(s) and currently acting trustee(s)',
+        'Revocability or irrevocability of the trust',
+        'Identity of person holding power to revoke (if applicable)',
+        'Signature authority of trustees',
+        'Trust identification number',
+        'Manner of title holding for trust assets'
+      ],
+      bankAcceptance: {
+        'Wells Fargo': 'Accepts CA Probate Code § 18100.5 compliant certifications',
+        'Bank of America': 'Requires specific trustee powers for banking transactions',
+        'Chase': 'Accepts standard certification with account opening authority',
+        'Credit Unions': 'May require institution-specific forms'
+      },
+      trusteePowers: [
+        'Open and close deposit and investment accounts',
+        'Sign checks and withdrawal orders',
+        'Transfer funds between accounts',
+        'Borrow money and execute loan documents',
+        'Pledge trust assets as security for loans',
+        'Buy, sell, and mortgage real property',
+        'Enter into contracts and agreements',
+        'Sign all documents on behalf of the trust'
+      ],
+      legalProtection: 'California Probate Code § 18100.5(h): Third parties who refuse a valid certification may be liable for damages including attorney fees if court determines bad faith.',
       tooltips: {
-        state: 'California has specific statutory requirements for trust certification under Probate Code Section 18100.5',
-        trustName: 'Must match exactly as stated in the original trust document',
-        trustDate: 'Date the trust was originally executed, not the certification date',
-        revocability: 'California law distinguishes between revocable and irrevocable trusts for tax purposes',
-        grantor: 'Person(s) who created the trust (also called settlor or trustor)',
-        trustee: 'Person(s) currently authorized to act on behalf of the trust',
-        successorTrustee: 'Person(s) who will become trustee upon death or incapacity of current trustees',
-        powers: 'Must include all powers granted to trustees under the trust instrument'
+        state: 'California Probate Code § 18100.5 provides specific statutory requirements and legal protections for trust certifications',
+        trustName: 'Must match exactly as stated in the trust instrument - banks verify this against title documents',
+        trustDate: 'Date the trust was originally executed and signed by settlor(s)',
+        revocability: 'California distinguishes revocable (amendable by settlor) vs. irrevocable (permanent) trusts for tax and legal purposes',
+        grantor: 'Also called settlor or trustor - the person(s) who created and initially funded the trust',
+        trustee: 'Currently acting trustee(s) with legal authority to manage trust assets and conduct business',
+        successorTrustee: 'Named successor(s) who will become trustee upon death, resignation, or incapacity of current trustee',
+        powers: 'Must include specific powers granted in trust instrument - banks require explicit authority for financial transactions',
+        tin: 'Revocable trusts typically use grantor\'s SSN; irrevocable trusts must obtain separate EIN from IRS'
       }
     },
     'NY': {
@@ -215,6 +243,28 @@ const StateRequirements = ({ selectedState, onRequirementsLoaded }) => {
           ))}
         </ul>
       </div>
+
+      {/* Bank Acceptance Information */}
+      {requirements.bankAcceptance && (
+        <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
+          <h4 className="font-semibold text-indigo-800 mb-2">Bank Acceptance Guidelines</h4>
+          <div className="text-sm text-indigo-700 space-y-2">
+            {Object.entries(requirements.bankAcceptance).map(([bank, info]) => (
+              <div key={bank}>
+                <strong>{bank}:</strong> {info}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Legal Protection */}
+      {requirements.legalProtection && (
+        <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+          <h4 className="font-semibold text-gray-800 mb-2">Legal Protection</h4>
+          <p className="text-sm text-gray-700">{requirements.legalProtection}</p>
+        </div>
+      )}
 
       {/* Compliance Tips */}
       <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
