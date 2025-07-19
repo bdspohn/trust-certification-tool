@@ -230,19 +230,50 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
       }
     }
     
+    // Helper function to validate if a string looks like a proper name
+    const isValidName = (name) => {
+      // Clean up the name
+      name = name.trim();
+      
+      // Reject if too short or too long
+      if (name.length < 3 || name.length > 50) return false;
+      
+      // Reject if it contains certain keywords that indicate it's not a name
+      const invalidKeywords = [
+        'trust', 'instrument', 'vacant', 'become', 'terms', 'each', 
+        'under', 'created', 'exoneration', 'removed', 'able', 'will not',
+        'shall', 'may', 'must', 'hereby', 'whereas', 'therefore', 'between',
+        'agreement', 'document', 'provisions'
+      ];
+      const lowerName = name.toLowerCase();
+      if (invalidKeywords.some(keyword => lowerName.includes(keyword))) return false;
+      
+      // Check if it looks like a proper name pattern (First Last or First M. Last)
+      const namePattern = /^[A-Z][a-z]+(\s+[A-Z]\.)?(\s+[A-Z][a-z]+){0,3}$/;
+      if (!namePattern.test(name)) return false;
+      
+      // Ensure it has at least two parts (first and last name) or is a single word starting with capital
+      const parts = name.split(/\s+/);
+      if (parts.length === 1 && parts[0].length < 4) return false;
+      
+      return true;
+    };
+
     // Extract Grantors/Settlors with multiple patterns
     const grantorPatterns = [
-      /(?:grantor|settlor|trustor|donor)s?\s*(?:are?|is)?\s*[:\s]*([A-Z][A-Za-z\s,&]+?)(?:\s*(?:and|,)\s*[A-Z][A-Za-z\s,&]+)*?(?=\s*(?:trustee|successor|herein|$|\n))/gi,
-      /(?:by\s+)?([A-Z][A-Za-z\s]+(?:\s+and\s+[A-Z][A-Za-z\s]+)?),?\s+(?:as\s+)?(?:grantor|settlor|trustor)/gi,
-      /(?:I|We),?\s+([A-Z][A-Za-z\s,&]+(?:\s+and\s+[A-Z][A-Za-z\s,&]+)?),?\s+(?:hereby\s+)?(?:create|establish|declare)/gi,
-      /THIS\s+TRUST\s+AGREEMENT.*?by\s+and\s+between\s+([A-Z][A-Za-z\s,&]+?)(?:\s*\(.*?\))?,?\s+as\s+(?:Grantor|Settlor)/gi
+      /(?:grantor|settlor|trustor|donor)s?\s*(?:are?|is)?\s*[:\s]*([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})(?:\s*(?:and|,)\s*[A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})*?(?=\s*(?:trustee|successor|herein|$|\n|,))/gi,
+      /(?:by\s+)?([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3}),?\s+(?:as\s+)?(?:grantor|settlor|trustor)/gi,
+      /(?:I|We),?\s+([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3}),?\s+(?:hereby\s+)?(?:create|establish|declare)/gi,
+      /THIS\s+TRUST\s+AGREEMENT.*?by\s+and\s+between\s+([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})(?:\s*\(.*?\))?,?\s+as\s+(?:Grantor|Settlor)/gi
     ];
     
     for (const pattern of grantorPatterns) {
       let match;
       while ((match = pattern.exec(cleanText)) !== null) {
         if (match[1]) {
-          const names = match[1].split(/\s+and\s+|\s*,\s*/).filter(n => n.length > 2);
+          const names = match[1].split(/\s+and\s+|\s*,\s*/)
+            .map(n => n.trim())
+            .filter(n => isValidName(n));
           results.grantors.matches.push(...names);
         }
       }
@@ -250,16 +281,18 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
     
     // Extract Trustees with multiple patterns
     const trusteePatterns = [
-      /(?:initial\s+)?trustee(?:s)?\s*(?:are?|is|shall\s+be)?\s*[:\s]*([A-Z][A-Za-z\s,&]+?)(?:\s*(?:and|,)\s*[A-Z][A-Za-z\s,&]+)*?(?=\s*(?:successor|shall|$|\n))/gi,
-      /([A-Z][A-Za-z\s]+(?:\s+and\s+[A-Z][A-Za-z\s]+)?),?\s+(?:as\s+)?(?:the\s+)?(?:initial\s+)?trustee/gi,
-      /appoint\s+([A-Z][A-Za-z\s,&]+?)(?:\s+and\s+[A-Z][A-Za-z\s,&]+)?\s+as\s+(?:the\s+)?(?:initial\s+)?trustee/gi
+      /(?:initial\s+)?trustee(?:s)?\s*(?:are?|is|shall\s+be)?\s*[:\s]*([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})(?:\s*(?:and|,)\s*[A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})*?(?=\s*(?:successor|shall|$|\n|,))/gi,
+      /([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3}),?\s+(?:as\s+)?(?:the\s+)?(?:initial\s+)?trustee/gi,
+      /appoint\s+([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})(?:\s+and\s+[A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})?\s+as\s+(?:the\s+)?(?:initial\s+)?trustee/gi,
+      /(?:The\s+)?trustee\s+(?:is|shall\s+be)\s+([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})/gi
     ];
-    
     for (const pattern of trusteePatterns) {
       let match;
       while ((match = pattern.exec(cleanText)) !== null) {
         if (match[1] && !match[1].toLowerCase().includes('successor')) {
-          const names = match[1].split(/\s+and\s+|\s*,\s*/).filter(n => n.length > 2);
+          const names = match[1].split(/\s+and\s+|\s*,\s*/)
+            .map(n => n.trim())
+            .filter(n => isValidName(n));
           results.trustees.matches.push(...names);
         }
       }
@@ -267,16 +300,19 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
     
     // Extract Successor Trustees
     const successorPatterns = [
-      /successor\s+trustee(?:s)?\s*(?:are?|is|shall\s+be)?\s*[:\s]*([A-Z][A-Za-z\s,&]+?)(?:\s*(?:and|,)\s*[A-Z][A-Za-z\s,&]+)*?(?=\s*(?:shall|$|\n))/gi,
-      /([A-Z][A-Za-z\s]+(?:\s+and\s+[A-Z][A-Za-z\s]+)?),?\s+(?:as\s+)?(?:the\s+)?successor\s+trustee/gi,
-      /appoint\s+([A-Z][A-Za-z\s,&]+?)(?:\s+and\s+[A-Z][A-Za-z\s,&]+)?\s+as\s+(?:the\s+)?successor\s+trustee/gi
+      /successor\s+trustee(?:s)?\s*(?:are?|is|shall\s+be)?\s*[:\s]*([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})(?:\s*(?:and|,)\s*[A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})*?(?=\s*(?:shall|$|\n|,))/gi,
+      /([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3}),?\s+(?:as\s+)?(?:the\s+)?successor\s+trustee/gi,
+      /appoint\s+([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})(?:\s+and\s+[A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})?\s+as\s+(?:the\s+)?successor\s+trustee/gi,
+      /(?:Upon.*?death.*?)?([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})\s+shall\s+(?:serve|act)\s+as\s+successor\s+trustee/gi
     ];
     
     for (const pattern of successorPatterns) {
       let match;
       while ((match = pattern.exec(cleanText)) !== null) {
         if (match[1]) {
-          const names = match[1].split(/\s+and\s+|\s*,\s*/).filter(n => n.length > 2);
+          const names = match[1].split(/\s+and\s+|\s*,\s*/)
+            .map(n => n.trim())
+            .filter(n => isValidName(n));
           results.successorTrustees.matches.push(...names);
         }
       }
