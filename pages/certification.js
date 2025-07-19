@@ -160,7 +160,7 @@ const steps = [
 ];
 
 const initialForm = {
-  state: '',
+  state: 'CA', // Default to California
   trustName: '',
   trustDate: '',
   revocability: '',
@@ -341,11 +341,20 @@ export default function CertificationStripeFlow({ prefillData }) {
           {stepFields.map((key) => {
             if (key === 'state') {
               return (
-                <div key="state" className="space-y-2">
-                  <label className="block font-medium text-gray-700">
-                    What state is your trust governed by?
-                    <span className="ml-1 text-blue-500 cursor-help" title={req.tooltips.state || genericTooltips.state}>ⓘ</span>
-                  </label>
+                <div key="state" className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <label className="block font-medium text-gray-700">
+                      What state is your trust governed by?
+                      <span className="ml-1 text-blue-500 cursor-help" title={req.tooltips.state || genericTooltips.state}>ⓘ</span>
+                    </label>
+                    {form.state && (
+                      <StateRequirements 
+                        selectedState={form.state}
+                        onRequirementsLoaded={() => {}}
+                        compact={true}
+                      />
+                    )}
+                  </div>
                   <select
                     name="state"
                     value={form.state}
@@ -355,7 +364,6 @@ export default function CertificationStripeFlow({ prefillData }) {
                     }}
                     className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
-                    <option value="">Select a state...</option>
                     {states.map(s => (
                       <option key={s.code} value={s.code}>{s.name}</option>
                     ))}

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
-const StateRequirements = ({ selectedState, onRequirementsLoaded }) => {
+const StateRequirements = ({ selectedState, onRequirementsLoaded, compact = false }) => {
   const [requirements, setRequirements] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   // Comprehensive state requirements based on research
   const stateRequirementsData = useMemo(() => ({
@@ -296,6 +297,19 @@ const StateRequirements = ({ selectedState, onRequirementsLoaded }) => {
           }
         </p>
       </div>
+    );
+  }
+
+  // Compact mode - just show a toggle button
+  if (compact) {
+    return (
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="inline-flex items-center px-3 py-1 text-sm font-medium text-blue-600 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors"
+      >
+        {requirements.name.toUpperCase()} Requirements
+        <span className="ml-1">{isExpanded ? '−' : '+'}</span>
+      </button>
     );
   }
 
