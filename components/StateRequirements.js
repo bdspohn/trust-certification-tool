@@ -161,10 +161,77 @@ const StateRequirements = ({ selectedState, onRequirementsLoaded }) => {
         successorTrustee: 'Person(s) who will become trustee upon death or incapacity of current trustees',
         powers: 'Must include all powers granted to trustees under the trust instrument'
       }
+    },
+    // Additional states with basic requirements based on general trust law
+    'AZ': {
+      name: 'Arizona',
+      statutes: {
+        uniform_trust_code: 'Adopted',
+        certification_requirements: 'Arizona Revised Statutes Title 14',
+        notarization_required: 'Yes',
+        specific_language: 'Required'
+      },
+      requirements: [
+        'Must be signed by all currently acting trustees',
+        'Notarization required',
+        'Trust identification number required',
+        'Must state trust has not been revoked or amended',
+        'Trustee powers must be clearly stated',
+        'Legal description required for real property'
+      ],
+      forms: [
+        'Arizona Trust Certification Form',
+        'Notary Acknowledgment'
+      ],
+      tooltips: {
+        state: 'Arizona follows the Uniform Trust Code with state-specific modifications',
+        trustName: 'Must match exactly as stated in the trust instrument',
+        trustDate: 'Date the trust was originally executed',
+        revocability: 'Affects tax treatment and modification rights',
+        grantor: 'Person who created and funded the trust',
+        trustee: 'Currently acting trustee(s) with management authority',
+        successorTrustee: 'Backup trustee(s) named in the trust',
+        powers: 'Must include all powers granted in trust document'
+      }
+    },
+    'WA': {
+      name: 'Washington',
+      statutes: {
+        uniform_trust_code: 'Adopted',
+        certification_requirements: 'RCW 11.98 Trust and Estate Dispute Resolution Act',
+        notarization_required: 'Yes',
+        specific_language: 'Required'
+      },
+      requirements: [
+        'All trustees must sign the certification',
+        'Notarization required',
+        'Trust taxpayer identification number',
+        'Statement that trust has not been revoked',
+        'Trustee signature authority clarification',
+        'Title holding instructions'
+      ],
+      forms: [
+        'Washington Trust Certification',
+        'Trustee Authority Declaration'
+      ],
+      tooltips: {
+        state: 'Washington state has adopted the Uniform Trust Code',
+        trustName: 'Legal name as it appears in trust document',
+        trustDate: 'Original execution date of trust',
+        revocability: 'Important for tax and legal purposes',
+        grantor: 'Trust creator (settlor/trustor)',
+        trustee: 'Person(s) managing trust assets',
+        successorTrustee: 'Designated backup trustees',
+        powers: 'Authority granted under trust terms'
+      }
     }
   }), []);
 
   useEffect(() => {
+    console.log('StateRequirements - selectedState:', selectedState);
+    console.log('StateRequirements - available states:', Object.keys(stateRequirementsData));
+    console.log('StateRequirements - state data exists?', selectedState && stateRequirementsData[selectedState]);
+    
     if (selectedState && stateRequirementsData[selectedState]) {
       setLoading(true);
       // Simulate loading time
@@ -192,10 +259,17 @@ const StateRequirements = ({ selectedState, onRequirementsLoaded }) => {
   }
 
   if (!requirements) {
+    // Check if this is a state we have data for
+    const availableStates = Object.keys(stateRequirementsData);
+    const isStateAvailable = availableStates.includes(selectedState);
+    
     return (
       <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
         <p className="text-yellow-700">
-          Requirements for {selectedState} are being researched. Please check back soon or contact us for assistance.
+          {isStateAvailable 
+            ? `Loading requirements for ${selectedState}...` 
+            : `Requirements for ${selectedState} are being researched. Currently available states: ${availableStates.join(', ')}. Please check back soon or contact us for assistance.`
+          }
         </p>
       </div>
     );
