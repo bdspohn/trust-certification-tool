@@ -300,16 +300,62 @@ const StateRequirements = ({ selectedState, onRequirementsLoaded, compact = fals
     );
   }
 
-  // Compact mode - just show a toggle button
+  // Compact mode - show toggle button and expandable content
   if (compact) {
     return (
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="inline-flex items-center px-3 py-1 text-sm font-medium text-blue-600 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors"
-      >
-        {requirements.name.toUpperCase()} Requirements
-        <span className="ml-1">{isExpanded ? '−' : '+'}</span>
-      </button>
+      <div className="relative">
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="inline-flex items-center px-3 py-1 text-sm font-medium text-blue-600 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors"
+        >
+          {requirements.name.toUpperCase()} Requirements
+          <span className="ml-1">{isExpanded ? '−' : '+'}</span>
+        </button>
+        
+        {isExpanded && (
+          <div className="absolute top-full right-0 mt-2 w-96 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto">
+            <div className="p-4 space-y-4">
+              {/* Compact Requirements Summary */}
+              <div className="border-b pb-3">
+                <h4 className="font-semibold text-blue-800 text-sm mb-2">
+                  {requirements.name} Requirements
+                </h4>
+                <div className="text-xs text-gray-600 space-y-1">
+                  <div><strong>Statute:</strong> {requirements.statutes.certification_requirements}</div>
+                  <div><strong>Notarization:</strong> {requirements.statutes.notarization_required}</div>
+                </div>
+              </div>
+
+              {/* Key Requirements */}
+              <div>
+                <h5 className="font-medium text-orange-800 text-sm mb-2">Key Requirements</h5>
+                <ul className="text-xs text-orange-700 space-y-1">
+                  {requirements.requirements.slice(0, 3).map((req, index) => (
+                    <li key={index}>• {req}</li>
+                  ))}
+                  {requirements.requirements.length > 3 && (
+                    <li className="text-gray-500">+ {requirements.requirements.length - 3} more...</li>
+                  )}
+                </ul>
+              </div>
+
+              {/* Bank Acceptance */}
+              {requirements.bankAcceptance && (
+                <div>
+                  <h5 className="font-medium text-indigo-800 text-sm mb-2">Bank Acceptance</h5>
+                  <div className="text-xs text-indigo-700 space-y-1">
+                    {Object.entries(requirements.bankAcceptance).slice(0, 2).map(([bank, info]) => (
+                      <div key={bank}>
+                        <strong>{bank}:</strong> {info.substring(0, 60)}...
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
     );
   }
 

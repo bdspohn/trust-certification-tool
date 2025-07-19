@@ -37,9 +37,10 @@ const trusteePowersList = [
 // Comprehensive state-specific requirements based on trust research
 const stateRequirements = {
   CA: {
-    fields: ['trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin', 'signatureAuthority'],
+    fields: ['state', 'trustName', 'trustDate', 'revocability', 'grantor', 'trustee', 'successorTrustee', 'powers', 'tin', 'signatureAuthority'],
     requiredFields: ['trustName', 'trustDate', 'grantor', 'trustee', 'powers'],
     tooltips: {
+      state: 'California Probate Code § 18100.5 provides specific statutory requirements and legal protections for trust certifications. Select the state that governs your trust.',
       trustName: 'The complete legal name of the trust exactly as stated in the trust instrument (CA Probate Code § 18100.5). Banks verify this against original documents.',
       trustDate: 'The date the trust was originally executed and signed by the settlor(s). This is not the certification date.',
       revocability: 'California law distinguishes revocable trusts (can be modified by settlor) from irrevocable trusts (permanent). This affects tax treatment and trustee powers.',
