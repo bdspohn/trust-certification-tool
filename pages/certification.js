@@ -237,7 +237,16 @@ export default function CertificationStripeFlow({ prefillData }) {
   };
 
   const handleTrusteeType = (e) => {
-    setForm({ ...form, trusteeType: e.target.value, trustee: e.target.value === 'one' ? [''] : ['', ''] });
+    const newType = e.target.value;
+    if (newType === 'one') {
+      // Keep only the first trustee name if switching to "one"
+      setForm({ ...form, trusteeType: newType, trustee: [form.trustee[0] || ''] });
+    } else {
+      // If switching to "multiple", ensure at least 2 empty fields
+      const currentTrustees = form.trustee.filter(t => t && t.trim());
+      const trusteesToSet = currentTrustees.length >= 2 ? form.trustee : [...currentTrustees, '', ''].slice(0, Math.max(2, currentTrustees.length + 1));
+      setForm({ ...form, trusteeType: newType, trustee: trusteesToSet });
+    }
     setErrors({ ...errors, trustee: undefined });
   };
   const handleTrusteeChange = (idx, value) => {
@@ -326,18 +335,8 @@ export default function CertificationStripeFlow({ prefillData }) {
             )}
           </div>
 
-          {/* State Requirements Display */}
-          {selectedState && (
-            <StateRequirements 
-              selectedState={selectedState}
-              onRequirementsLoaded={(requirements) => {
-                // Update tooltips with state-specific information
-                if (requirements && requirements.tooltips) {
-                  // This would update the tooltips dynamically
-                }
-              }}
-            />
-          )}
+          {/* State Requirements Display - Removed to reduce form clutter */}
+          {/* Users see requirements when they first select a state, don't need to repeat on form */}
 
           {stepFields.map((key) => {
             if (key === 'state') {
@@ -382,22 +381,41 @@ export default function CertificationStripeFlow({ prefillData }) {
                       <span>More than one</span>
                     </label>
                   </div>
-                  {form.trustee.map((name, idx) => (
-                    <div key={idx} className="flex items-center gap-3">
-                      <input
-                        type="text"
-                        name={`trustee_${idx}`}
-                        value={name}
-                        onChange={e => handleTrusteeChange(idx, e.target.value)}
-                        autoComplete="name"
-                        className="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder={`Trustee name${form.trustee.length > 1 ? ` #${idx + 1}` : ''}`}
-                      />
-                      {form.trustee.length > 1 && (
-                        <button type="button" onClick={() => removeTrustee(idx)} className="text-red-500 hover:text-red-700 px-3 py-2">Remove</button>
-                      )}
-                    </div>
-                  ))}
+                  {(() => {
+                    // If "one" is selected, only show the first trustee field
+                    // If "multiple" is selected, show all trustee fields
+                    const trusteesToShow = form.trusteeType === 'one' 
+                      ? [form.trustee[0] || ''] 
+                      : form.trustee;
+                    
+                    return trusteesToShow.map((name, idx) => (
+                      <div key={idx} className="flex items-center gap-3">
+                        <input
+                          type="text"
+                          name={`trustee_${idx}`}
+                          value={name}
+                          onChange={e => {
+                            if (form.trusteeType === 'one') {
+                              // For single trustee, update only the first entry
+                              const updated = [...form.trustee];
+                              updated[0] = sanitizeInput(e.target.value);
+                              setForm({ ...form, trustee: updated });
+                            } else {
+                              // For multiple trustees, use existing logic
+                              handleTrusteeChange(idx, e.target.value);
+                            }
+                            setErrors({ ...errors, trustee: undefined });
+                          }}
+                          autoComplete="name"
+                          className="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          placeholder={`Trustee name${form.trusteeType === 'multiple' && trusteesToShow.length > 1 ? ` #${idx + 1}` : ''}`}
+                        />
+                        {form.trusteeType === 'multiple' && trusteesToShow.length > 1 && (
+                          <button type="button" onClick={() => removeTrustee(idx)} className="text-red-500 hover:text-red-700 px-3 py-2">Remove</button>
+                        )}
+                      </div>
+                    ));
+                  })()}
                   {form.trusteeType === 'multiple' && (
                     <button type="button" onClick={addTrustee} className="text-blue-600 hover:text-blue-800 underline">Add another trustee</button>
                   )}
