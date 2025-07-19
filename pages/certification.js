@@ -201,7 +201,8 @@ export default function CertificationStripeFlow({ prefillData }) {
   const req = stateRequirements[selectedState] || { fields: genericFields, tooltips: genericTooltips };
 
   // For each step, only show fields that are required for the selected state
-  const stepFields = steps[step].fields.filter(f => req.fields.includes(f));
+  // Special case: step 0 is always the state selection step
+  const stepFields = step === 0 ? ['state'] : steps[step].fields.filter(f => req.fields.includes(f));
 
   // Validation logic
   const validate = () => {
