@@ -188,7 +188,7 @@ export default function CertificationStripeFlow({ prefillData }) {
       setForm(f => ({
         ...f,
         ...prefillData,
-        state: prefillData.governingLaw || prefillData.state || f.state || '',
+        state: prefillData.governingLaw || prefillData.state || f.state,
         trustee: Array.isArray(prefillData.trustee) ? prefillData.trustee : (prefillData.trustee ? [prefillData.trustee] : ['']),
         successorTrustee: Array.isArray(prefillData.successorTrustee) ? prefillData.successorTrustee : (prefillData.successorTrustee ? [prefillData.successorTrustee] : ['']),
         powers: Array.isArray(prefillData.powers) ? prefillData.powers : (prefillData.powers ? [prefillData.powers] : []),
@@ -366,6 +366,7 @@ export default function CertificationStripeFlow({ prefillData }) {
                 name="state"
                 value={form.state}
                 onChange={e => {
+                  console.log('State changed to:', e.target.value); // Debug
                   setForm({ ...form, state: e.target.value });
                   setErrors({ ...errors, state: undefined });
                 }}
@@ -375,6 +376,7 @@ export default function CertificationStripeFlow({ prefillData }) {
                   <option key={s.code} value={s.code}>{s.name}</option>
                 ))}
               </select>
+              <div className="text-xs text-gray-500 mt-1">Debug: Current form.state = {form.state}</div>
               {errors.state && <div className="text-red-500 text-sm mt-2">{errors.state}</div>}
             </div>
           )}
