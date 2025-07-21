@@ -639,7 +639,6 @@ export default function CertificationStripeFlow({ prefillData }) {
                       ))}
                     </div>
                   </div>
-                  </div>
                   {form.powers.includes('Other') && (
                     <input
                       type="text"
