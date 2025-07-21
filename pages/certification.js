@@ -397,6 +397,114 @@ export default function CertificationStripeFlow({ prefillData }) {
     return state ? state.name : code;
   };
 
+  // Get state-specific notarization requirements
+  const getNotarizationRequirements = (stateCode) => {
+    const requirements = {
+      'CA': 'Must be notarized as an acknowledged declaration per CA Probate Code § 18100.5',
+      'NY': 'Requires notarization by New York-licensed notary per NY Estates, Powers and Trusts Law',
+      'TX': 'Requires notarization by Texas-licensed notary per TX Property Code Chapter 114',
+      'FL': 'Requires notarization by Florida-licensed notary per FL Trust Code Chapter 736',
+      'AZ': 'Requires notarization per Arizona Revised Statutes Title 14',
+      'WA': 'Requires notarization per RCW 11.98 Trust and Estate Dispute Resolution Act',
+      'IL': 'Requires notarization by Illinois-licensed notary',
+      'PA': 'Requires notarization by Pennsylvania-licensed notary',
+      'OH': 'Requires notarization by Ohio-licensed notary',
+      'GA': 'Requires notarization by Georgia-licensed notary',
+      'NC': 'Requires notarization by North Carolina-licensed notary',
+      'MI': 'Requires notarization by Michigan-licensed notary',
+      'NJ': 'Requires notarization by New Jersey-licensed notary',
+      'VA': 'Requires notarization by Virginia-licensed notary',
+      'MA': 'Requires notarization by Massachusetts-licensed notary',
+      'TN': 'Requires notarization by Tennessee-licensed notary',
+      'IN': 'Requires notarization by Indiana-licensed notary',
+      'MO': 'Requires notarization by Missouri-licensed notary',
+      'MD': 'Requires notarization by Maryland-licensed notary',
+      'CO': 'Requires notarization by Colorado-licensed notary'
+    };
+    return requirements[stateCode] || 'Notarization by state-licensed notary required';
+  };
+
+  // Signature handling functions
+  const handleESign = () => {
+    alert('E-Sign functionality coming soon! This will integrate with DocuSign to allow electronic signature of your trust certification.');
+  };
+
+  const handleOnlineNotarization = () => {
+    alert('Online Notarization functionality coming soon! This will connect you with a certified notary for remote notarization where legally permitted.');
+  };
+
+  const handlePrintAndSign = () => {
+    // Generate and download the document for printing
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Trust Certification - Print & Sign</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+              .header { text-align: center; margin-bottom: 30px; }
+              .content { margin-bottom: 30px; }
+              .signature-section { margin-top: 50px; padding: 20px; border: 1px solid #ccc; }
+              .signature-line { border-bottom: 1px solid #000; width: 300px; height: 30px; margin: 20px 0; }
+              .notary-section { margin-top: 30px; padding: 20px; border: 2px solid #000; }
+              @media print { body { margin: 20px; } }
+            </style>
+          </head>
+          <body>
+            <div class="header">
+              <h1>CERTIFICATION OF TRUST</h1>
+              <p><strong>State:</strong> ${getStateInfo(form.state)}</p>
+              <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+            </div>
+            
+            <div class="content">
+              <p><strong>Trust Name:</strong> ${form.trustName || '[To be completed]'}</p>
+              <p><strong>Trust Date:</strong> ${form.trustDate || '[To be completed]'}</p>
+              <p><strong>Grantor:</strong> ${form.grantor || '[To be completed]'}</p>
+              <p><strong>Current Trustee(s):</strong> ${Array.isArray(form.trustee) ? form.trustee.filter(t => t).join(', ') : (form.trustee || '[To be completed]')}</p>
+            </div>
+            
+            <div class="signature-section">
+              <h3>Signature Section</h3>
+              <p>Trustee Signature:</p>
+              <div class="signature-line"></div>
+              <p>Print Name: _________________________</p>
+              <p>Date: _________________________</p>
+            </div>
+            
+            ${form.state ? `
+            <div class="notary-section">
+              <h3>NOTARIZATION REQUIRED FOR ${getStateInfo(form.state)}</h3>
+              <p><strong>State-Specific Requirements:</strong> ${getNotarizationRequirements(form.state)}</p>
+              <br>
+              <p><strong>State of:</strong> _________________________</p>
+              <p><strong>County of:</strong> _________________________</p>
+              <br>
+              <p>On this _____ day of _____________, 20____, before me, a notary public in and for said state, personally appeared _________________________, who proved to me on the basis of satisfactory evidence to be the person whose name is subscribed to the within instrument and acknowledged to me that he/she executed the same in his/her authorized capacity as trustee of the above-named trust, and that by his/her signature on the instrument the person, or the entity upon behalf of which the person acted, executed the instrument.</p>
+              <br>
+              <p>I certify under PENALTY OF PERJURY under the laws of the State of ${getStateInfo(form.state)} that the foregoing paragraph is true and correct.</p>
+              <br>
+              <p>WITNESS my hand and official seal.</p>
+              <br>
+              <p>_________________________________</p>
+              <p><strong>Signature of Notary Public</strong></p>
+              <p><strong>[Notary Seal Required]</strong></p>
+              <br>
+              <p><strong>My commission expires:</strong> _________________________</p>
+            </div>
+            ` : ''}
+            
+            <script>window.print();</script>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+    } else {
+      alert('Please allow pop-ups to print the document.');
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow mt-8">
       {/* Enhanced urgency-driven CTA/article */}
@@ -764,16 +872,19 @@ export default function CertificationStripeFlow({ prefillData }) {
               View Document
             </button>
             <button 
+              onClick={() => handleESign()}
               className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition"
             >
               E-Sign with DocuSign
             </button>
             <button 
+              onClick={() => handleOnlineNotarization()}
               className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition"
             >
               Online Notarization
             </button>
             <button 
+              onClick={() => handlePrintAndSign()}
               className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition"
             >
               Print & Sign

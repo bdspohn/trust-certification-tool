@@ -66,6 +66,33 @@ const DocumentGenerator = ({ formData }) => {
     return states[code] || code;
   };
 
+  // Get state-specific notarization requirements
+  const getNotarizationInfo = (stateCode) => {
+    const requirements = {
+      'CA': 'Must be notarized as an acknowledged declaration per CA Probate Code § 18100.5',
+      'NY': 'Requires notarization by New York-licensed notary per NY Estates, Powers and Trusts Law',
+      'TX': 'Requires notarization by Texas-licensed notary per TX Property Code Chapter 114',
+      'FL': 'Requires notarization by Florida-licensed notary per FL Trust Code Chapter 736',
+      'AZ': 'Requires notarization per Arizona Revised Statutes Title 14',
+      'WA': 'Requires notarization per RCW 11.98 Trust and Estate Dispute Resolution Act',
+      'IL': 'Requires notarization by Illinois-licensed notary',
+      'PA': 'Requires notarization by Pennsylvania-licensed notary',
+      'OH': 'Requires notarization by Ohio-licensed notary',
+      'GA': 'Requires notarization by Georgia-licensed notary',
+      'NC': 'Requires notarization by North Carolina-licensed notary',
+      'MI': 'Requires notarization by Michigan-licensed notary',
+      'NJ': 'Requires notarization by New Jersey-licensed notary',
+      'VA': 'Requires notarization by Virginia-licensed notary',
+      'MA': 'Requires notarization by Massachusetts-licensed notary',
+      'TN': 'Requires notarization by Tennessee-licensed notary',
+      'IN': 'Requires notarization by Indiana-licensed notary',
+      'MO': 'Requires notarization by Missouri-licensed notary',
+      'MD': 'Requires notarization by Maryland-licensed notary',
+      'CO': 'Requires notarization by Colorado-licensed notary'
+    };
+    return requirements[stateCode] || 'Notarization by state-licensed notary required';
+  };
+
   const trustees = formatTrustees(formData.trustee);
   const successorTrustees = formatSuccessorTrustees(formData.successorTrustee);
   const powers = formatPowers(formData.powers, formData.otherPower);
@@ -163,12 +190,56 @@ const DocumentGenerator = ({ formData }) => {
           <p><strong>Date:</strong> {currentDate}</p>
         </div>
 
-        {/* Notary Section (Optional) */}
+        {/* Notary Section */}
         <div className="mt-12 border-t pt-6">
-          <p className="text-center text-gray-600 text-xs">
-            <strong>Note:</strong> This Certification may be notarized if required by the receiving institution. 
-            Some financial institutions may require additional documentation or verification.
-          </p>
+          {formData.state ? (
+            <div className="text-sm">
+              <h3 className="font-bold text-center mb-4">NOTARIZATION REQUIRED</h3>
+              <p className="text-center mb-4 text-gray-700">
+                <strong>State Requirements:</strong> {getNotarizationInfo(formData.state)}
+              </p>
+              
+              <div className="border border-gray-400 p-4 mt-6">
+                <p><strong>State of:</strong> _______________________</p>
+                <p><strong>County of:</strong> _______________________</p>
+                <br />
+                <p>
+                  On this _____ day of __________, 20____, before me, a notary public in and for said state, 
+                  personally appeared ________________________, who proved to me on the basis of satisfactory 
+                  evidence to be the person whose name is subscribed to the within instrument and acknowledged 
+                  to me that he/she executed the same in his/her authorized capacity as trustee of the above-named 
+                  trust, and that by his/her signature on the instrument the person, or the entity upon behalf 
+                  of which the person acted, executed the instrument.
+                </p>
+                <br />
+                <p>
+                  I certify under PENALTY OF PERJURY under the laws of the State of {getStateName(formData.state)} 
+                  that the foregoing paragraph is true and correct.
+                </p>
+                <br />
+                <p>WITNESS my hand and official seal.</p>
+                <br />
+                <div className="flex justify-between">
+                  <div>
+                    <p>_________________________________</p>
+                    <p>Signature of Notary Public</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="border border-gray-400 w-24 h-24 flex items-center justify-center">
+                      <span className="text-xs">NOTARY SEAL</span>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <p><strong>My commission expires:</strong> _______________________</p>
+              </div>
+            </div>
+          ) : (
+            <p className="text-center text-gray-600 text-xs">
+              <strong>Note:</strong> This Certification requires notarization. 
+              Some financial institutions may require additional documentation or verification.
+            </p>
+          )}
         </div>
       </div>
 
