@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Extraction Testing Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-6xl mx-auto p-6">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">🧪 AI Extraction Testing Dashboard</h1>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4">📋 Test Instructions</h2>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                    <ol class="list-decimal list-inside space-y-2 text-sm">
+                        <li>Copy the test document text below</li>
+                        <li>Go to <a href="http://localhost:3000" class="text-blue-600 underline">localhost:3000</a></li>
+                        <li>Click "Start Free Trial" → Paste the text or save as .txt file and upload</li>
+                        <li>Compare AI results with expected results below</li>
+                        <li>Mark ✅ or ❌ for each field and note any issues</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Test Case 1 -->
+            <div class="mb-8 border border-gray-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold mb-4">🎯 Test Case 1: Joint Revocable Trust</h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Test Document -->
+                    <div>
+                        <h4 class="font-medium mb-2">📄 Test Document:</h4>
+                        <textarea class="w-full h-40 p-3 border border-gray-300 rounded text-xs font-mono" readonly>THE TOMMY TRUSTMAKER AND TAMMY TRUSTMAKER REVOCABLE LIVING TRUST
+
+This Declaration of Trust is made on March 15, 2020, by Tommy Trustmaker and Tammy Trustmaker, both of Sacramento, California. The Trustmakers declare as follows:
+
+PART 1. TRUST NAME
+This revocable living trust shall be known as the Tommy Trustmaker and Tammy Trustmaker Revocable Living Trust.
+
+PART 4. ORIGINAL TRUSTEES
+The original trustees of this trust are Tommy Trustmaker and Tammy Trustmaker. Either trustee may act independently.
+
+PART 5. SUCCESSOR TRUSTEES
+If both original trustees cease to serve as trustees, the successor trustee named below shall serve:
+First Successor Trustee: Willamina Chang
+Second Successor Trustee: Rachel Walton
+
+SIGNATURES
+Tommy Trustmaker, Grantor and Trustee     Date: March 15, 2020
+Tammy Trustmaker, Grantor and Trustee     Date: March 15, 2020</textarea>
+                        <button onclick="copyText(this.previousElementSibling)" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Copy Text</button>
+                    </div>
+
+                    <!-- Expected Results -->
+                    <div>
+                        <h4 class="font-medium mb-2">✅ Expected Results:</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between p-2 bg-gray-50 rounded">
+                                <span class="font-medium">Trust Name:</span>
+                                <span class="text-green-600">Tommy Trustmaker and Tammy Trustmaker Revocable Living Trust</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-gray-50 rounded">
+                                <span class="font-medium">Trustees:</span>
+                                <span class="text-green-600">Tommy Trustmaker, Tammy Trustmaker</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-gray-50 rounded">
+                                <span class="font-medium">Successor Trustees:</span>
+                                <span class="text-green-600">Willamina Chang, Rachel Walton</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-gray-50 rounded">
+                                <span class="font-medium">Grantors:</span>
+                                <span class="text-green-600">Tommy Trustmaker, Tammy Trustmaker</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-gray-50 rounded">
+                                <span class="font-medium">Date:</span>
+                                <span class="text-green-600">March 15, 2020</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-gray-50 rounded">
+                                <span class="font-medium">State:</span>
+                                <span class="text-green-600">California</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-gray-50 rounded">
+                                <span class="font-medium">Revocability:</span>
+                                <span class="text-green-600">revocable</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Results Input -->
+                <div class="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded">
+                    <h4 class="font-medium mb-2">📊 Your Test Results:</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        <label class="flex items-center"><input type="checkbox" class="mr-2"> Trust Name ✅</label>
+                        <label class="flex items-center"><input type="checkbox" class="mr-2"> Trustees ✅</label>
+                        <label class="flex items-center"><input type="checkbox" class="mr-2"> Successors ✅</label>
+                        <label class="flex items-center"><input type="checkbox" class="mr-2"> Grantors ✅</label>
+                        <label class="flex items-center"><input type="checkbox" class="mr-2"> Date ✅</label>
+                        <label class="flex items-center"><input type="checkbox" class="mr-2"> State ✅</label>
+                        <label class="flex items-center"><input type="checkbox" class="mr-2"> Revocability ✅</label>
+                    </div>
+                    <textarea placeholder="Notes on any issues..." class="w-full mt-3 p-2 border border-gray-300 rounded text-sm" rows="2"></textarea>
+                </div>
+            </div>
+
+            <!-- Test Case 2 -->
+            <div class="mb-8 border border-gray-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold mb-4">🎯 Test Case 2: Irrevocable Trust with Corporate Trustee</h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-medium mb-2">📄 Test Document:</h4>
+                        <textarea class="w-full h-40 p-3 border border-gray-300 rounded text-xs font-mono" readonly>IRREVOCABLE LIFE INSURANCE TRUST
+
+AGREEMENT OF TRUST made this 18th day of September, 2021, between MARGARET ANN JOHNSON, an individual residing in Harris County, Texas (the "Grantor"), and WELLS FARGO BANK, NATIONAL ASSOCIATION, a national banking association (the "Trustee").
+
+SECTION 1. CREATION OF TRUST
+1.1 Trust Name. This trust shall be known as the "Margaret Ann Johnson Irrevocable Life Insurance Trust."
+
+1.2 Irrevocability. This trust is irrevocable and may not be amended, modified, or revoked by Grantor.
+
+SECTION 2. TRUSTEE
+2.1 Corporate Trustee. Wells Fargo Bank, National Association, shall serve as the sole trustee.
+
+2.2 Successor Trustee. If Wells Fargo Bank ceases to serve, then First Republic Bank shall serve as successor trustee.
+
+GRANTOR:
+Margaret Ann Johnson                                   Date: September 18, 2021
+
+TRUSTEE:
+WELLS FARGO BANK, NATIONAL ASSOCIATION
+By: Thomas Richardson, Vice President                  Date: September 18, 2021</textarea>
+                        <button onclick="copyText(this.previousElementSibling)" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Copy Text</button>
+                    </div>
+
+                    <div>
+                        <h4 class="font-medium mb-2">✅ Expected Results:</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between p-2 bg-gray-50 rounded">
+                                <span class="font-medium">Trust Name:</span>
+                                <span class="text-green-600">Margaret Ann Johnson Irrevocable Life Insurance Trust</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-gray-50 rounded">
+                                <span class="font-medium">Trustees:</span>
+                                <span class="text-green-600">Wells Fargo Bank, National Association</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-gray-50 rounded">
+                                <span class="font-medium">Successor Trustees:</span>
+                                <span class="text-green-600">First Republic Bank</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-gray-50 rounded">
+                                <span class="font-medium">Grantors:</span>
+                                <span class="text-green-600">Margaret Ann Johnson</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-gray-50 rounded">
+                                <span class="font-medium">Date:</span>
+                                <span class="text-green-600">September 18, 2021</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-gray-50 rounded">
+                                <span class="font-medium">State:</span>
+                                <span class="text-green-600">Texas</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-gray-50 rounded">
+                                <span class="font-medium">Revocability:</span>
+                                <span class="text-green-600">irrevocable</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded">
+                    <h4 class="font-medium mb-2">📊 Your Test Results:</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        <label class="flex items-center"><input type="checkbox" class="mr-2"> Trust Name ✅</label>
+                        <label class="flex items-center"><input type="checkbox" class="mr-2"> Trustees ✅</label>
+                        <label class="flex items-center"><input type="checkbox" class="mr-2"> Successors ✅</label>
+                        <label class="flex items-center"><input type="checkbox" class="mr-2"> Grantors ✅</label>
+                        <label class="flex items-center"><input type="checkbox" class="mr-2"> Date ✅</label>
+                        <label class="flex items-center"><input type="checkbox" class="mr-2"> State ✅</label>
+                        <label class="flex items-center"><input type="checkbox" class="mr-2"> Revocability ✅</label>
+                    </div>
+                    <textarea placeholder="Notes on any issues..." class="w-full mt-3 p-2 border border-gray-300 rounded text-sm" rows="2"></textarea>
+                </div>
+            </div>
+
+            <!-- Test Summary -->
+            <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold mb-4">📈 Testing Summary</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="p-4 bg-white rounded border">
+                        <div class="text-2xl font-bold text-green-600" id="accuracy">---%</div>
+                        <div class="text-sm text-gray-600">Accuracy</div>
+                    </div>
+                    <div class="p-4 bg-white rounded border">
+                        <div class="text-2xl font-bold text-blue-600" id="confidence">---%</div>
+                        <div class="text-sm text-gray-600">Avg Confidence</div>
+                    </div>
+                    <div class="p-4 bg-white rounded border">
+                        <div class="text-2xl font-bold text-purple-600" id="tests">0/6</div>
+                        <div class="text-sm text-gray-600">Tests Complete</div>
+                    </div>
+                    <div class="p-4 bg-white rounded border">
+                        <div class="text-2xl font-bold text-orange-600" id="issues">0</div>
+                        <div class="text-sm text-gray-600">Issues Found</div>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <h4 class="font-medium mb-2">🎯 Next Steps:</h4>
+                    <ul class="text-sm space-y-1 text-gray-700">
+                        <li>• If accuracy < 95%: Focus on failed extractions and improve regex patterns</li>
+                        <li>• If confidence < 80%: Improve confidence scoring algorithm</li>
+                        <li>• Test with your own trust documents</li>
+                        <li>• Add more edge cases (very old trusts, complex names, etc.)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyText(element) {
+            element.select();
+            element.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(element.value);
+            
+            // Visual feedback
+            const button = element.nextElementSibling;
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.className = button.className.replace('bg-blue-600', 'bg-green-600');
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.className = button.className.replace('bg-green-600', 'bg-blue-600');
+            }, 2000);
+        }
+
+        // Calculate results as user checks boxes
+        function updateResults() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const total = checkboxes.length;
+            const accuracy = total > 0 ? Math.round((checked / total) * 100) : 0;
+            
+            document.getElementById('accuracy').textContent = accuracy + '%';
+            document.getElementById('tests').textContent = checked + '/' + total;
+        }
+
+        // Add event listeners to checkboxes
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.addEventListener('change', updateResults));
+        });
+    </script>
+</body>
+</html>
