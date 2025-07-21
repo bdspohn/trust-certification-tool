@@ -268,7 +268,7 @@ const StateRequirements = ({ selectedState, onRequirementsLoaded, compact = fals
     } else {
       setRequirements(null);
     }
-  }, [selectedState, onRequirementsLoaded, stateRequirementsData]);
+  }, [selectedState, onRequirementsLoaded, stateRequirementsData, stateNameToCode]);
 
   if (!selectedState) return null;
 

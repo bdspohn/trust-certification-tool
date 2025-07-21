@@ -270,7 +270,7 @@ export default function CertificationStripeFlow({ prefillData }) {
     if (!form.state || !states.find(s => s.code === form.state)) {
       setForm(prev => ({ ...prev, state: 'CA' }));
     }
-  }, []);
+  }, [form.state]);
 
   // Get state-specific fields/tooltips or fall back to generic
   const selectedState = form.state;

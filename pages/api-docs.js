@@ -184,8 +184,8 @@ response = requests.post(
     {
       name: 'Community',
       description: 'For credit unions and community banks',
-      price: '$500/month',
-      setup: '$1,000 setup',
+      price: 'Contact Sales',
+      setup: 'Custom pricing',
       apiCalls: '1,000 calls/month',
       perCall: '$2.00 overage',
       features: [
@@ -198,8 +198,8 @@ response = requests.post(
     {
       name: 'Regional',
       description: 'For regional banks and investment firms',
-      price: '$2,000/month',
-      setup: '$5,000 setup',
+      price: 'Contact Sales',
+      setup: 'Custom pricing',
       apiCalls: '5,000 calls/month',
       perCall: '$1.50 overage',
       features: [
@@ -214,8 +214,8 @@ response = requests.post(
     {
       name: 'Enterprise',
       description: 'For national banks and large institutions',
-      price: '$8,000/month',
-      setup: '$15,000 setup',
+      price: 'Contact Sales',
+      setup: 'Custom pricing',
       apiCalls: '25,000 calls/month',
       perCall: '$1.00 overage',
       features: [

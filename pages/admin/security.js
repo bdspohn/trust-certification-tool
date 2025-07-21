@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import { SecurityAuditLogger } from '../../lib/security';
 
@@ -13,11 +13,7 @@ const SecurityDashboard = () => {
   });
   const [timeRange, setTimeRange] = useState('24h');
 
-  useEffect(() => {
-    loadSecurityData();
-  }, [timeRange]);
-
-  const loadSecurityData = () => {
+  const loadSecurityData = useCallback(() => {
     // In production, this would come from a secure backend API
     if (typeof window !== 'undefined') {
       const logs = JSON.parse(localStorage.getItem('securityAuditLogs') || '[]');
@@ -49,7 +45,11 @@ const SecurityDashboard = () => {
 
       setSecurityMetrics(metrics);
     }
-  };
+  }, [timeRange]);
+
+  useEffect(() => {
+    loadSecurityData();
+  }, [loadSecurityData]);
 
   const getSeverityColor = (severity) => {
     switch (severity) {

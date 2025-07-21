@@ -28,7 +28,7 @@ const LegalToolFramework = ({
       icon: DocumentTextIcon,
       urgency: 'high',
       estimatedTime: '3-5 business days',
-      cost: '$750-1,500',
+      cost: 'Coming Soon',
       dataRequired: ['trustData', 'familyStructure'],
       businessValue: 'high', // For B2B data insights
       category: 'trust_management'
@@ -40,7 +40,7 @@ const LegalToolFramework = ({
       icon: BuildingOfficeIcon,
       urgency: 'medium',
       estimatedTime: '5-7 business days',
-      cost: '$500-1,200',
+      cost: 'Coming Soon',
       dataRequired: ['trustData', 'propertyAssets'],
       businessValue: 'very_high', // Real estate data is valuable
       category: 'real_estate'
@@ -52,7 +52,7 @@ const LegalToolFramework = ({
       icon: UserGroupIcon,
       urgency: 'medium',
       estimatedTime: '2-4 business days',
-      cost: '$400-800',
+      cost: 'Coming Soon',
       dataRequired: ['trustData', 'familyStructure'],
       businessValue: 'medium',
       category: 'trust_management'
@@ -64,7 +64,7 @@ const LegalToolFramework = ({
       icon: ClockIcon,
       urgency: 'high',
       estimatedTime: '10-15 business days',
-      cost: '$1,500-3,000',
+      cost: 'Coming Soon',
       dataRequired: ['trustData', 'propertyAssets', 'familyStructure'],
       businessValue: 'very_high', // Asset distribution data
       category: 'trust_management'
@@ -165,8 +165,12 @@ const LegalToolFramework = ({
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Legal Services Platform</h1>
+        <div className="inline-flex items-center px-4 py-2 rounded-full bg-yellow-100 text-yellow-800 font-medium text-sm mb-4">
+          <span className="mr-2">🚀</span> Coming Soon - Join the Waitlist
+        </div>
         <p className="text-lg text-gray-600">
-          AI-powered legal tools integrated with your trust data
+          Revolutionary AI-powered legal tools integrated with your trust data. 
+          Be among the first to access instant legal document generation.
         </p>
       </div>
 
@@ -266,13 +270,13 @@ const LegalToolFramework = ({
         })}
       </div>
 
-      {/* Arizona ABS Integration Notice */}
-      <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-        <h3 className="font-semibold text-gray-800 mb-2">🏛️ Legal Services Network</h3>
+      {/* Legal Services Coming Soon Notice */}
+      <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-6">
+        <h3 className="font-semibold text-gray-800 mb-2">🚀 Legal Services Network - Coming Soon</h3>
         <p className="text-sm text-gray-600 mb-4">
-          All legal services are provided through our Arizona Alternative Business Structure, 
-          connecting you with qualified attorneys nationwide while maintaining consistent 
-          quality and competitive pricing.
+          We're building partnerships with qualified attorneys nationwide to offer 
+          instant legal document generation at transparent, fixed prices. Join our 
+          waitlist to get early access.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div className="flex items-center space-x-2">

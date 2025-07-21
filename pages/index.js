@@ -298,7 +298,7 @@ const LandingPage = ({ onGetStarted, setCurrentStep }) => {
             <div className="text-center p-3 sm:p-4">
               <div className="text-2xl sm:text-3xl md:text-4xl mb-2">🏦</div>
               <h3 className="font-semibold text-slate-900 mb-1 text-sm sm:text-base">Bank-Grade Security</h3>
-              <p className="text-xs sm:text-sm text-slate-600">SOC 2 compliant platform</p>
+              <p className="text-xs sm:text-sm text-slate-600">Enterprise security standards</p>
             </div>
             <div className="text-center p-3 sm:p-4">
               <div className="text-2xl sm:text-3xl md:text-4xl mb-2">🔗</div>
@@ -418,7 +418,7 @@ const LandingPage = ({ onGetStarted, setCurrentStep }) => {
               </div>
               <h3 className="text-xl font-semibold mb-4 text-slate-900 text-center">Security First</h3>
               <p className="text-slate-600 leading-relaxed text-center">
-                Building toward SOC 2 Type II compliance with enterprise-grade security controls.
+                Building enterprise-grade security infrastructure for financial institution requirements.
               </p>
             </div>
 
