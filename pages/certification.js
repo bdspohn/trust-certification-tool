@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DocumentGenerator from '../components/DocumentGenerator';
 import StateRequirements from '../components/StateRequirements';
+import Tooltip from '../components/Tooltip';
 import { 
   validateForm, 
   sanitizeInput, 
@@ -543,7 +544,9 @@ export default function CertificationStripeFlow({ prefillData }) {
               <div className="flex items-center justify-between">
                 <label className="block font-medium text-gray-700">
                   What state is your trust governed by?
-                  <span className="ml-1 text-blue-500 cursor-help" title="Select the state that governs your trust">ⓘ</span>
+                  <Tooltip content="Select the state that governs your trust" className="ml-1 text-blue-500">
+                    ⓘ
+                  </Tooltip>
                 </label>
                 {form.state && (
                   <StateRequirements 
@@ -579,7 +582,9 @@ export default function CertificationStripeFlow({ prefillData }) {
                   <div className="flex items-center justify-between">
                     <label className="block font-medium text-gray-700">
                       What state is your trust governed by?
-                      <span className="ml-1 text-blue-500 cursor-help" title={req.tooltips.state || genericTooltips.state}>ⓘ</span>
+                      <Tooltip content={req.tooltips.state || genericTooltips.state} className="ml-1 text-blue-500">
+                        ⓘ
+                      </Tooltip>
                     </label>
                     {form.state && (
                       <StateRequirements 
