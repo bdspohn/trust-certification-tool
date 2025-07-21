@@ -36,7 +36,7 @@ export default function Home() {
   const renderStep = () => {
     switch (currentStep) {
       case 'landing':
-        return <LandingPage onGetStarted={() => setCurrentStep('ai')} />;
+        return <LandingPage onGetStarted={() => setCurrentStep('ai')} setCurrentStep={setCurrentStep} />;
       case 'ai':
         return <AIDocumentProcessor onDataExtracted={handleDataExtracted} />;
       case 'form':
@@ -46,7 +46,7 @@ export default function Home() {
       case 'articles':
         return <Articles />;
       default:
-        return <LandingPage onGetStarted={() => setCurrentStep('ai')} />;
+        return <LandingPage onGetStarted={() => setCurrentStep('ai')} setCurrentStep={setCurrentStep} />;
     }
   };
 
@@ -132,21 +132,21 @@ export default function Home() {
             <div>
               <h4 className="font-semibold mb-4 text-white">Platform</h4>
               <ul className="text-sm text-slate-300 space-y-3">
-                <li className="hover:text-white transition-colors cursor-pointer">AI Document Processing</li>
-                <li className="hover:text-white transition-colors cursor-pointer">API Integration</li>
-                <li className="hover:text-white transition-colors cursor-pointer">E-Signature Platform</li>
-                <li className="hover:text-white transition-colors cursor-pointer">Compliance Engine</li>
-                <li className="hover:text-white transition-colors cursor-pointer">Enterprise Dashboard</li>
+                <li><Link href="/ai-tool" className="hover:text-white transition-colors">AI Document Processing</Link></li>
+                <li><Link href="/api-docs" className="hover:text-white transition-colors">API Integration</Link></li>
+                <li><button onClick={() => setCurrentStep('signature')} className="hover:text-white transition-colors text-left">E-Signature Platform</button></li>
+                <li><Link href="/admin/security" className="hover:text-white transition-colors">Compliance Engine</Link></li>
+                <li><Link href="/trustee-dashboard" className="hover:text-white transition-colors">Enterprise Dashboard</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4 text-white">Resources</h4>
               <ul className="text-sm text-slate-300 space-y-3">
-                <li className="hover:text-white transition-colors cursor-pointer">Documentation</li>
-                <li className="hover:text-white transition-colors cursor-pointer">API Reference</li>
-                <li className="hover:text-white transition-colors cursor-pointer">Trust Law Updates</li>
-                <li className="hover:text-white transition-colors cursor-pointer">Best Practices</li>
-                <li className="hover:text-white transition-colors cursor-pointer">Case Studies</li>
+                <li><Link href="/api-docs" className="hover:text-white transition-colors">Documentation</Link></li>
+                <li><Link href="/api-docs" className="hover:text-white transition-colors">API Reference</Link></li>
+                <li><button onClick={() => setCurrentStep('articles')} className="hover:text-white transition-colors text-left">Trust Law Updates</button></li>
+                <li><button onClick={() => setCurrentStep('articles')} className="hover:text-white transition-colors text-left">Best Practices</button></li>
+                <li><button onClick={() => setCurrentStep('articles')} className="hover:text-white transition-colors text-left">Case Studies</button></li>
               </ul>
             </div>
             <div>
@@ -154,9 +154,9 @@ export default function Home() {
               <ul className="text-sm text-slate-300 space-y-3">
                 <li><Link href="/legal/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
                 <li><Link href="/legal/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
-                <li className="hover:text-white transition-colors cursor-pointer">Security</li>
-                <li className="hover:text-white transition-colors cursor-pointer">Support</li>
-                <li className="hover:text-white transition-colors cursor-pointer">Contact</li>
+                <li><Link href="/admin/security" className="hover:text-white transition-colors">Security</Link></li>
+                <li><Link href="/contact" className="hover:text-white transition-colors">Support</Link></li>
+                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
               </ul>
             </div>
           </div>
@@ -171,8 +171,8 @@ export default function Home() {
                   <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
                   All systems operational
                 </span>
-                <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-                <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+                <Link href="/legal/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+                <Link href="/legal/terms" className="hover:text-white transition-colors">Terms of Service</Link>
               </div>
             </div>
           </div>
@@ -182,7 +182,7 @@ export default function Home() {
   );
 }
 
-const LandingPage = ({ onGetStarted }) => {
+const LandingPage = ({ onGetStarted, setCurrentStep }) => {
   return (
     <div className="bg-gradient-to-b from-slate-50 to-white">
       {/* Enterprise Hero Section */}
