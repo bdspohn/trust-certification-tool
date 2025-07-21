@@ -52,9 +52,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Head>
-        <title>Trusto.Inc - Enterprise Trust Infrastructure Platform | Bank-Grade Certification Solutions</title>
-        <meta name="description" content="Enterprise trust certification platform powering compliant transactions for banks, credit unions, and wealth managers. API-first architecture with SOC 2 security and 99% bank acceptance rate." />
-        <meta name="keywords" content="trust certification, financial institutions, bank compliance, trust infrastructure, API platform, SOC 2, fintech" />
+        <title>Trusto - Trust Certification Made Simple</title>
+        <meta name="description" content="Streamline trust certifications with AI-powered document processing. Generate bank-ready certifications in minutes, not weeks." />
+        <meta name="keywords" content="trust certification, financial institutions, bank compliance, trust infrastructure, API platform, fintech" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Enhanced Navigation */}
@@ -111,7 +111,7 @@ export default function Home() {
                 <h3 className="text-lg font-semibold">Trusto<span className="text-blue-400">.Inc</span></h3>
               </div>
               <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                Enterprise trust infrastructure platform powering compliant transactions for financial institutions worldwide.
+                Making trust certifications simple for everyone. Upload, extract, generate - done.
               </p>
               <div className="flex space-x-4">
                 <div className="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center cursor-pointer hover:bg-slate-700 transition-colors">
@@ -157,14 +157,15 @@ export default function Home() {
           <div className="border-t border-slate-800 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="text-sm text-slate-400 mb-4 md:mb-0">
-                <p>&copy; 2024 Trusto.Inc. All rights reserved. SOC 2 Type II Certified.</p>
+                <p>&copy; 2024 Trusto.Inc. All rights reserved.</p>
               </div>
               <div className="flex space-x-6 text-sm text-slate-400">
                 <span className="flex items-center">
                   <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
                   All systems operational
                 </span>
-                <span>99.9% uptime</span>
+                <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+                <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
               </div>
             </div>
           </div>
@@ -182,7 +183,7 @@ const LandingPage = ({ onGetStarted }) => {
         <div className="text-center mb-20">
           <div className="mb-6">
             <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-800 mb-6">
-              🏆 99% Bank Acceptance Rate
+              ✨ New: AI-Powered Document Processing
             </span>
           </div>
           <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
@@ -190,8 +191,8 @@ const LandingPage = ({ onGetStarted }) => {
             <span className="block text-blue-600">for Financial Services</span>
           </h1>
           <p className="text-xl text-slate-600 mb-8 max-w-4xl mx-auto leading-relaxed">
-            Enterprise-grade trust certification platform powering compliant transactions for banks, 
-            credit unions, and wealth managers. API-first architecture with SOC 2 security.
+            Generate bank-ready trust certifications in minutes. Our AI extracts key information
+            from your trust documents and creates state-compliant certifications automatically.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <button
@@ -205,25 +206,27 @@ const LandingPage = ({ onGetStarted }) => {
             </button>
           </div>
           <p className="text-sm text-slate-500">
-            No credit card required • Enterprise support available • GDPR compliant
+            No credit card required • Free trial available
           </p>
         </div>
 
-        {/* Social Proof */}
+        {/* Value Props */}
         <div className="mb-20">
-          <p className="text-center text-slate-500 mb-8 font-medium">Trusted by financial institutions</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center opacity-60">
-            <div className="flex items-center justify-center">
-              <div className="text-2xl font-bold text-slate-400">REGIONAL BANK</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="text-4xl mb-2">⚡</div>
+              <h3 className="font-semibold text-slate-900 mb-1">Fast Processing</h3>
+              <p className="text-sm text-slate-600">Generate certifications in minutes, not weeks</p>
             </div>
-            <div className="flex items-center justify-center">
-              <div className="text-2xl font-bold text-slate-400">CREDIT UNION</div>
+            <div className="text-center">
+              <div className="text-4xl mb-2">🏦</div>
+              <h3 className="font-semibold text-slate-900 mb-1">Bank Ready</h3>
+              <p className="text-sm text-slate-600">Formatted for financial institution requirements</p>
             </div>
-            <div className="flex items-center justify-center">
-              <div className="text-2xl font-bold text-slate-400">WEALTH MGMT</div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="text-2xl font-bold text-slate-400">TRUST BANK</div>
+            <div className="text-center">
+              <div className="text-4xl mb-2">📋</div>
+              <h3 className="font-semibold text-slate-900 mb-1">State Compliant</h3>
+              <p className="text-sm text-slate-600">Updated templates for all 50 states</p>
             </div>
           </div>
         </div>
@@ -238,22 +241,22 @@ const LandingPage = ({ onGetStarted }) => {
               <div className="flex items-start">
                 <div className="text-red-500 mr-3 mt-1">❌</div>
                 <div>
-                  <p className="font-semibold text-red-800">2-4 Week Processing</p>
-                  <p className="text-red-600 text-sm">Manual legal review creates bottlenecks</p>
+                  <p className="font-semibold text-red-800">Manual Processing</p>
+                  <p className="text-red-600 text-sm">Type everything by hand, prone to errors</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <div className="text-red-500 mr-3 mt-1">❌</div>
                 <div>
-                  <p className="font-semibold text-red-800">40% Rejection Rate</p>
-                  <p className="text-red-600 text-sm">Incomplete or incorrect documentation</p>
+                  <p className="font-semibold text-red-800">Time Consuming</p>
+                  <p className="text-red-600 text-sm">Research state requirements yourself</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <div className="text-red-500 mr-3 mt-1">❌</div>
                 <div>
-                  <p className="font-semibold text-red-800">$500-2,000 Cost</p>
-                  <p className="text-red-600 text-sm">Attorney fees and processing delays</p>
+                  <p className="font-semibold text-red-800">Uncertainty</p>
+                  <p className="text-red-600 text-sm">Not sure if format meets bank requirements</p>
                 </div>
               </div>
             </div>
@@ -265,49 +268,28 @@ const LandingPage = ({ onGetStarted }) => {
               <div className="flex items-start">
                 <div className="text-green-500 mr-3 mt-1">✅</div>
                 <div>
-                  <p className="font-semibold text-green-800">Same-Day Processing</p>
-                  <p className="text-green-600 text-sm">AI-powered extraction and validation</p>
+                  <p className="font-semibold text-green-800">AI-Powered</p>
+                  <p className="text-green-600 text-sm">Extract information from your trust document</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <div className="text-green-500 mr-3 mt-1">✅</div>
                 <div>
-                  <p className="font-semibold text-green-800">99% Acceptance Rate</p>
-                  <p className="text-green-600 text-sm">Bank-compliant formatting and validation</p>
+                  <p className="font-semibold text-green-800">Bank-Ready Format</p>
+                  <p className="text-green-600 text-sm">Properly formatted for financial institutions</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <div className="text-green-500 mr-3 mt-1">✅</div>
                 <div>
-                  <p className="font-semibold text-green-800">$50-200 Cost</p>
-                  <p className="text-green-600 text-sm">Automated processing reduces overhead</p>
+                  <p className="font-semibold text-green-800">Cost Effective</p>
+                  <p className="text-green-600 text-sm">Start with a free trial</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* ROI Calculator */}
-        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8 mb-20">
-          <h3 className="text-2xl font-bold text-blue-800 mb-6 text-center">Enterprise ROI Calculator</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold text-blue-600 mb-2">10,000</div>
-              <p className="text-blue-800 font-semibold">Annual Certifications</p>
-              <p className="text-blue-600 text-sm">Large regional bank volume</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-blue-600 mb-2">$8.7M</div>
-              <p className="text-blue-800 font-semibold">Annual Cost Savings</p>
-              <p className="text-blue-600 text-sm">vs. traditional processing</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-blue-600 mb-2">87%</div>
-              <p className="text-blue-800 font-semibold">Cost Reduction</p>
-              <p className="text-blue-600 text-sm">Immediate operational impact</p>
-            </div>
-          </div>
-        </div>
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
@@ -317,25 +299,25 @@ const LandingPage = ({ onGetStarted }) => {
             </div>
             <h3 className="text-xl font-semibold mb-4 text-slate-900">AI-Powered Extraction</h3>
             <p className="text-slate-600 leading-relaxed">
-              Advanced ML models extract trust information with 95%+ accuracy. Multi-format support for PDF, DOCX, and text documents.
+              Automatically extract trust information from your documents. Supports PDF, DOCX, and text formats.
             </p>
           </div>
           <div className="text-center p-8 bg-white rounded-2xl shadow-lg border border-slate-200">
             <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <div className="text-2xl">🏛️</div>
             </div>
-            <h3 className="text-xl font-semibold mb-4 text-slate-900">Bank-Grade Compliance</h3>
+            <h3 className="text-xl font-semibold mb-4 text-slate-900">State-Specific Templates</h3>
             <p className="text-slate-600 leading-relaxed">
-              SOC 2 certified platform with 50-state legal compliance. Templates accepted by major financial institutions.
+              Templates designed for all 50 states. Built with financial institution requirements in mind.
             </p>
           </div>
           <div className="text-center p-8 bg-white rounded-2xl shadow-lg border border-slate-200">
             <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <div className="text-2xl">⚡</div>
             </div>
-            <h3 className="text-xl font-semibold mb-4 text-slate-900">API-First Architecture</h3>
+            <h3 className="text-xl font-semibold mb-4 text-slate-900">Developer Friendly</h3>
             <p className="text-slate-600 leading-relaxed">
-              RESTful APIs for seamless integration. White-label solutions available for enterprise customers.
+              Clean API for easy integration. Built for developers, by developers.
             </p>
           </div>
         </div>
@@ -376,44 +358,6 @@ const LandingPage = ({ onGetStarted }) => {
         </div>
       </div>
 
-      {/* Trust & Security Section */}
-      <div className="bg-slate-900 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-6">Bank-Grade Security & Compliance</h2>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-              Trusted by financial institutions for mission-critical trust operations
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-            <div className="text-center">
-              <div className="bg-blue-600 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold">SOC 2</span>
-              </div>
-              <p className="text-slate-300 font-semibold">SOC 2 Type II</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-green-600 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold">GDPR</span>
-              </div>
-              <p className="text-slate-300 font-semibold">GDPR Compliant</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-purple-600 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold">256</span>
-              </div>
-              <p className="text-slate-300 font-semibold">AES-256 Encryption</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-orange-600 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold">99.9%</span>
-              </div>
-              <p className="text-slate-300 font-semibold">Uptime SLA</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Final CTA Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

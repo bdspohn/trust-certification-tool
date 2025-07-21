@@ -182,19 +182,94 @@ export default function CertificationStripeFlow({ prefillData }) {
   const [submitted, setSubmitted] = useState(false);
   const [showDocument, setShowDocument] = useState(false);
 
+  // Helper function to validate names (same logic as AI processor)
+  const isValidName = (name) => {
+    if (!name || typeof name !== 'string') return false;
+    name = name.trim();
+    if (name.length < 3 || name.length > 50) return false;
+    
+    const invalidKeywords = [
+      'trust', 'instrument', 'vacant', 'become', 'terms', 'each', 
+      'under', 'created', 'exoneration', 'removed', 'able', 'will not',
+      'shall', 'may', 'must', 'hereby', 'whereas', 'therefore', 'between',
+      'agreement', 'document', 'provisions', 'article', 'section', 'replace',
+      'independent', 'special', 'benefit', 'expenses', 'taxes', 'tangible',
+      'personal', 'property', 'income', 'principal', 'distribution', 'guidelines',
+      'authority', 'powers', 'any', 'our', 'their', 'this', 'that', 'these',
+      'those', 'which', 'what', 'when', 'where', 'how', 'why', 'who', 'whom'
+    ];
+    const lowerName = name.toLowerCase();
+    if (invalidKeywords.some(keyword => lowerName.includes(keyword))) return false;
+    
+    if (/^(article|section|chapter|part|clause)\s+(one|two|three|four|five|six|seven|eight|nine|ten|\d+)/i.test(name)) return false;
+    if (/^(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth)$/i.test(name)) return false;
+    
+    const namePattern = /^[A-Z][a-z]+(\s+[A-Z]\.)?(\s+[A-Z][a-z]+)+$/;
+    if (!namePattern.test(name)) return false;
+    
+    const parts = name.split(/\s+/);
+    if (parts.length < 2) return false;
+    
+    const nonNameWords = ['and', 'or', 'the', 'of', 'in', 'on', 'at', 'by', 'for', 'with', 'as'];
+    if (parts.some(part => nonNameWords.includes(part.toLowerCase()))) return false;
+    
+    return true;
+  };
+
   // Autofill form with prefillData (from AI extraction)
   useEffect(() => {
     if (prefillData && Object.keys(prefillData).length > 0) {
+      // Clean up trustee names by filtering out invalid ones
+      const cleanTrustees = Array.isArray(prefillData.trustee) 
+        ? prefillData.trustee.filter(isValidName)
+        : (prefillData.trustee && isValidName(prefillData.trustee) ? [prefillData.trustee] : []);
+      
+      const cleanSuccessorTrustees = Array.isArray(prefillData.successorTrustee)
+        ? prefillData.successorTrustee.filter(isValidName)
+        : (prefillData.successorTrustee && isValidName(prefillData.successorTrustee) ? [prefillData.successorTrustee] : []);
+      
+      // Convert state name to code if needed - prioritize the already-converted state code
+      let stateValue = prefillData.state || f.state; // Use the converted state code first
+      
+      // If still not a code, try governingLaw and convert it
+      if (!stateValue || stateValue.length > 2) {
+        const fallbackState = prefillData.governingLaw || stateValue || 'CALIFORNIA';
+        if (fallbackState.length > 2) {
+          // It's a full state name, convert to code
+          const stateObj = states.find(s => s.name.toUpperCase() === fallbackState.toUpperCase());
+          stateValue = stateObj ? stateObj.code : 'CA'; // Default to CA if not found
+        } else {
+          stateValue = fallbackState; // Already a code
+        }
+      }
+      
       setForm(f => ({
         ...f,
         ...prefillData,
-        state: prefillData.governingLaw || prefillData.state || f.state,
-        trustee: Array.isArray(prefillData.trustee) ? prefillData.trustee : (prefillData.trustee ? [prefillData.trustee] : ['']),
-        successorTrustee: Array.isArray(prefillData.successorTrustee) ? prefillData.successorTrustee : (prefillData.successorTrustee ? [prefillData.successorTrustee] : ['']),
+        state: stateValue,
+        trustee: cleanTrustees.length > 0 ? cleanTrustees : [''],
+        successorTrustee: cleanSuccessorTrustees.length > 0 ? cleanSuccessorTrustees : [''],
         powers: Array.isArray(prefillData.powers) ? prefillData.powers : (prefillData.powers ? [prefillData.powers] : []),
       }));
     }
   }, [prefillData]);
+
+  // Ensure state is always a valid code (not full name)
+  useEffect(() => {
+    if (form.state && form.state.length > 2) {
+      // It's a full state name, convert to code
+      const stateObj = states.find(s => s.name.toUpperCase() === form.state.toUpperCase());
+      const stateCode = stateObj ? stateObj.code : 'CA';
+      setForm(prev => ({ ...prev, state: stateCode }));
+    }
+  }, [form.state]);
+
+  // Force default to California if no state or invalid state
+  useEffect(() => {
+    if (!form.state || !states.find(s => s.code === form.state)) {
+      setForm(prev => ({ ...prev, state: 'CA' }));
+    }
+  }, []);
 
   // Get state-specific fields/tooltips or fall back to generic
   const selectedState = form.state;
@@ -204,11 +279,6 @@ export default function CertificationStripeFlow({ prefillData }) {
   // Special case: step 0 is always the state selection step
   const stepFields = step === 0 ? ['state'] : steps[step].fields.filter(f => req.fields.includes(f));
   
-  // Debug logging
-  console.log('Current step:', step);
-  console.log('Steps[step].fields:', steps[step]?.fields);
-  console.log('Computed stepFields:', stepFields);
-  console.log('Form.state:', form.state);
 
   // Validation logic
   const validate = () => {
@@ -364,9 +434,8 @@ export default function CertificationStripeFlow({ prefillData }) {
               </div>
               <select
                 name="state"
-                value={form.state}
+                value={form.state && form.state.length > 2 ? 'CA' : form.state || 'CA'}
                 onChange={e => {
-                  console.log('State changed to:', e.target.value); // Debug
                   setForm({ ...form, state: e.target.value });
                   setErrors({ ...errors, state: undefined });
                 }}
@@ -376,7 +445,6 @@ export default function CertificationStripeFlow({ prefillData }) {
                   <option key={s.code} value={s.code}>{s.name}</option>
                 ))}
               </select>
-              <div className="text-xs text-gray-500 mt-1">Debug: Current form.state = {form.state}</div>
               {errors.state && <div className="text-red-500 text-sm mt-2">{errors.state}</div>}
             </div>
           )}
@@ -402,7 +470,7 @@ export default function CertificationStripeFlow({ prefillData }) {
                   </div>
                   <select
                     name="state"
-                    value={form.state}
+                    value={form.state && form.state.length > 2 ? 'CA' : form.state || 'CA'}
                     onChange={e => {
                       setForm({ ...form, state: e.target.value });
                       setErrors({ ...errors, state: undefined });

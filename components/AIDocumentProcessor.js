@@ -243,18 +243,33 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
         'trust', 'instrument', 'vacant', 'become', 'terms', 'each', 
         'under', 'created', 'exoneration', 'removed', 'able', 'will not',
         'shall', 'may', 'must', 'hereby', 'whereas', 'therefore', 'between',
-        'agreement', 'document', 'provisions'
+        'agreement', 'document', 'provisions', 'article', 'section', 'replace',
+        'independent', 'special', 'benefit', 'expenses', 'taxes', 'tangible',
+        'personal', 'property', 'income', 'principal', 'distribution', 'guidelines',
+        'authority', 'powers', 'any', 'our', 'their', 'this', 'that', 'these',
+        'those', 'which', 'what', 'when', 'where', 'how', 'why', 'who', 'whom'
       ];
       const lowerName = name.toLowerCase();
       if (invalidKeywords.some(keyword => lowerName.includes(keyword))) return false;
       
+      // Reject phrases that look like document structure (e.g., "Article Three", "Section Two")
+      if (/^(article|section|chapter|part|clause)\s+(one|two|three|four|five|six|seven|eight|nine|ten|\d+)/i.test(name)) return false;
+      
+      // Reject ordinal numbers like "First", "Second", "Third" when standalone
+      if (/^(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth)$/i.test(name)) return false;
+      
       // Check if it looks like a proper name pattern (First Last or First M. Last)
-      const namePattern = /^[A-Z][a-z]+(\s+[A-Z]\.)?(\s+[A-Z][a-z]+){0,3}$/;
+      // Require at least a first and last name for trustees
+      const namePattern = /^[A-Z][a-z]+(\s+[A-Z]\.)?(\s+[A-Z][a-z]+)+$/;
       if (!namePattern.test(name)) return false;
       
-      // Ensure it has at least two parts (first and last name) or is a single word starting with capital
+      // Ensure it has at least two parts (first and last name)
       const parts = name.split(/\s+/);
-      if (parts.length === 1 && parts[0].length < 4) return false;
+      if (parts.length < 2) return false;
+      
+      // Reject if any part is a common non-name word
+      const nonNameWords = ['and', 'or', 'the', 'of', 'in', 'on', 'at', 'by', 'for', 'with', 'as'];
+      if (parts.some(part => nonNameWords.includes(part.toLowerCase()))) return false;
       
       return true;
     };
