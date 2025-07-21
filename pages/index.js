@@ -86,8 +86,8 @@ export default function Home() {
               >
                 Resources
               </button>
-              <Link href="/pricing" className="text-slate-600 hover:text-slate-900 font-medium transition-colors">
-                Pricing
+              <Link href="/onboarding" className="text-slate-600 hover:text-slate-900 font-medium transition-colors">
+                Get Started
               </Link>
               <button 
                 onClick={() => setCurrentStep('ai')}
