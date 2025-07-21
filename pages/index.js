@@ -74,6 +74,9 @@ export default function Home() {
               >
                 Platform
               </button>
+              <Link href="/legal-services" className="text-slate-600 hover:text-slate-900 font-medium transition-colors">
+                Legal Services
+              </Link>
               <button 
                 onClick={() => setCurrentStep('articles')}
                 className="text-slate-600 hover:text-slate-900 font-medium transition-colors"
