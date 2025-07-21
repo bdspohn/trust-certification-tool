@@ -207,17 +207,13 @@ export const sanitizeInput = (input) => {
   // Convert to string if not already
   const str = String(input);
   
-  // Remove any HTML tags
+  // Remove any HTML tags but preserve normal text and spaces
   const withoutTags = str.replace(/<[^>]*>/g, '');
   
-  // Escape special characters
+  // Only escape the most dangerous characters, preserve spaces and normal punctuation
   const escaped = withoutTags
-    .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;')
-    .replace(/\//g, '&#x2F;');
+    .replace(/>/g, '&gt;');
   
   return escaped.trim();
 };
