@@ -18,6 +18,7 @@ export default function Home() {
   const [currentStep, setCurrentStep] = useState('landing');
   const [extractedData, setExtractedData] = useState(null);
   const [formData, setFormData] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleDataExtracted = (data) => {
     setExtractedData(data);
@@ -66,9 +67,11 @@ export default function Home() {
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <div className="text-white text-sm font-bold">T</div>
               </div>
-              <span className="text-xl font-bold text-slate-900 tracking-tight">Trusto<span className="text-blue-600">.Inc</span></span>
+              <span className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">Trusto<span className="text-blue-600">.Inc</span></span>
             </div>
-            <div className="flex items-center space-x-6">
+            
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-6">
               <button 
                 onClick={() => setCurrentStep('landing')}
                 className="text-slate-600 hover:text-slate-900 font-medium transition-colors"
@@ -97,7 +100,70 @@ export default function Home() {
                 Start Free Trial
               </button>
             </div>
+
+            {/* Mobile menu button */}
+            <div className="lg:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="text-slate-600 hover:text-slate-900 focus:outline-none focus:text-slate-900"
+              >
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  {mobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
+            </div>
           </div>
+
+          {/* Mobile Navigation Menu */}
+          {mobileMenuOpen && (
+            <div className="lg:hidden">
+              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-slate-200">
+                <button 
+                  onClick={() => {setCurrentStep('landing'); setMobileMenuOpen(false);}}
+                  className="block px-3 py-2 text-slate-600 hover:text-slate-900 font-medium transition-colors w-full text-left"
+                >
+                  Platform
+                </button>
+                <Link 
+                  href="/api-docs" 
+                  className="block px-3 py-2 text-slate-600 hover:text-slate-900 font-medium transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  API Docs
+                </Link>
+                <Link 
+                  href="/legal-services" 
+                  className="block px-3 py-2 text-slate-600 hover:text-slate-900 font-medium transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Legal Services
+                </Link>
+                <button 
+                  onClick={() => {setCurrentStep('articles'); setMobileMenuOpen(false);}}
+                  className="block px-3 py-2 text-slate-600 hover:text-slate-900 font-medium transition-colors w-full text-left"
+                >
+                  Resources
+                </button>
+                <Link 
+                  href="/onboarding" 
+                  className="block px-3 py-2 text-slate-600 hover:text-slate-900 font-medium transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Get Started
+                </Link>
+                <button 
+                  onClick={() => {setCurrentStep('ai'); setMobileMenuOpen(false);}}
+                  className="block w-full mt-4 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-semibold transition-all shadow-md hover:shadow-lg text-center"
+                >
+                  Start Free Trial
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
@@ -107,9 +173,9 @@ export default function Home() {
       </main>
 
       {/* Enhanced Footer */}
-      <footer className="bg-slate-900 text-white py-16">
+      <footer className="bg-slate-900 text-white py-8 sm:py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-12">
             <div className="flex flex-col items-start">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
@@ -186,68 +252,68 @@ const LandingPage = ({ onGetStarted, setCurrentStep }) => {
   return (
     <div className="bg-gradient-to-b from-slate-50 to-white">
       {/* Enterprise Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-20">
-          <div className="mb-6">
-            <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-800 mb-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
+        <div className="text-center mb-12 sm:mb-20">
+          <div className="mb-4 sm:mb-6">
+            <span className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium bg-blue-100 text-blue-800 mb-4 sm:mb-6">
               ✨ New: AI-Powered Document Processing
             </span>
           </div>
-          <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 sm:mb-6 leading-tight px-2">
             Making Trust Assets
             <span className="block text-blue-600">as Liquid as Cash</span>
           </h1>
-          <p className="text-xl text-slate-600 mb-8 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-slate-600 mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed px-4">
             Turn $84 trillion in trust assets into instant-access deposits. Our AI-powered platform eliminates weeks of paperwork, making trust verification as simple as opening a checking account.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-6 sm:mb-8 px-4">
             <button
               onClick={onGetStarted}
-              className="bg-blue-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-blue-700 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+              className="bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-blue-700 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1 w-full sm:w-auto"
             >
               Start Free Trial
             </button>
-            <button className="border-2 border-slate-300 text-slate-700 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-slate-50 transition-all">
+            <button className="border-2 border-slate-300 text-slate-700 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-slate-50 transition-all w-full sm:w-auto">
               Schedule Demo
             </button>
           </div>
-          <p className="text-sm text-slate-500">
+          <p className="text-xs sm:text-sm text-slate-500">
             No credit card required • Free trial available
           </p>
         </div>
 
         {/* Value Props */}
-        <div className="mb-20">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            <div className="text-center">
-              <div className="text-4xl mb-2">💰</div>
-              <h3 className="font-semibold text-slate-900 mb-1">$84T Market</h3>
-              <p className="text-sm text-slate-600">Unlock massive trust deposits</p>
+        <div className="mb-12 sm:mb-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto px-4">
+            <div className="text-center p-3 sm:p-4">
+              <div className="text-2xl sm:text-3xl md:text-4xl mb-2">💰</div>
+              <h3 className="font-semibold text-slate-900 mb-1 text-sm sm:text-base">$84T Market</h3>
+              <p className="text-xs sm:text-sm text-slate-600">Unlock massive trust deposits</p>
             </div>
-            <div className="text-center">
-              <div className="text-4xl mb-2">⚡</div>
-              <h3 className="font-semibold text-slate-900 mb-1">Instant Verification</h3>
-              <p className="text-sm text-slate-600">Minutes, not weeks</p>
+            <div className="text-center p-3 sm:p-4">
+              <div className="text-2xl sm:text-3xl md:text-4xl mb-2">⚡</div>
+              <h3 className="font-semibold text-slate-900 mb-1 text-sm sm:text-base">Instant Verification</h3>
+              <p className="text-xs sm:text-sm text-slate-600">Minutes, not weeks</p>
             </div>
-            <div className="text-center">
-              <div className="text-4xl mb-2">🏦</div>
-              <h3 className="font-semibold text-slate-900 mb-1">Bank-Grade Security</h3>
-              <p className="text-sm text-slate-600">SOC 2 compliant platform</p>
+            <div className="text-center p-3 sm:p-4">
+              <div className="text-2xl sm:text-3xl md:text-4xl mb-2">🏦</div>
+              <h3 className="font-semibold text-slate-900 mb-1 text-sm sm:text-base">Bank-Grade Security</h3>
+              <p className="text-xs sm:text-sm text-slate-600">SOC 2 compliant platform</p>
             </div>
-            <div className="text-center">
-              <div className="text-4xl mb-2">🔗</div>
-              <h3 className="font-semibold text-slate-900 mb-1">API Integration</h3>
-              <p className="text-sm text-slate-600">Seamless system integration</p>
+            <div className="text-center p-3 sm:p-4">
+              <div className="text-2xl sm:text-3xl md:text-4xl mb-2">🔗</div>
+              <h3 className="font-semibold text-slate-900 mb-1 text-sm sm:text-base">API Integration</h3>
+              <p className="text-xs sm:text-sm text-slate-600">Seamless system integration</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Problem-Solution Comparison */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-          <div className="bg-red-50 border border-red-200 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-red-800 mb-6">Frozen Trust Assets</h3>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 mb-12 sm:mb-20">
+          <div className="bg-red-50 border border-red-200 rounded-2xl p-4 sm:p-6 lg:p-8">
+            <h3 className="text-xl sm:text-2xl font-bold text-red-800 mb-4 sm:mb-6">Frozen Trust Assets</h3>
             <div className="space-y-4">
               <div className="flex items-start">
                 <div className="text-red-500 mr-3 mt-1">❌</div>
@@ -273,8 +339,8 @@ const LandingPage = ({ onGetStarted, setCurrentStep }) => {
             </div>
           </div>
 
-          <div className="bg-green-50 border border-green-200 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-green-800 mb-6">Liquid Trust Assets</h3>
+          <div className="bg-green-50 border border-green-200 rounded-2xl p-4 sm:p-6 lg:p-8">
+            <h3 className="text-xl sm:text-2xl font-bold text-green-800 mb-4 sm:mb-6">Liquid Trust Assets</h3>
             <div className="space-y-4">
               <div className="flex items-start">
                 <div className="text-green-500 mr-3 mt-1">✅</div>

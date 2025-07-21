@@ -507,29 +507,29 @@ export default function CertificationStripeFlow({ prefillData }) {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow mt-8">
+    <div className="max-w-4xl mx-auto p-4 sm:p-6 bg-white rounded-lg shadow mt-4 sm:mt-8">
       {/* Enhanced urgency-driven CTA/article */}
-      <div className="mb-6 p-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-400 rounded-lg">
-        <h2 className="text-xl font-bold mb-3 text-gray-800">Don&apos;t risk delays or denials—get your Certification of Trust right the first time.</h2>
+      <div className="mb-4 sm:mb-6 p-4 sm:p-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-400 rounded-lg">
+        <h2 className="text-lg sm:text-xl font-bold mb-3 text-gray-800">Don&apos;t risk delays or denials—get your Certification of Trust right the first time.</h2>
         <p className="text-sm text-gray-700 mb-3">Financial institutions are tightening requirements. Missing or incorrect information can lead to frozen accounts, rejected transactions, or legal headaches. Complete your Certification of Trust with confidence—using the same standards top banks and law firms require.</p>
-        <div className="flex items-center text-sm text-gray-600">
-          <span className="mr-4">✓ Accepted by all major financial institutions</span>
-          <span className="mr-4">✓ State-specific legal compliance</span>
+        <div className="flex flex-col sm:flex-row sm:items-center text-sm text-gray-600 space-y-1 sm:space-y-0">
+          <span className="sm:mr-4">✓ Accepted by all major financial institutions</span>
+          <span className="sm:mr-4">✓ State-specific legal compliance</span>
           <span>✓ Professional document generation</span>
         </div>
       </div>
 
       {/* Progress bar */}
-      <div className="w-full bg-gray-200 rounded-full h-3 mb-8">
+      <div className="w-full bg-gray-200 rounded-full h-3 mb-6 sm:mb-8">
         <div className="bg-gradient-to-r from-blue-600 to-blue-700 h-3 rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
       </div>
 
       {!submitted ? (
-        <form onSubmit={step === steps.length - 1 ? (e) => { e.preventDefault(); if (validate()) setSubmitted(true); } : (e) => { e.preventDefault(); if (validate()) setStep(step + 1); }} className="space-y-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-2xl font-semibold text-gray-800">{steps[step].label}</h3>
+        <form onSubmit={step === steps.length - 1 ? (e) => { e.preventDefault(); if (validate()) setSubmitted(true); } : (e) => { e.preventDefault(); if (validate()) setStep(step + 1); }} className="space-y-4 sm:space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 space-y-2 sm:space-y-0">
+            <h3 className="text-xl sm:text-2xl font-semibold text-gray-800">{steps[step].label}</h3>
             {selectedState && (
-              <div className="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded">
+              <div className="text-xs sm:text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded self-start sm:self-auto">
                 {getStateInfo(selectedState)} Requirements
               </div>
             )}
