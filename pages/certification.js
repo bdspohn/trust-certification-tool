@@ -628,6 +628,58 @@ export default function CertificationStripeFlow({ prefillData }) {
                       <span>More than one</span>
                     </label>
                   </div>
+                  
+                  {/* Quick Suggestions for Trustee */}
+                  <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <h4 className="font-medium text-blue-800 mb-3">Quick Options</h4>
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {form.grantor && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (form.trusteeType === 'one') {
+                              setForm({ ...form, trustee: [form.grantor] });
+                            } else {
+                              const updated = [...form.trustee];
+                              updated[0] = form.grantor;
+                              setForm({ ...form, trustee: updated });
+                            }
+                          }}
+                          className="px-3 py-1 bg-blue-100 text-blue-700 text-sm rounded-full hover:bg-blue-200 transition-colors"
+                        >
+                          📋 Copy from Grantor ({form.grantor})
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (navigator.contacts && navigator.contacts.select) {
+                            navigator.contacts.select(['name'], {multiple: form.trusteeType === 'multiple'})
+                              .then(contacts => {
+                                const names = contacts.map(contact => 
+                                  contact.name && contact.name.length > 0 ? contact.name[0] : 'Unknown Contact'
+                                );
+                                if (form.trusteeType === 'one') {
+                                  setForm({ ...form, trustee: [names[0] || ''] });
+                                } else {
+                                  setForm({ ...form, trustee: names });
+                                }
+                              })
+                              .catch(err => console.log('Contact selection cancelled or failed'));
+                          } else {
+                            alert('Contact access not available in this browser. Please enter names manually.');
+                          }
+                        }}
+                        className="px-3 py-1 bg-green-100 text-green-700 text-sm rounded-full hover:bg-green-200 transition-colors"
+                      >
+                        📱 Import from Contacts
+                      </button>
+                    </div>
+                    <div className="text-xs text-blue-600">
+                      💡 Tip: Most trustees are spouses, adult children, or trusted business partners
+                    </div>
+                  </div>
+
                   {(() => {
                     // If "one" is selected, only show the first trustee field
                     // If "multiple" is selected, show all trustee fields
@@ -637,26 +689,32 @@ export default function CertificationStripeFlow({ prefillData }) {
                     
                     return trusteesToShow.map((name, idx) => (
                       <div key={idx} className="flex items-center gap-3">
-                        <input
-                          type="text"
-                          name={`trustee_${idx}`}
-                          value={name}
-                          onChange={e => {
-                            if (form.trusteeType === 'one') {
-                              // For single trustee, update only the first entry
-                              const updated = [...form.trustee];
-                              updated[0] = sanitizeInput(e.target.value, false);
-                              setForm({ ...form, trustee: updated });
-                            } else {
-                              // For multiple trustees, use existing logic
-                              handleTrusteeChange(idx, e.target.value);
-                            }
-                            setErrors({ ...errors, trustee: undefined });
-                          }}
-                          autoComplete="name"
-                          className="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          placeholder={`Trustee name${form.trusteeType === 'multiple' && trusteesToShow.length > 1 ? ` #${idx + 1}` : ''}`}
-                        />
+                        <div className="flex-1 relative">
+                          <input
+                            type="text"
+                            name={`trustee_${idx}`}
+                            value={name}
+                            onChange={e => {
+                              if (form.trusteeType === 'one') {
+                                // For single trustee, update only the first entry
+                                const updated = [...form.trustee];
+                                updated[0] = sanitizeInput(e.target.value, false);
+                                setForm({ ...form, trustee: updated });
+                              } else {
+                                // For multiple trustees, use existing logic
+                                handleTrusteeChange(idx, e.target.value);
+                              }
+                              setErrors({ ...errors, trustee: undefined });
+                            }}
+                            autoComplete="name"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder={`Trustee name${form.trusteeType === 'multiple' && trusteesToShow.length > 1 ? ` #${idx + 1}` : ''} (e.g., John Smith, Jane Doe)`}
+                          />
+                          {/* Smart suggestions appear as user types */}
+                          <div className="absolute top-full left-0 right-0 text-xs text-gray-500 mt-1">
+                            💡 Include full legal name as it appears on ID
+                          </div>
+                        </div>
                         {form.trusteeType === 'multiple' && trusteesToShow.length > 1 && (
                           <button type="button" onClick={() => removeTrustee(idx)} className="text-red-500 hover:text-red-700 px-3 py-2">Remove</button>
                         )}
@@ -687,17 +745,80 @@ export default function CertificationStripeFlow({ prefillData }) {
                       <span>More than one</span>
                     </label>
                   </div>
+                  
+                  {/* Quick Suggestions for Successor Trustee */}
+                  <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <h4 className="font-medium text-green-800 mb-3">Quick Options for Successors</h4>
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {form.grantor && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updated = [...form.successorTrustee];
+                            updated[0] = form.grantor;
+                            setForm({ ...form, successorTrustee: updated });
+                          }}
+                          className="px-3 py-1 bg-green-100 text-green-700 text-sm rounded-full hover:bg-green-200 transition-colors"
+                        >
+                          📋 Copy from Grantor ({form.grantor})
+                        </button>
+                      )}
+                      {form.trustee.filter(t => t.trim()).map((trustee, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => {
+                            const updated = [...form.successorTrustee];
+                            updated[idx] = trustee;
+                            setForm({ ...form, successorTrustee: updated });
+                          }}
+                          className="px-3 py-1 bg-blue-100 text-blue-700 text-sm rounded-full hover:bg-blue-200 transition-colors"
+                        >
+                          👤 Copy from Trustee ({trustee})
+                        </button>
+                      ))}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (navigator.contacts && navigator.contacts.select) {
+                            navigator.contacts.select(['name'], {multiple: form.successorTrusteeType === 'multiple'})
+                              .then(contacts => {
+                                const names = contacts.map(contact => 
+                                  contact.name && contact.name.length > 0 ? contact.name[0] : 'Unknown Contact'
+                                );
+                                setForm({ ...form, successorTrustee: names });
+                              })
+                              .catch(err => console.log('Contact selection cancelled or failed'));
+                          } else {
+                            alert('Contact access not available in this browser. Please enter names manually.');
+                          }
+                        }}
+                        className="px-3 py-1 bg-purple-100 text-purple-700 text-sm rounded-full hover:bg-purple-200 transition-colors"
+                      >
+                        📱 Import from Contacts
+                      </button>
+                    </div>
+                    <div className="text-xs text-green-600">
+                      💡 Tip: Successors are often adult children, siblings, or backup trustees from your current list
+                    </div>
+                  </div>
+
                   {form.successorTrustee.map((name, idx) => (
                     <div key={idx} className="flex items-center gap-3">
-                      <input
-                        type="text"
-                        name={`successorTrustee_${idx}`}
-                        value={name}
-                        onChange={e => handleSuccessorChange(idx, e.target.value)}
-                        autoComplete="name"
-                        className="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder={`Successor trustee name${form.successorTrustee.length > 1 ? ` #${idx + 1}` : ''}`}
-                      />
+                      <div className="flex-1 relative">
+                        <input
+                          type="text"
+                          name={`successorTrustee_${idx}`}
+                          value={name}
+                          onChange={e => handleSuccessorChange(idx, e.target.value)}
+                          autoComplete="name"
+                          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          placeholder={`Successor trustee name${form.successorTrustee.length > 1 ? ` #${idx + 1}` : ''} (e.g., Sarah Johnson, Michael Brown)`}
+                        />
+                        <div className="absolute top-full left-0 right-0 text-xs text-gray-500 mt-1">
+                          💡 Include full legal name - often family members or trusted advisors
+                        </div>
+                      </div>
                       {form.successorTrustee.length > 1 && (
                         <button type="button" onClick={() => removeSuccessor(idx)} className="text-red-500 hover:text-red-700 px-3 py-2">Remove</button>
                       )}
