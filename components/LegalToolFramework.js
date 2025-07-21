@@ -274,7 +274,7 @@ const LegalToolFramework = ({
       <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-6">
         <h3 className="font-semibold text-gray-800 mb-2">🚀 Legal Services Network - Coming Soon</h3>
         <p className="text-sm text-gray-600 mb-4">
-          We're building partnerships with qualified attorneys nationwide to offer 
+          We&apos;re building partnerships with qualified attorneys nationwide to offer 
           instant legal document generation at transparent, fixed prices. Join our 
           waitlist to get early access.
         </p>

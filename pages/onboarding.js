@@ -77,16 +77,16 @@ export default function Onboarding() {
           
           <h1 className="text-3xl font-bold text-slate-900 mb-4">Thank You!</h1>
           <p className="text-lg text-slate-600 mb-8">
-            We've received your information and will be in touch within 24 hours to discuss how Trusto can transform your trust operations.
+            We&apos;ve received your information and will be in touch within 24 hours to discuss how Trusto can transform your trust operations.
           </p>
           
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
             <h3 className="font-semibold text-blue-900 mb-2">What happens next?</h3>
             <ul className="text-left text-blue-800 space-y-2">
               <li>• Our team will review your requirements</li>
-              <li>• We'll schedule a personalized demo</li>
-              <li>• You'll receive documentation about our platform</li>
-              <li>• We'll discuss implementation timeline and pricing</li>
+              <li>• We&apos;ll schedule a personalized demo</li>
+              <li>• You&apos;ll receive documentation about our platform</li>
+              <li>• We&apos;ll discuss implementation timeline and pricing</li>
             </ul>
           </div>
           
@@ -169,7 +169,7 @@ export default function Onboarding() {
 
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
               <p className="text-sm text-yellow-800">
-                <strong>Limited Beta Access:</strong> We're onboarding select institutions for our beta program. 
+                <strong>Limited Beta Access:</strong> We&apos;re onboarding select institutions for our beta program. 
                 Early partners receive preferential pricing and direct input on feature development.
               </p>
             </div>
@@ -177,7 +177,7 @@ export default function Onboarding() {
 
           {/* Right Column - Form */}
           <div className="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">Let's Talk About Your Needs</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">Let&apos;s Talk About Your Needs</h2>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
