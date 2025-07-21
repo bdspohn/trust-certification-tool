@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import CertificationStripeFlow from './certification';
 import AIDocumentProcessor from '../components/AIDocumentProcessor';
 import dynamic from 'next/dynamic';
+import { trackEvents } from '../lib/analytics';
 
 const ESignatureIntegration = dynamic(() => import('../components/ESignatureIntegrationClient'), {
   ssr: false,
@@ -197,7 +198,7 @@ const LandingPage = ({ onGetStarted }) => {
             <span className="block text-blue-600">Infrastructure Platform</span>
           </h1>
           <p className="text-xl text-slate-600 mb-8 max-w-4xl mx-auto leading-relaxed">
-            Real-time trust verification API for banks and institutions. Eliminate 95% of trust compliance errors with automated status updates, AI-powered document processing, and trust insurance coverage.
+            AI-powered trust certification platform for financial institutions. Streamline document processing and generate bank-ready certifications.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <button
@@ -220,23 +221,23 @@ const LandingPage = ({ onGetStarted }) => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
             <div className="text-center">
               <div className="text-4xl mb-2">🔗</div>
-              <h3 className="font-semibold text-slate-900 mb-1">Real-Time API</h3>
-              <p className="text-sm text-slate-600">Instant trust verification for bank systems</p>
+              <h3 className="font-semibold text-slate-900 mb-1">API-First Design</h3>
+              <p className="text-sm text-slate-600">Built for seamless system integration</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl mb-2">🛡️</div>
-              <h3 className="font-semibold text-slate-900 mb-1">Trust Insurance</h3>
-              <p className="text-sm text-slate-600">Coverage against verification errors</p>
+              <div className="text-4xl mb-2">🤖</div>
+              <h3 className="font-semibold text-slate-900 mb-1">AI Processing</h3>
+              <p className="text-sm text-slate-600">Automated document data extraction</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl mb-2">📊</div>
-              <h3 className="font-semibold text-slate-900 mb-1">95% Error Reduction</h3>
-              <p className="text-sm text-slate-600">Eliminate manual update compliance gaps</p>
+              <div className="text-4xl mb-2">📋</div>
+              <h3 className="font-semibold text-slate-900 mb-1">State Compliance</h3>
+              <p className="text-sm text-slate-600">Templates for all 50 states</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl mb-2">⚖️</div>
-              <h3 className="font-semibold text-slate-900 mb-1">Legal Network</h3>
-              <p className="text-sm text-slate-600">Arizona ABS with 50-state coverage</p>
+              <div className="text-4xl mb-2">✍️</div>
+              <h3 className="font-semibold text-slate-900 mb-1">E-Signature Ready</h3>
+              <p className="text-sm text-slate-600">Multiple signing options available</p>
             </div>
           </div>
         </div>
@@ -329,6 +330,51 @@ const LandingPage = ({ onGetStarted }) => {
             <p className="text-slate-600 leading-relaxed">
               Clean API for easy integration. Built for developers, by developers.
             </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Security & Compliance Section */}
+      <div className="bg-slate-50 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h3 className="text-3xl font-bold text-slate-900 mb-8">Built for Financial Institution Requirements</h3>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Currently in beta testing. Working toward bank-grade security and compliance standards.
+            </p>
+          </div>
+
+          {/* What We're Building Toward */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-xl p-8 shadow-lg border border-slate-200">
+              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <div className="text-2xl">🔒</div>
+              </div>
+              <h3 className="text-xl font-semibold mb-4 text-slate-900 text-center">Security First</h3>
+              <p className="text-slate-600 leading-relaxed text-center">
+                Building toward SOC 2 Type II compliance with enterprise-grade security controls.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl p-8 shadow-lg border border-slate-200">
+              <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <div className="text-2xl">📋</div>
+              </div>
+              <h3 className="text-xl font-semibold mb-4 text-slate-900 text-center">Compliance Ready</h3>
+              <p className="text-slate-600 leading-relaxed text-center">
+                Designed to meet banking regulatory requirements and audit standards.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl p-8 shadow-lg border border-slate-200">
+              <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <div className="text-2xl">🏗️</div>
+              </div>
+              <h3 className="text-xl font-semibold mb-4 text-slate-900 text-center">Beta Testing</h3>
+              <p className="text-slate-600 leading-relaxed text-center">
+                Currently testing with select institutions to refine accuracy and compliance.
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import mammoth from 'mammoth';
+import { trackEvents } from '../lib/analytics';
 
 const AIDocumentProcessor = ({ onDataExtracted }) => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -9,6 +10,7 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
   const [processingStep, setProcessingStep] = useState('');
 
   const onDrop = useCallback(async (acceptedFiles) => {
+    const startTime = Date.now();
     setIsProcessing(true);
     setError(null);
     setProcessingStep('Reading document...');
@@ -19,6 +21,9 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
       }
       
       console.log('Processing file:', file.name, 'Type:', file.type); // DEBUG LOG
+      
+      // Track document upload
+      trackEvents.documentUploaded(file.type || 'unknown', file.size);
       
       let text = '';
       
@@ -101,13 +106,32 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
       if (!hasUsefulData) {
         setError('Could not extract trust information from this document. Please ensure it contains trust-related content or enter information manually.');
         setExtractedData(null);
+        
+        // Track extraction failure
+        trackEvents.extractionFailed('no_useful_data');
       } else {
         setExtractedData(structuredData);
+        
+        // Calculate accuracy based on how many fields were extracted
+        const totalFields = ['trustName', 'trustDate', 'grantor', 'trustee', 'state', 'revocability'];
+        const extractedFields = totalFields.filter(field => structuredData[field] && structuredData[field] !== '');
+        const accuracy = Math.round((extractedFields.length / totalFields.length) * 100);
+        
+        // Track successful extraction
+        trackEvents.extractionCompleted(accuracy, Date.now() - startTime);
+        
         onDataExtracted(structuredData);
       }
     } catch (err) {
       setError(err.message || 'Failed to process document. Please try again or enter information manually.');
       console.error('AI processing error:', err);
+      
+      // Track extraction failure with error type
+      const errorType = err.message.includes('PDF') ? 'pdf_error' :
+                       err.message.includes('DOCX') ? 'docx_error' :
+                       err.message.includes('network') ? 'network_error' :
+                       'processing_error';
+      trackEvents.extractionFailed(errorType);
     } finally {
       setIsProcessing(false);
       setProcessingStep('');
@@ -863,7 +887,10 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
                 Re-upload
               </button>
               <button 
-                onClick={() => onDataExtracted(extractedData)}
+                onClick={() => {
+                  trackEvents.formCompleted('ai_extraction', 'use_extracted_data');
+                  onDataExtracted(extractedData);
+                }}
                 className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
               >
                 Use This Data
@@ -905,7 +932,10 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
       <div className="mt-8 p-4 bg-gray-50 rounded-lg text-center">
         <p className="text-gray-600 mb-3">Prefer to enter information manually?</p>
         <button 
-          onClick={() => onDataExtracted(null)}
+          onClick={() => {
+            trackEvents.formCompleted('ai_extraction', 'manual_entry');
+            onDataExtracted(null);
+          }}
           className="px-6 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
         >
           Enter Manually
