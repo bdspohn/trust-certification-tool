@@ -282,7 +282,7 @@ const InstitutionOnboarding = () => {
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
               <h4 className="font-semibold text-blue-900 mb-2">Contact Information</h4>
               <p className="text-sm text-blue-800">
-                We'll use these contacts for onboarding, support, and technical integration.
+                We&apos;ll use these contacts for onboarding, support, and technical integration.
               </p>
             </div>
 
