@@ -53,9 +53,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Head>
-        <title>Trusto - Trust Certification Made Simple</title>
-        <meta name="description" content="Streamline trust certifications with AI-powered document processing. Generate bank-ready certifications in minutes, not weeks." />
-        <meta name="keywords" content="trust certification, financial institutions, bank compliance, trust infrastructure, API platform, fintech" />
+        <title>Trusto - Making Trust Assets as Liquid as Cash</title>
+        <meta name="description" content="Turn $84 trillion in trust assets into instant-access deposits. AI-powered trust verification platform for banks, credit unions, and fintechs." />
+        <meta name="keywords" content="trust liquidity, trust assets, financial institutions, bank compliance, trust verification, API platform, fintech, trust deposits" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Enhanced Navigation */}
@@ -194,11 +194,11 @@ const LandingPage = ({ onGetStarted }) => {
             </span>
           </div>
           <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-            The Trust Verification
-            <span className="block text-blue-600">Infrastructure Platform</span>
+            Making Trust Assets
+            <span className="block text-blue-600">as Liquid as Cash</span>
           </h1>
           <p className="text-xl text-slate-600 mb-8 max-w-4xl mx-auto leading-relaxed">
-            AI-powered trust certification platform for financial institutions. Streamline document processing and generate bank-ready certifications.
+            Turn $84 trillion in trust assets into instant-access deposits. Our AI-powered platform eliminates weeks of paperwork, making trust verification as simple as opening a checking account.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <button
@@ -220,24 +220,24 @@ const LandingPage = ({ onGetStarted }) => {
         <div className="mb-20">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
             <div className="text-center">
+              <div className="text-4xl mb-2">💰</div>
+              <h3 className="font-semibold text-slate-900 mb-1">$84T Market</h3>
+              <p className="text-sm text-slate-600">Unlock massive trust deposits</p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-2">⚡</div>
+              <h3 className="font-semibold text-slate-900 mb-1">Instant Verification</h3>
+              <p className="text-sm text-slate-600">Minutes, not weeks</p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-2">🏦</div>
+              <h3 className="font-semibold text-slate-900 mb-1">Bank-Grade Security</h3>
+              <p className="text-sm text-slate-600">SOC 2 compliant platform</p>
+            </div>
+            <div className="text-center">
               <div className="text-4xl mb-2">🔗</div>
-              <h3 className="font-semibold text-slate-900 mb-1">API-First Design</h3>
-              <p className="text-sm text-slate-600">Built for seamless system integration</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl mb-2">🤖</div>
-              <h3 className="font-semibold text-slate-900 mb-1">AI Processing</h3>
-              <p className="text-sm text-slate-600">Automated document data extraction</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl mb-2">📋</div>
-              <h3 className="font-semibold text-slate-900 mb-1">State Compliance</h3>
-              <p className="text-sm text-slate-600">Templates for all 50 states</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl mb-2">✍️</div>
-              <h3 className="font-semibold text-slate-900 mb-1">E-Signature Ready</h3>
-              <p className="text-sm text-slate-600">Multiple signing options available</p>
+              <h3 className="font-semibold text-slate-900 mb-1">API Integration</h3>
+              <p className="text-sm text-slate-600">Seamless system integration</p>
             </div>
           </div>
         </div>
@@ -247,54 +247,54 @@ const LandingPage = ({ onGetStarted }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
           <div className="bg-red-50 border border-red-200 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-red-800 mb-6">Traditional Process</h3>
+            <h3 className="text-2xl font-bold text-red-800 mb-6">Frozen Trust Assets</h3>
             <div className="space-y-4">
               <div className="flex items-start">
                 <div className="text-red-500 mr-3 mt-1">❌</div>
                 <div>
-                  <p className="font-semibold text-red-800">Manual Processing</p>
-                  <p className="text-red-600 text-sm">Type everything by hand, prone to errors</p>
+                  <p className="font-semibold text-red-800">Weeks of Paperwork</p>
+                  <p className="text-red-600 text-sm">Trust assets sit idle during verification</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <div className="text-red-500 mr-3 mt-1">❌</div>
                 <div>
-                  <p className="font-semibold text-red-800">Time Consuming</p>
-                  <p className="text-red-600 text-sm">Research state requirements yourself</p>
+                  <p className="font-semibold text-red-800">Lost Revenue</p>
+                  <p className="text-red-600 text-sm">Banks miss out on $84T in potential deposits</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <div className="text-red-500 mr-3 mt-1">❌</div>
                 <div>
-                  <p className="font-semibold text-red-800">Uncertainty</p>
-                  <p className="text-red-600 text-sm">Not sure if format meets bank requirements</p>
+                  <p className="font-semibold text-red-800">Customer Friction</p>
+                  <p className="text-red-600 text-sm">Wealthy clients go to competitors</p>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="bg-green-50 border border-green-200 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-green-800 mb-6">Trusto Platform</h3>
+            <h3 className="text-2xl font-bold text-green-800 mb-6">Liquid Trust Assets</h3>
             <div className="space-y-4">
               <div className="flex items-start">
                 <div className="text-green-500 mr-3 mt-1">✅</div>
                 <div>
-                  <p className="font-semibold text-green-800">AI-Powered</p>
-                  <p className="text-green-600 text-sm">Extract information from your trust document</p>
+                  <p className="font-semibold text-green-800">Instant Verification</p>
+                  <p className="text-green-600 text-sm">Trust assets flow like checking accounts</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <div className="text-green-500 mr-3 mt-1">✅</div>
                 <div>
-                  <p className="font-semibold text-green-800">Bank-Ready Format</p>
-                  <p className="text-green-600 text-sm">Properly formatted for financial institutions</p>
+                  <p className="font-semibold text-green-800">Massive Revenue Unlock</p>
+                  <p className="text-green-600 text-sm">Capture high-value trust deposits instantly</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <div className="text-green-500 mr-3 mt-1">✅</div>
                 <div>
-                  <p className="font-semibold text-green-800">Cost Effective</p>
-                  <p className="text-green-600 text-sm">Start with a free trial</p>
+                  <p className="font-semibold text-green-800">Delighted Customers</p>
+                  <p className="text-green-600 text-sm">Zero-friction onboarding experience</p>
                 </div>
               </div>
             </div>
@@ -306,29 +306,29 @@ const LandingPage = ({ onGetStarted }) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           <div className="text-center p-8 bg-white rounded-2xl shadow-lg border border-slate-200">
             <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <div className="text-2xl">🤖</div>
+              <div className="text-2xl">⚡</div>
             </div>
-            <h3 className="text-xl font-semibold mb-4 text-slate-900">AI-Powered Extraction</h3>
+            <h3 className="text-xl font-semibold mb-4 text-slate-900">Instant Liquidity</h3>
             <p className="text-slate-600 leading-relaxed">
-              Automatically extract trust information from your documents. Supports PDF, DOCX, and text formats.
+              Transform trust verification from weeks to minutes. Trust assets become immediately accessible for banking operations.
             </p>
           </div>
           <div className="text-center p-8 bg-white rounded-2xl shadow-lg border border-slate-200">
             <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <div className="text-2xl">🏛️</div>
+              <div className="text-2xl">💰</div>
             </div>
-            <h3 className="text-xl font-semibold mb-4 text-slate-900">State-Specific Templates</h3>
+            <h3 className="text-xl font-semibold mb-4 text-slate-900">Revenue Multiplier</h3>
             <p className="text-slate-600 leading-relaxed">
-              Templates designed for all 50 states. Built with financial institution requirements in mind.
+              Capture high-value trust deposits that previously went to competitors. Turn verification friction into competitive advantage.
             </p>
           </div>
           <div className="text-center p-8 bg-white rounded-2xl shadow-lg border border-slate-200">
             <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <div className="text-2xl">⚡</div>
+              <div className="text-2xl">🔗</div>
             </div>
-            <h3 className="text-xl font-semibold mb-4 text-slate-900">Developer Friendly</h3>
+            <h3 className="text-xl font-semibold mb-4 text-slate-900">API Integration</h3>
             <p className="text-slate-600 leading-relaxed">
-              Clean API for easy integration. Built for developers, by developers.
+              Plug into existing banking systems. Real-time trust verification that scales with your business.
             </p>
           </div>
         </div>
