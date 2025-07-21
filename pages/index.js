@@ -74,6 +74,9 @@ export default function Home() {
               >
                 Platform
               </button>
+              <Link href="/api-docs" className="text-slate-600 hover:text-slate-900 font-medium transition-colors">
+                API Docs
+              </Link>
               <Link href="/legal-services" className="text-slate-600 hover:text-slate-900 font-medium transition-colors">
                 Legal Services
               </Link>
@@ -83,9 +86,9 @@ export default function Home() {
               >
                 Resources
               </button>
-              <div className="text-slate-600 hover:text-slate-900 font-medium transition-colors cursor-pointer">
+              <Link href="/pricing" className="text-slate-600 hover:text-slate-900 font-medium transition-colors">
                 Pricing
-              </div>
+              </Link>
               <button 
                 onClick={() => setCurrentStep('ai')}
                 className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 font-semibold transition-all shadow-md hover:shadow-lg"
@@ -190,12 +193,11 @@ const LandingPage = ({ onGetStarted }) => {
             </span>
           </div>
           <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-            Trust Infrastructure
-            <span className="block text-blue-600">for Financial Services</span>
+            The Trust Verification
+            <span className="block text-blue-600">Infrastructure Platform</span>
           </h1>
           <p className="text-xl text-slate-600 mb-8 max-w-4xl mx-auto leading-relaxed">
-            Generate bank-ready trust certifications in minutes. Our AI extracts key information
-            from your trust documents and creates state-compliant certifications automatically.
+            Real-time trust verification API for banks and institutions. Eliminate 95% of trust compliance errors with automated status updates, AI-powered document processing, and trust insurance coverage.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <button
@@ -215,21 +217,26 @@ const LandingPage = ({ onGetStarted }) => {
 
         {/* Value Props */}
         <div className="mb-20">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
             <div className="text-center">
-              <div className="text-4xl mb-2">⚡</div>
-              <h3 className="font-semibold text-slate-900 mb-1">Fast Processing</h3>
-              <p className="text-sm text-slate-600">Generate certifications in minutes, not weeks</p>
+              <div className="text-4xl mb-2">🔗</div>
+              <h3 className="font-semibold text-slate-900 mb-1">Real-Time API</h3>
+              <p className="text-sm text-slate-600">Instant trust verification for bank systems</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl mb-2">🏦</div>
-              <h3 className="font-semibold text-slate-900 mb-1">Bank Ready</h3>
-              <p className="text-sm text-slate-600">Formatted for financial institution requirements</p>
+              <div className="text-4xl mb-2">🛡️</div>
+              <h3 className="font-semibold text-slate-900 mb-1">Trust Insurance</h3>
+              <p className="text-sm text-slate-600">Coverage against verification errors</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl mb-2">📋</div>
-              <h3 className="font-semibold text-slate-900 mb-1">State Compliant</h3>
-              <p className="text-sm text-slate-600">Updated templates for all 50 states</p>
+              <div className="text-4xl mb-2">📊</div>
+              <h3 className="font-semibold text-slate-900 mb-1">95% Error Reduction</h3>
+              <p className="text-sm text-slate-600">Eliminate manual update compliance gaps</p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-2">⚖️</div>
+              <h3 className="font-semibold text-slate-900 mb-1">Legal Network</h3>
+              <p className="text-sm text-slate-600">Arizona ABS with 50-state coverage</p>
             </div>
           </div>
         </div>
