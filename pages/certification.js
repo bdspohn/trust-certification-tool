@@ -604,20 +604,41 @@ export default function CertificationStripeFlow({ prefillData }) {
                     Trustee powers
                     <span className="ml-1 text-blue-500 cursor-help" title={req.tooltips.powers || genericTooltips.powers}>ⓘ</span>
                   </label>
-                  <div className="grid grid-cols-1 gap-3 max-h-96 overflow-y-auto p-4 border border-gray-200 rounded-lg">
-                    {trusteePowersList.map((power, idx) => (
-                      <label key={power} className="flex items-start gap-3 p-3 hover:bg-gray-50 rounded cursor-pointer">
-                        <input
-                          type="checkbox"
-                          name="powers"
-                          value={power}
-                          checked={form.powers.includes(power)}
-                          onChange={handlePowersChange}
-                          className="mt-1"
-                        />
-                        <span className="text-sm">{power}</span>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 p-2 bg-blue-50 rounded border">
+                      <input
+                        type="checkbox"
+                        checked={form.powers.length === trusteePowersList.length}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setForm({ ...form, powers: [...trusteePowersList] });
+                          } else {
+                            setForm({ ...form, powers: [] });
+                          }
+                          setErrors({ ...errors, powers: undefined });
+                        }}
+                        className="mt-0"
+                      />
+                      <label className="font-semibold text-blue-900 text-sm cursor-pointer">
+                        Select All Powers
                       </label>
-                    ))}
+                    </div>
+                    <div className="grid grid-cols-1 gap-3 max-h-96 overflow-y-auto p-4 border border-gray-200 rounded-lg">
+                      {trusteePowersList.map((power, idx) => (
+                        <label key={power} className="flex items-start gap-3 p-3 hover:bg-gray-50 rounded cursor-pointer">
+                          <input
+                            type="checkbox"
+                            name="powers"
+                            value={power}
+                            checked={form.powers.includes(power)}
+                            onChange={handlePowersChange}
+                            className="mt-1"
+                          />
+                          <span className="text-sm">{power}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
                   </div>
                   {form.powers.includes('Other') && (
                     <input

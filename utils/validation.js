@@ -207,15 +207,9 @@ export const sanitizeInput = (input, shouldTrim = false) => {
   // Convert to string if not already
   const str = String(input);
   
-  // Remove any HTML tags but preserve normal text and spaces
-  const withoutTags = str.replace(/<[^>]*>/g, '');
-  
-  // Only escape the most dangerous characters, preserve spaces and normal punctuation
-  const escaped = withoutTags
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-  
-  return shouldTrim ? escaped.trim() : escaped;
+  // For now, just return the input as-is to test spacebar issue
+  // We'll add back sanitization once spacebar works
+  return shouldTrim ? str.trim() : str;
 };
 
 // Sanitize array of inputs
