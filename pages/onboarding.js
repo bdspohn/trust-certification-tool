@@ -420,7 +420,7 @@ const InstitutionOnboarding = () => {
                   className="w-full border border-gray-300 rounded-lg px-4 py-3"
                 >
                   <option value="">Select timeline</option>
-                  <option value="immediate">ASAP (< 1 month)</option>
+                  <option value="immediate">ASAP (&lt; 1 month)</option>
                   <option value="quarter">This quarter (1-3 months)</option>
                   <option value="half_year">6 months</option>
                   <option value="planning">Planning phase (6+ months)</option>

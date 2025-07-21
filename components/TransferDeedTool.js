@@ -198,7 +198,7 @@ const TransferDeedTool = ({ onComplete }) => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Assessor's Parcel Number (APN) *
+                Assessor&apos;s Parcel Number (APN) *
                 <span className="text-gray-500 text-xs ml-2">Found on property tax bill</span>
               </label>
               <input
@@ -374,8 +374,8 @@ const TransferDeedTool = ({ onComplete }) => {
                 <li>Consult with a real estate attorney or title company</li>
                 <li>Prepare the appropriate deed type for your state</li>
                 <li>Have the deed notarized</li>
-                <li>Record the deed with the county recorder's office</li>
-                <li>Update your homeowner's insurance</li>
+                <li>Record the deed with the county recorder&apos;s office</li>
+                <li>Update your homeowner&apos;s insurance</li>
               </ol>
             </div>
           </div>

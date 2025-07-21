@@ -203,7 +203,7 @@ const PricingPage = () => {
               Simple, Transparent Pricing
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Choose the plan that fits your institution's size and API usage. 
+              Choose the plan that fits your institution&apos;s size and API usage. 
               All plans include real-time trust verification and state compliance.
             </p>
 
