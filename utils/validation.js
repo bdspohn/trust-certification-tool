@@ -201,7 +201,7 @@ export const validateTIN = (tin, isRequired = false) => {
 };
 
 // Sanitize input to prevent XSS
-export const sanitizeInput = (input) => {
+export const sanitizeInput = (input, shouldTrim = false) => {
   if (!input) return '';
   
   // Convert to string if not already
@@ -215,7 +215,7 @@ export const sanitizeInput = (input) => {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
   
-  return escaped.trim();
+  return shouldTrim ? escaped.trim() : escaped;
 };
 
 // Sanitize array of inputs

@@ -298,9 +298,9 @@ export default function CertificationStripeFlow({ prefillData }) {
     let value = e.target.value;
     const name = e.target.name;
     
-    // Sanitize input
+    // Sanitize input without trimming during typing
     if (typeof value === 'string') {
-      value = sanitizeInput(value);
+      value = sanitizeInput(value, false);
     }
     
     // Special formatting for specific fields
@@ -312,6 +312,19 @@ export default function CertificationStripeFlow({ prefillData }) {
     
     setForm({ ...form, [name]: value });
     setErrors({ ...errors, [name]: undefined });
+  };
+
+  const handleBlur = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    
+    // Trim the value when user finishes typing
+    if (typeof value === 'string') {
+      const trimmedValue = sanitizeInput(value, true);
+      if (trimmedValue !== value) {
+        setForm({ ...form, [name]: trimmedValue });
+      }
+    }
   };
 
   const handleTrusteeType = (e) => {
@@ -329,7 +342,7 @@ export default function CertificationStripeFlow({ prefillData }) {
   };
   const handleTrusteeChange = (idx, value) => {
     const updated = [...form.trustee];
-    updated[idx] = sanitizeInput(value);
+    updated[idx] = sanitizeInput(value, false);
     setForm({ ...form, trustee: updated });
     setErrors({ ...errors, trustee: undefined });
   };
@@ -345,7 +358,7 @@ export default function CertificationStripeFlow({ prefillData }) {
   };
   const handleSuccessorChange = (idx, value) => {
     const updated = [...form.successorTrustee];
-    updated[idx] = sanitizeInput(value);
+    updated[idx] = sanitizeInput(value, false);
     setForm({ ...form, successorTrustee: updated });
     setErrors({ ...errors, successorTrustee: undefined });
   };
@@ -368,7 +381,7 @@ export default function CertificationStripeFlow({ prefillData }) {
     setErrors({ ...errors, powers: undefined });
   };
   const handleOtherPower = (e) => {
-    setForm({ ...form, otherPower: sanitizeInput(e.target.value) });
+    setForm({ ...form, otherPower: sanitizeInput(e.target.value, false) });
     setErrors({ ...errors, otherPower: undefined });
   };
 
@@ -519,7 +532,7 @@ export default function CertificationStripeFlow({ prefillData }) {
                             if (form.trusteeType === 'one') {
                               // For single trustee, update only the first entry
                               const updated = [...form.trustee];
-                              updated[0] = sanitizeInput(e.target.value);
+                              updated[0] = sanitizeInput(e.target.value, false);
                               setForm({ ...form, trustee: updated });
                             } else {
                               // For multiple trustees, use existing logic
@@ -674,6 +687,7 @@ export default function CertificationStripeFlow({ prefillData }) {
                     name={key}
                     value={form[key]}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     autoComplete={key === 'grantor' || key === 'trustName' ? 'name' : key === 'state' ? 'address-level1' : 'off'}
                     className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
