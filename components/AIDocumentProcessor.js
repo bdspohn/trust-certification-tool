@@ -212,13 +212,20 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
       powers: { value: [], confidence: 0, matches: [] }
     };
 
-    // Extract Trust Name with multiple patterns
+    // Extract Trust Name with enhanced patterns
     const trustNamePatterns = [
-      /(?:the\s+)?([A-Z][A-Za-z\s&,.'()-]+(?:Revocable|Irrevocable|Living|Family)?\s*Trust)\b/g,
-      /trust\s+(?:shall\s+be\s+)?(?:known|entitled|named)\s+(?:as\s+)?[:\s]*"?([^"\n]+)"?/gi,
-      /(?:name|title)\s*(?:of\s+(?:the\s+)?trust)?[:\s]*"?([^"\n]+)"?/gi,
-      /(?:hereby\s+creates?\s+(?:the\s+)?|established\s+(?:the\s+)?)"?([^"\n]+?(?:Trust|TRUST))"?/gi,
-      /^([A-Z][A-Za-z\s&,.'()-]+?(?:Trust|TRUST))\s*$/gm
+      // "The John Doe Family Trust dated January 1, 2020"
+      /(?:the\s+)?([A-Z][A-Za-z\s&,.'()-]+(?:Revocable|Irrevocable|Living|Family|Charitable|Testamentary)?\s*Trust)(?:\s+(?:dated|executed|established|created)\s+[^\n.;]+)?\b/gi,
+      // "This trust shall be known as the 'Smith Family Trust'"
+      /trust\s+(?:shall\s+be\s+)?(?:known|entitled|named|called)\s+(?:as\s+)?[:\s]*["']?([^"'\n]+?)["']?(?:\s*[,;.]|$)/gi,
+      // "Name of trust: The Johnson Revocable Trust"
+      /(?:name|title)\s*(?:of\s+(?:the\s+)?trust)?[:\s]*["']?([^"'\n]+?)(?:["']?\s*[,;.]|$)/gi,
+      // "I, John Doe, hereby create the Doe Family Trust"
+      /(?:hereby\s+(?:create|establish)s?\s+(?:the\s+)?|established\s+(?:the\s+)?)["']?([^"'\n]+?(?:Trust|TRUST))["']?/gi,
+      // Trust name at start of line (common in headers)
+      /^([A-Z][A-Za-z\s&,.'()-]+?(?:Trust|TRUST))(?:\s*$|\s+(?:dated|executed|established|created))/gm,
+      // "THE SMITH FAMILY TRUST" (all caps)
+      /^([A-Z][A-Z\s&,.'()-]+?TRUST)\s*$/gm
     ];
     
     for (const pattern of trustNamePatterns) {
@@ -294,12 +301,18 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
       }
     }
     
-    // Extract Trustees with multiple patterns
+    // Extract Trustees with enhanced patterns
     const trusteePatterns = [
-      /(?:initial\s+)?trustee(?:s)?\s*(?:are?|is|shall\s+be)?\s*[:\s]*([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})(?:\s*(?:and|,)\s*[A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})*?(?=\s*(?:successor|shall|$|\n|,))/gi,
-      /([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3}),?\s+(?:as\s+)?(?:the\s+)?(?:initial\s+)?trustee/gi,
-      /appoint\s+([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})(?:\s+and\s+[A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})?\s+as\s+(?:the\s+)?(?:initial\s+)?trustee/gi,
-      /(?:The\s+)?trustee\s+(?:is|shall\s+be)\s+([A-Z][A-Za-z]+(?:\s+[A-Z]\.\s*)?(?:\s+[A-Z][A-Za-z]+){1,3})/gi
+      // "The trustee is John Doe" / "Trustees are John Doe and Jane Smith"
+      /(?:the\s+)?(?:initial\s+)?trustee(?:s)?\s*(?:are?|is|shall\s+be)\s*[:\s]*([A-Z][A-Za-z]+(?:\s+[A-Z]\.)?(?:\s+[A-Z][a-z]+){1,4})(?:\s*(?:and|,|&)\s*(?:and\s+)?([A-Z][A-Za-z]+(?:\s+[A-Z]\.)?(?:\s+[A-Z][a-z]+){1,4}))*?(?=\s*(?:[.,;]|successor|shall|hereby|$|\n))/gi,
+      // "John Doe, as Trustee" / "John Doe as the initial trustee"
+      /([A-Z][A-Za-z]+(?:\s+[A-Z]\.)?(?:\s+[A-Z][a-z]+){1,4}),?\s+as\s+(?:the\s+)?(?:initial\s+)?(?:sole\s+)?trustee/gi,
+      // "I appoint John Doe as trustee"
+      /(?:I\s+)?(?:hereby\s+)?appoint\s+([A-Z][A-Za-z]+(?:\s+[A-Z]\.)?(?:\s+[A-Z][a-z]+){1,4})(?:\s+and\s+([A-Z][A-Za-z]+(?:\s+[A-Z]\.)?(?:\s+[A-Z][a-z]+){1,4}))?\s+as\s+(?:the\s+)?(?:initial\s+)?trustee/gi,
+      // "Trustee: John Doe"
+      /trustee[:\s]+([A-Z][A-Za-z]+(?:\s+[A-Z]\.)?(?:\s+[A-Z][a-z]+){1,4})/gi,
+      // "John Doe shall serve as trustee"
+      /([A-Z][A-Za-z]+(?:\s+[A-Z]\.)?(?:\s+[A-Z][a-z]+){1,4})\s+shall\s+(?:serve|act)\s+as\s+(?:the\s+)?(?:initial\s+)?trustee/gi
     ];
     for (const pattern of trusteePatterns) {
       let match;
@@ -333,13 +346,24 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
       }
     }
     
-    // Extract Date with multiple patterns
+    // Extract Date with enhanced patterns
     const datePatterns = [
-      /(?:executed|made|entered|dated|effective)\s+(?:this\s+)?(\d{1,2}(?:st|nd|rd|th)?\s+day\s+of\s+[A-Za-z]+,?\s+\d{4})/gi,
-      /(?:executed|made|entered|dated|effective)\s+(?:as\s+of\s+)?([A-Za-z]+\s+\d{1,2},?\s+\d{4})/gi,
+      // "executed this 15th day of March, 2020"
+      /(?:executed|made|entered|dated|effective|created|established)\s+(?:this\s+)?(\d{1,2}(?:st|nd|rd|th)?\s+day\s+of\s+(?:January|February|March|April|May|June|July|August|September|October|November|December),?\s+\d{4})/gi,
+      // "dated March 15, 2020" or "executed as of January 1, 2021"
+      /(?:executed|made|entered|dated|effective|created|established)\s+(?:as\s+of\s+)?(?:on\s+)?((?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4})/gi,
+      // "Date: 03/15/2020" or "Dated: 3-15-20"
       /(?:date|dated)[:\s]+(\d{1,2}[-/]\d{1,2}[-/]\d{2,4})/gi,
-      /(?:as\s+of\s+)?(\d{1,2}[-/]\d{1,2}[-/]\d{2,4})/gi,
-      /this\s+(\d{1,2}(?:st|nd|rd|th)?\s+day\s+of\s+[A-Za-z]+,?\s+\d{4})/gi
+      // "Trust dated January 1, 2020" (in trust name)
+      /trust\s+dated\s+((?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4})/gi,
+      // "as of March 15, 2020" (standalone)
+      /\bas\s+of\s+((?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4})/gi,
+      // "this 15th day of March, 2020" (standalone)
+      /\bthis\s+(\d{1,2}(?:st|nd|rd|th)?\s+day\s+of\s+(?:January|February|March|April|May|June|July|August|September|October|November|December),?\s+\d{4})/gi,
+      // ISO format and variations
+      /\b(\d{4}[-/]\d{1,2}[-/]\d{1,2})\b/gi,
+      // MM/DD/YYYY format (be more selective)
+      /\b(\d{1,2}[-/]\d{1,2}[-/]\d{4})\b/gi
     ];
     
     for (const pattern of datePatterns) {
@@ -423,21 +447,73 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
       results.powers.confidence = powersList.length > 0 ? 0.8 : 0.2;
     }
     
-    // Process and deduplicate results
+    // Process and deduplicate results with smart confidence scoring
     const processResults = (field) => {
       if (results[field].matches.length > 0) {
         // Remove duplicates and clean
-        const unique = [...new Set(results[field].matches.map(m => m.trim()))];
+        const unique = [...new Set(results[field].matches.map(m => m.trim()))]
+          .filter(m => m.length > 0);
+        
+        if (unique.length === 0) {
+          results[field].confidence = 0;
+          return;
+        }
+        
         results[field].value = Array.isArray(results[field].value) ? unique : unique[0] || '';
-        results[field].confidence = Math.min(0.95, 0.6 + (unique.length * 0.15));
+        
+        // Smart confidence based on field type and match quality
+        let confidence = 0.4; // Base confidence
+        
+        if (field === 'trustName') {
+          // Higher confidence for trust names with clear patterns
+          if (unique[0].toLowerCase().includes('trust')) confidence += 0.4;
+          if (unique.length === 1) confidence += 0.2; // Single clear match
+          if (unique[0].length > 10 && unique[0].length < 80) confidence += 0.1;
+        } else if (field === 'trustees' || field === 'grantors') {
+          // Higher confidence for names that pass validation
+          const validNames = unique.filter(name => isValidName(name));
+          confidence += (validNames.length / unique.length) * 0.4;
+          if (unique.length <= 3) confidence += 0.2; // Reasonable number of matches
+        } else if (field === 'state') {
+          // Very high confidence for state matches
+          confidence = 0.95;
+        } else if (field === 'date') {
+          // Check if date looks valid
+          if (/\d{4}/.test(unique[0])) confidence += 0.4; // Has year
+          if (/\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\b/i.test(unique[0])) confidence += 0.2;
+        }
+        
+        // Penalize too many matches (likely false positives)
+        if (unique.length > 5) confidence -= 0.2;
+        
+        results[field].confidence = Math.min(0.98, Math.max(0.1, confidence));
       }
     };
     
     ['trustName', 'grantors', 'trustees', 'successorTrustees', 'date', 'state'].forEach(processResults);
     
-    // Calculate overall confidence
-    const fieldConfidences = Object.values(results).map(r => r.confidence);
-    const overallConfidence = fieldConfidences.reduce((a, b) => a + b, 0) / fieldConfidences.length;
+    // Calculate overall confidence with weighted scoring
+    const weights = {
+      trustName: 0.25,    // Most important
+      trustees: 0.25,     // Most important  
+      grantors: 0.15,
+      date: 0.15,
+      state: 0.1,
+      revocability: 0.05,
+      successorTrustees: 0.05
+    };
+    
+    let weightedConfidence = 0;
+    let totalWeight = 0;
+    
+    Object.entries(results).forEach(([field, data]) => {
+      if (weights[field] && data.confidence > 0) {
+        weightedConfidence += data.confidence * weights[field];
+        totalWeight += weights[field];
+      }
+    });
+    
+    const overallConfidence = totalWeight > 0 ? weightedConfidence / totalWeight : 0;
     
     return {
       text: cleanText,
@@ -490,19 +566,73 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
       stateCode = stateNameToCode[stateCode.toUpperCase()] || stateCode;
     }
     
+    // Smart validation to catch obvious errors
+    const validateExtractions = (data) => {
+      const validationWarnings = [];
+      
+      // Validate trust name
+      if (data.entities.trustName) {
+        if (data.entities.trustName.length < 5) {
+          validationWarnings.push('Trust name seems too short');
+          data.fieldConfidences.trustName *= 0.5;
+        }
+        if (!data.entities.trustName.toLowerCase().includes('trust')) {
+          validationWarnings.push('Trust name may be incorrect - missing "Trust"');
+          data.fieldConfidences.trustName *= 0.7;
+        }
+      }
+      
+      // Validate date
+      if (data.entities.date) {
+        const currentYear = new Date().getFullYear();
+        const yearMatch = data.entities.date.match(/\d{4}/);
+        if (yearMatch) {
+          const year = parseInt(yearMatch[0]);
+          if (year < 1900 || year > currentYear + 1) {
+            validationWarnings.push('Trust date seems unrealistic');
+            data.fieldConfidences.date *= 0.3;
+          }
+        }
+      }
+      
+      // Validate trustees/grantors aren't document fragments
+      const validateNames = (names, type) => {
+        if (Array.isArray(names)) {
+          const badNames = names.filter(name => {
+            const lower = name.toLowerCase();
+            return lower.includes('article') || lower.includes('section') || 
+                   lower.includes('hereby') || lower.includes('whereas') ||
+                   name.length < 3 || name.split(' ').length > 5;
+          });
+          if (badNames.length > 0) {
+            validationWarnings.push(`${type} may contain document fragments`);
+            data.fieldConfidences[type === 'Trustees' ? 'trustees' : 'grantors'] *= 0.4;
+          }
+        }
+      };
+      
+      validateNames(data.entities.trustees, 'Trustees');
+      validateNames(data.entities.grantors, 'Grantors');
+      
+      return { ...data, validationWarnings };
+    };
+    
+    const validatedAnalysis = validateExtractions(analysis);
+
     return {
-      trustName: analysis.entities.trustName || '',
-      trustDate: analysis.entities.date || '',
-      revocability: analysis.entities.revocability || '',
-      grantor: formatGrantors(analysis.entities.grantors),
-      trustee: analysis.entities.trustees || [],
-      successorTrustee: analysis.entities.successorTrustees || [],
-      powers: analysis.powers || [],
-      governingLaw: analysis.entities.state || '',
+      trustName: validatedAnalysis.entities.trustName || '',
+      trustDate: validatedAnalysis.entities.date || '',
+      revocability: validatedAnalysis.entities.revocability || '',
+      grantor: formatGrantors(validatedAnalysis.entities.grantors),
+      trustee: validatedAnalysis.entities.trustees || [],
+      successorTrustee: validatedAnalysis.entities.successorTrustees || [],
+      powers: validatedAnalysis.powers || [],
+      governingLaw: validatedAnalysis.entities.state || '',
       state: stateCode,  // Use the converted state code
-      confidence: analysis.confidence || 0,
-      fieldConfidences: analysis.fieldConfidences || {},
-      extractedText: analysis.text
+      confidence: validatedAnalysis.confidence || 0,
+      fieldConfidences: validatedAnalysis.fieldConfidences || {},
+      validationWarnings: validatedAnalysis.validationWarnings || [],
+      extractedText: validatedAnalysis.text
     };
   };
 
@@ -687,6 +817,25 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
                 {extractedData.powers.map((power, index) => (
                   <div key={index} className="text-sm text-gray-700 mb-1">• {power}</div>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {extractedData.validationWarnings && extractedData.validationWarnings.length > 0 && (
+            <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <div className="flex items-start">
+                <div className="text-yellow-500 mr-2 mt-0.5">⚠️</div>
+                <div>
+                  <h4 className="text-sm font-medium text-yellow-800 mb-1">Please Review</h4>
+                  <ul className="text-sm text-yellow-700 space-y-1">
+                    {extractedData.validationWarnings.map((warning, index) => (
+                      <li key={index}>• {warning}</li>
+                    ))}
+                  </ul>
+                  <p className="text-xs text-yellow-600 mt-2">
+                    You can edit these fields in the next step if needed.
+                  </p>
+                </div>
               </div>
             </div>
           )}
