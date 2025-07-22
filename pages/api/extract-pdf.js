@@ -15,6 +15,19 @@ export const config = {
 export default async function handler(req, res) {
   console.log('PDF extraction API called:', req.method);
   
+  // SECURITY: Disable all document uploads for legal compliance
+  return res.status(503).json({ 
+    error: 'Service Temporarily Unavailable',
+    message: 'Document upload functionality is currently disabled for security and legal compliance. Please use the manual entry tool or contact us for enterprise solutions.',
+    alternatives: [
+      { name: 'Manual Entry Tool', url: '/tool' },
+      { name: 'Request Demo', url: '/ai-tool' },
+      { name: 'Contact Us', url: '/contact' }
+    ]
+  });
+
+  // Original code disabled below
+  /*
   if (req.method !== 'POST') {
     console.log('Method not allowed:', req.method);
     return res.status(405).json({ error: 'Method not allowed' });

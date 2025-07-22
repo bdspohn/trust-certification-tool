@@ -2,6 +2,34 @@ import { NextResponse } from 'next/server';
 import { RateLimiter, SecurityAuditLogger } from '../../lib/security';
 
 export function middleware(request) {
+  // SECURITY: Block all file upload endpoints
+  const url = new URL(request.url);
+  const blockedEndpoints = ['/api/extract-pdf', '/api/upload', '/api/process-document'];
+  
+  if (blockedEndpoints.some(endpoint => url.pathname.includes(endpoint))) {
+    SecurityAuditLogger.logSecurityIncident('BLOCKED_FILE_UPLOAD_ATTEMPT', {
+      ip: request.headers.get('x-forwarded-for') || request.ip || 'unknown',
+      userAgent: request.headers.get('user-agent'),
+      url: request.url,
+      endpoint: url.pathname
+    });
+    
+    return new Response(JSON.stringify({
+      error: 'Service Temporarily Unavailable',
+      message: 'Document upload functionality is disabled for security and legal compliance.',
+      alternatives: [
+        { name: 'Manual Entry Tool', url: '/tool' },
+        { name: 'Request Demo', url: '/ai-tool' },
+        { name: 'Contact Us', url: '/contact' }
+      ]
+    }), {
+      status: 503,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+  
   const response = NextResponse.next();
   
   // Add security headers to all API responses

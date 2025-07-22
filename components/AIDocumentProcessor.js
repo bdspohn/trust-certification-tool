@@ -8,8 +8,21 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
   const [extractedData, setExtractedData] = useState(null);
   const [error, setError] = useState(null);
   const [processingStep, setProcessingStep] = useState('');
+  const [showDemoForm, setShowDemoForm] = useState(false);
+  const [demoFormData, setDemoFormData] = useState({
+    name: '',
+    email: '',
+    company: ''
+  });
+  const [demoSubmitted, setDemoSubmitted] = useState(false);
 
   const onDrop = useCallback(async (acceptedFiles) => {
+    // SECURITY: Prevent all document uploads
+    setError('Document upload is currently disabled for security and legal compliance reasons. Please use the manual entry option or request a demo.');
+    return;
+    
+    // Original code disabled below
+    /*
     const startTime = Date.now();
     setIsProcessing(true);
     setError(null);
@@ -136,7 +149,20 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
       setIsProcessing(false);
       setProcessingStep('');
     }
+    */
   }, [onDataExtracted]);
+
+  const handleDemoSubmit = (e) => {
+    e.preventDefault();
+    const requests = JSON.parse(localStorage.getItem('demoRequests') || '[]');
+    requests.push({
+      ...demoFormData,
+      timestamp: new Date().toISOString(),
+      source: 'ai-document-processor'
+    });
+    localStorage.setItem('demoRequests', JSON.stringify(requests));
+    setDemoSubmitted(true);
+  };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -662,43 +688,140 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow mt-8">
+      {/* Security Warning */}
+      <div className="mb-8 p-6 bg-red-50 border-2 border-red-300 rounded-lg">
+        <div className="flex items-start">
+          <div className="text-red-500 mr-3 flex-shrink-0">
+            <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <div className="flex-1">
+            <h3 className="text-xl font-bold text-red-800 mb-2">
+              Document Upload Disabled for Security
+            </h3>
+            <p className="text-red-700 mb-4">
+              To protect your sensitive trust documents and ensure legal compliance, we have temporarily disabled the document upload feature. 
+              We are implementing enhanced security measures to safeguard your confidential information.
+            </p>
+            <div className="space-y-2">
+              <p className="text-red-700 font-medium">Available Options:</p>
+              <ul className="list-disc list-inside text-red-700 space-y-1">
+                <li>Use the manual entry form below to input trust information</li>
+                <li>Request a demo for secure enterprise solutions</li>
+                <li>Contact our team for assistance with trust certifications</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-gray-800 mb-4">AI-Powered Document Processing</h2>
         <p className="text-lg text-gray-600 mb-6">
-          Upload your trust document and our AI will automatically extract the information needed for your Certification of Trust.
+          Coming soon: Upload your trust document and our AI will automatically extract the information needed for your Certification of Trust.
         </p>
       </div>
 
-      {/* Drag and Drop Zone */}
-      <div
-        {...getRootProps()}
-        className={`border-2 border-dashed rounded-lg p-12 text-center transition-all duration-200 ${
-          isDragActive 
-            ? 'border-blue-500 bg-blue-50' 
-            : 'border-gray-300 hover:border-gray-400'
-        }`}
-      >
-        <input {...getInputProps()} />
-        
-        {isProcessing ? (
-          <div className="space-y-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="text-lg font-medium text-gray-700">{processingStep}</p>
-            <p className="text-sm text-gray-500">Our AI is analyzing your trust document</p>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            <div className="text-6xl mb-4">📄</div>
-            <p className="text-xl font-medium text-gray-700">
-              {isDragActive ? 'Drop your trust document here' : 'Drag & drop your trust document here'}
+      {/* Disabled Upload Zone */}
+      <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center bg-gray-50 relative">
+        <div className="absolute inset-0 bg-gray-100 bg-opacity-80 rounded-lg flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md">
+            <div className="text-5xl mb-4">🔒</div>
+            <h4 className="text-lg font-semibold text-gray-800 mb-2">Upload Temporarily Disabled</h4>
+            <p className="text-gray-600 mb-4">
+              For your security, document uploads are currently disabled.
             </p>
-            <p className="text-gray-500">or click to browse files</p>
-            <p className="text-sm text-gray-400 mt-4">
-              Supports: PDF, DOC, DOCX, TXT files
-            </p>
+            {!showDemoForm && !demoSubmitted && (
+              <button
+                onClick={() => setShowDemoForm(true)}
+                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              >
+                Request Demo Access
+              </button>
+            )}
           </div>
-        )}
+        </div>
+        <div className="opacity-30 pointer-events-none">
+          <div className="text-6xl mb-4">📄</div>
+          <p className="text-xl font-medium text-gray-700">
+            Drag & drop your trust document here
+          </p>
+          <p className="text-gray-500">or click to browse files</p>
+          <p className="text-sm text-gray-400 mt-4">
+            Supports: PDF, DOC, DOCX, TXT files
+          </p>
+        </div>
       </div>
+
+      {/* Demo Request Form */}
+      {showDemoForm && !demoSubmitted && (
+        <div className="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg">
+          <h3 className="text-lg font-semibold text-blue-900 mb-4">Request Demo Access</h3>
+          <form onSubmit={handleDemoSubmit} className="space-y-4">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={demoFormData.name}
+                  onChange={(e) => setDemoFormData({...demoFormData, name: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={demoFormData.email}
+                  onChange={(e) => setDemoFormData({...demoFormData, email: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Company
+              </label>
+              <input
+                type="text"
+                value={demoFormData.company}
+                onChange={(e) => setDemoFormData({...demoFormData, company: e.target.value})}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Submit Demo Request
+            </button>
+          </form>
+        </div>
+      )}
+
+      {/* Demo Success Message */}
+      {demoSubmitted && (
+        <div className="mt-8 p-6 bg-green-50 border border-green-200 rounded-lg text-center">
+          <div className="text-green-600 mb-3">
+            <svg className="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h4 className="text-lg font-semibold text-green-800 mb-2">
+            Demo Request Submitted!
+          </h4>
+          <p className="text-green-700">
+            We'll contact you within 24 hours to schedule your demo.
+          </p>
+        </div>
+      )}
 
       {/* Error Message */}
       {error && (

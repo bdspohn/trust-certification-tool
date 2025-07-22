@@ -2,33 +2,32 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export default function AITool() {
-  const [isDragOver, setIsDragOver] = useState(false);
-  const [uploadedFile, setUploadedFile] = useState(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    useCase: ''
+  });
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    setIsDragOver(true);
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
-  const handleDragLeave = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setIsDragOver(false);
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setIsDragOver(false);
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      setUploadedFile(files[0]);
-    }
-  };
-
-  const handleFileSelect = (e) => {
-    const files = e.target.files;
-    if (files.length > 0) {
-      setUploadedFile(files[0]);
-    }
+    // Store demo request
+    const requests = JSON.parse(localStorage.getItem('demoRequests') || '[]');
+    requests.push({
+      ...formData,
+      timestamp: new Date().toISOString(),
+      source: 'ai-tool-page'
+    });
+    localStorage.setItem('demoRequests', JSON.stringify(requests));
+    setSubmitted(true);
   };
 
   return (
@@ -58,55 +57,109 @@ export default function AITool() {
             </p>
           </div>
 
-          {/* Upload Area */}
-          <div className="mb-8">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">
-              Upload Your Trust Document
-            </h3>
-            <div
-              className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-                isDragOver
-                  ? "border-blue-400 bg-blue-50"
-                  : "border-gray-300 hover:border-gray-400"
-              }`}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-            >
-              <div className="mb-4">
-                <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
-                  stroke="currentColor"
-                  fill="none"
-                  viewBox="0 0 48 48"
-                >
-                  <path
-                    d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+          {/* Security Notice */}
+          <div className="mb-8 p-6 bg-red-50 border border-red-200 rounded-lg">
+            <div className="flex items-start">
+              <div className="text-red-500 mr-3">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
-              <p className="text-lg text-gray-600 mb-2">
-                Drag and drop your trust document here, or
-              </p>
-              <input
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={handleFileSelect}
-                className="hidden"
-                id="file-upload"
-              />
-              <label htmlFor="file-upload">
-                <Button variant="outline" className="cursor-pointer">
-                  Browse Files
-                </Button>
-              </label>
-              <p className="text-sm text-gray-500 mt-2">
-                Supports PDF, DOC, and DOCX files
-              </p>
+              <div>
+                <h3 className="text-lg font-semibold text-red-800 mb-2">
+                  Document Upload Temporarily Disabled
+                </h3>
+                <p className="text-red-700">
+                  For security and legal compliance reasons, document upload functionality is currently disabled. 
+                  We are working on enhanced security measures to protect your sensitive trust documents.
+                </p>
+              </div>
             </div>
+          </div>
+
+          {/* Demo Request Form */}
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+              Request a Demo
+            </h3>
+            {!submitted ? (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">
+                    Company/Organization
+                  </label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="useCase" className="block text-sm font-medium text-gray-700 mb-1">
+                    How would you use the AI tool?
+                  </label>
+                  <textarea
+                    id="useCase"
+                    name="useCase"
+                    rows={3}
+                    value={formData.useCase}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Tell us about your trust certification needs..."
+                  />
+                </div>
+                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+                  Request Demo Access
+                </Button>
+              </form>
+            ) : (
+              <div className="text-center p-6 bg-green-50 border border-green-200 rounded-lg">
+                <div className="text-green-600 mb-3">
+                  <svg className="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="text-lg font-semibold text-green-800 mb-2">
+                  Demo Request Received!
+                </h4>
+                <p className="text-green-700">
+                  Thank you for your interest. We'll contact you within 24 hours to schedule a personalized demo.
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Features Preview */}
@@ -141,14 +194,16 @@ export default function AITool() {
             </div>
           </div>
 
-          {/* Call to Action */}
-          <div className="text-center">
-            <p className="text-gray-600 mb-4">
-              Want to be notified when this feature launches?
-            </p>
-            <Button className="bg-blue-600 hover:bg-blue-700">
-              Get Early Access
-            </Button>
+          {/* Alternative Options */}
+          <div className="text-center p-6 bg-gray-50 rounded-lg">
+            <h4 className="font-semibold text-gray-900 mb-3">
+              Alternative Options Available Now:
+            </h4>
+            <div className="space-y-2 text-gray-600">
+              <p>• Use our <a href="/tool" className="text-blue-600 hover:underline">Manual Entry Tool</a> to create trust certifications</p>
+              <p>• <a href="/contact" className="text-blue-600 hover:underline">Contact us</a> for enterprise solutions with secure document handling</p>
+              <p>• View our <a href="/api-docs" className="text-blue-600 hover:underline">API documentation</a> for integration options</p>
+            </div>
           </div>
         </div>
       </div>
