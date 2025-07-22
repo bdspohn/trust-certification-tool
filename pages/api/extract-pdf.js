@@ -164,3 +164,4 @@ function extractTextFromBuffer(buffer) {
     throw new Error('Unable to extract text from PDF buffer');
   }
 }
+*/
