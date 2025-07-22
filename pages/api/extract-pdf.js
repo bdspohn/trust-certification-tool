@@ -25,6 +25,7 @@ export default async function handler(req, res) {
       { name: 'Contact Us', url: '/contact' }
     ]
   });
+}
 
   // Original code disabled below
   /*
