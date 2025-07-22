@@ -818,7 +818,7 @@ const AIDocumentProcessor = ({ onDataExtracted }) => {
             Demo Request Submitted!
           </h4>
           <p className="text-green-700">
-            We'll contact you within 24 hours to schedule your demo.
+            We&apos;ll contact you within 24 hours to schedule your demo.
           </p>
         </div>
       )}

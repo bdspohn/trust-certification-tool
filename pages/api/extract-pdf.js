@@ -123,6 +123,7 @@ export default async function handler(req, res) {
     });
   }
 }
+*/
 
 // Basic text extraction from PDF buffer as last resort
 function extractTextFromBuffer(buffer) {

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export default function AITool() {
@@ -156,7 +157,7 @@ export default function AITool() {
                   Demo Request Received!
                 </h4>
                 <p className="text-green-700">
-                  Thank you for your interest. We'll contact you within 24 hours to schedule a personalized demo.
+                  Thank you for your interest. We&apos;ll contact you within 24 hours to schedule a personalized demo.
                 </p>
               </div>
             )}
@@ -200,9 +201,9 @@ export default function AITool() {
               Alternative Options Available Now:
             </h4>
             <div className="space-y-2 text-gray-600">
-              <p>• Use our <a href="/tool" className="text-blue-600 hover:underline">Manual Entry Tool</a> to create trust certifications</p>
-              <p>• <a href="/contact" className="text-blue-600 hover:underline">Contact us</a> for enterprise solutions with secure document handling</p>
-              <p>• View our <a href="/api-docs" className="text-blue-600 hover:underline">API documentation</a> for integration options</p>
+              <p>• Use our <Link href="/tool" className="text-blue-600 hover:underline">Manual Entry Tool</Link> to create trust certifications</p>
+              <p>• <Link href="/contact" className="text-blue-600 hover:underline">Contact us</Link> for enterprise solutions with secure document handling</p>
+              <p>• View our <Link href="/api-docs" className="text-blue-600 hover:underline">API documentation</Link> for integration options</p>
             </div>
           </div>
         </div>
